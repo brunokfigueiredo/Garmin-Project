@@ -28,15 +28,14 @@ Não precisa de Homebrew, Node nem Vercel CLI. Precisa de Python ≥ 3.12 (pytho
 2. **Vercel: importar** — vercel.com → *Add New… → Project* → importe `Garmin-Project` → Framework Preset **Other** → *Deploy* (o 1º deploy fica sem dados; é esperado).
 3. **Vercel: Redis** — no projeto: *Storage* → **Upstash for Redis** (plano Free) → criar e **Connect** ao projeto (marque Production, Preview e Development).
 4. **Vercel: proteção** — *Settings → Deployment Protection* → **Vercel Authentication** ligado, escopo **All Deployments** → *Save*.
-5. **Vercel: segredo do cron** — no Terminal: `openssl rand -hex 32 | pbcopy`. Em *Settings → Environment Variables*: nome `CRON_SECRET`, valor = colar, ambiente Production, marcar **Sensitive** → *Save*.
-6. **Tokens do Garmin** (você digita a senha no seu Terminal; ela não vai para lugar nenhum):
+5. **Vercel: segredo do cron** — no Terminal: `openssl rand -hex 32 | tr -d '\n' | pbcopy`. Em *Settings → Environment Variables*: nome `CRON_SECRET`, valor = colar, ambiente Production, marcar **Sensitive** → *Save*.
+6. **Tokens do Garmin** — no Terminal (o script pede a `KV_REST_API_URL` e o `KV_REST_API_TOKEN` do Redis, testa a conexão e depois pede o e-mail, a senha e o MFA do Garmin; a senha não é salva):
    ```bash
    cd ~/Desktop/Garmin/Garmin-Project
-   python3.12 -m pip install --user garminconnect==0.3.20 upstash-redis==1.9.0
-   python3.12 scripts/bootstrap_tokens.py
-   pbcopy < garmin_tokens.json && rm garmin_tokens.json
+   python3.13 -m pip install --user garminconnect==0.3.20 upstash-redis==1.9.0
+   python3.13 scripts/bootstrap_tokens.py
    ```
-   Em *Settings → Environment Variables*: nome `GARMIN_TOKENS_SEED`, valor = colar, Production, **Sensitive** → *Save*.
+   Tem que terminar com `OK: tokens gravados no Redis do projeto.` (não precisa de variável na Vercel nem de redeploy).
 7. **Histórico** — em *Storage → (seu Redis) → aba .env.local* → *Copy Snippet*. No Terminal:
    ```bash
    cd ~/Desktop/Garmin/Garmin-Project
@@ -47,7 +46,7 @@ Não precisa de Homebrew, Node nem Vercel CLI. Precisa de Python ≥ 3.12 (pytho
 8. **Redeploy** — *Deployments* → último deploy → ⋯ → **Redeploy** (para valerem as variáveis).
 9. **Teste G0** — *Settings → Cron Jobs* → **Run** em `/api/cron`; depois *Logs* e procure `PIPELINE_RESULT`:
    - `"status": "done"` → funcionou; abra o domínio do projeto (*Domains*): é o portal.
-   - `SESSION_EXPIRED` → refaça o passo 6.
+   - `SESSION_EXPIRED` ou `NO_TOKENS` → refaça o passo 6.
    - `HALTED_403`/`HALTED_429` → o Garmin recusou o IP da Vercel; mantenha a rotina pelo Mac.
 
 ## Período de comparação (5–7 dias)
