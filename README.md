@@ -6,7 +6,7 @@ Pipeline Garmin → Painel de Treino rodando sozinho na Vercel. O Mac não preci
 
 ```
 Vercel Cron (00:07 UTC = 21:07 em São Paulo)
-  └─ GET /api/cron  (Python, até 800 s)
+  └─ GET /api/cron  (app.py, Python, até 800 s)
        1. lê os tokens DI do Garmin no Redis (na 1ª vez, da env GARMIN_TOKENS_SEED)
        2. coleta só com GET em connectapi.garmin.com (lib/collector.py, porte do collector.js:
           mesmas chamadas, ≥1,5 s entre elas, para em 403/429)

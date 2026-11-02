@@ -1,10 +1,7 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "functions": {
-    "api/cron.py": { "maxDuration": 800, "includeFiles": "lib/**" },
-    "api/data.py": { "maxDuration": 30, "includeFiles": "lib/**" },
-    "api/report.py": { "maxDuration": 30, "includeFiles": "lib/**" }
+    "app.py": { "maxDuration": 800 }
   },
-  "crons": [{ "path": "/api/cron", "schedule": "7 0 * * *" }],
-  "headers": [{ "source": "/(.*)", "headers": [{ "key": "X-Robots-Tag", "value": "noindex" }] }]
+  "crons": [{ "path": "/api/cron", "schedule": "7 0 * * *" }]
 }
