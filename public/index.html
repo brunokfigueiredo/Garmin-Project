@@ -1,0 +1,520 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>Painel de Treino</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Source+Sans+3:wght@400;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: painel de instrumento — faixa "Hoje" no topo, depois seções em grade (recuperação, carga, performance, alertas, dados) com navegação fixa. */
+:root{
+  --bg:#f4f6f5; --panel:#ffffff; --ink:#111816; --ink-2:#4c5753; --ink-3:#7a8581; --rule:#dfe5e2; --grid:#e9eeec;
+  --accent:#0d5f57; --accent-ink:#ffffff;
+  --s1:#2a78d6; --s2:#eb6834; --s3:#1baf7a; --band:rgba(42,120,214,.13); --zone-lo:#2a78d6; --zone-mid:#eda100; --zone-hi:#e34948; --z1:#8fb8e8; --z2:#2a78d6; --z3:#eda100; --z4:#ec835a; --z5:#d03b3b;
+  --good:#0ca30c; --warn:#fab219; --serious:#ec835a; --crit:#d03b3b;
+  --display:"Barlow Condensed","Arial Narrow",system-ui,sans-serif; --body:"Source Sans 3",system-ui,-apple-system,"Segoe UI",sans-serif; --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#121615; --panel:#1a1f1d; --ink:#eef2f0; --ink-2:#b9c3bf; --ink-3:#8b9692; --rule:#2c3431; --grid:#252c29;
+  --accent:#4fb3a6; --accent-ink:#0b1210; --s1:#3987e5; --s2:#d95926; --s3:#199e70; --band:rgba(57,135,229,.20); --zone-lo:#3987e5; --zone-mid:#c98500; --zone-hi:#e66767; --z1:#5d7fa8; --z2:#3987e5; --z3:#c98500; --z4:#d06a40; --z5:#e66767; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#121615; --panel:#1a1f1d; --ink:#eef2f0; --ink-2:#b9c3bf; --ink-3:#8b9692; --rule:#2c3431; --grid:#252c29;
+  --accent:#4fb3a6; --accent-ink:#0b1210; --s1:#3987e5; --s2:#d95926; --s3:#199e70; --band:rgba(57,135,229,.20); --zone-lo:#3987e5; --zone-mid:#c98500; --zone-hi:#e66767; --z1:#5d7fa8; --z2:#3987e5; --z3:#c98500; --z4:#d06a40; --z5:#e66767; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font:15px/1.5 var(--body);margin:0}
+.wrap{max-width:1180px;margin:0 auto;padding-inline:16px;padding-block:0 48px}
+header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);border-bottom:1px solid var(--rule)}
+.topbar{max-width:1180px;margin:0 auto;padding:10px 16px;display:flex;flex-wrap:wrap;gap:8px 20px;align-items:baseline}
+.brand{font:700 22px/1 var(--display);letter-spacing:.02em;text-transform:uppercase}
+.brand small{font:500 13px var(--mono);color:var(--ink-3);text-transform:none;letter-spacing:0;margin-left:8px}
+nav{display:flex;gap:4px;flex-wrap:wrap;margin-left:auto}
+nav a{font:600 13px var(--body);color:var(--ink-2);text-decoration:none;padding:4px 10px;border-radius:999px}
+nav a:hover,nav a:focus-visible{background:var(--panel);color:var(--ink);outline:none;box-shadow:0 0 0 1px var(--rule)}
+section{scroll-margin-top:70px;padding-top:28px}
+h2{font:600 26px/1.1 var(--display);text-transform:uppercase;letter-spacing:.03em;margin:0 0 14px;text-wrap:balance}
+h3{font:600 17px/1.2 var(--display);text-transform:uppercase;letter-spacing:.04em;margin:0 0 4px;color:var(--ink-2)}
+.sub{color:var(--ink-3);font-size:13px;margin:0 0 10px}
+.grid{display:grid;gap:14px}
+.g2{grid-template-columns:repeat(auto-fit,minmax(min(100%,460px),1fr))}
+.g3{grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr))}
+.panel{background:var(--panel);border:1px solid var(--rule);border-radius:10px;padding:16px;min-width:0}
+.num{font-family:var(--mono);font-variant-numeric:tabular-nums}
+/* Hoje */
+.today{display:grid;gap:14px;grid-template-columns:minmax(0,280px) minmax(0,1fr) minmax(0,340px)}
+@media (max-width:980px){.today{grid-template-columns:1fr}}
+.ready-n{font:700 84px/0.9 var(--display);letter-spacing:-.01em}
+.ready-n span{font-size:28px;color:var(--ink-3);margin-left:4px}
+.ready-lbl{font:600 13px var(--body);text-transform:uppercase;letter-spacing:.08em;color:var(--ink-3)}
+.comp{display:grid;grid-template-columns:110px 1fr 34px;gap:6px 8px;align-items:center;margin-top:14px;font-size:13px}
+.comp .bar{height:8px;background:var(--grid);border-radius:4px;overflow:hidden}
+.comp .bar i{display:block;height:100%;background:var(--accent);border-radius:4px}
+.comp .v{text-align:right;color:var(--ink-2)}
+ul.clean{list-style:none;padding:0;margin:0;display:grid;gap:8px}
+.summary li{padding-left:14px;position:relative;color:var(--ink)}
+.summary li::before{content:"";position:absolute;left:0;top:.6em;width:6px;height:6px;border-radius:50%;background:var(--ink-3)}
+.recs li{padding:8px 10px;background:var(--bg);border-radius:8px;border-left:3px solid var(--accent)}
+.alert{display:grid;grid-template-columns:auto 1fr;gap:2px 10px;padding:10px;border-radius:8px;background:var(--bg)}
+.pill{display:inline-flex;align-items:center;gap:5px;font:600 11px var(--body);text-transform:uppercase;letter-spacing:.06em;padding:2px 8px;border-radius:999px;white-space:nowrap;color:var(--ink);border:1px solid var(--rule);background:var(--panel)}
+.pill::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--c)}
+.sev-danger{--c:var(--crit)} .sev-attention{--c:var(--serious)} .sev-info{--c:var(--s1)} .sev-good{--c:var(--good)}
+.alert .msg{font-size:14px}
+.alert .ev{grid-column:2;font:12px var(--mono);color:var(--ink-3);overflow-wrap:anywhere}
+.empty{color:var(--ink-3);font-size:14px;padding:10px;border:1px dashed var(--rule);border-radius:8px}
+/* provas */
+.race{display:grid;gap:8px}
+.race .head{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap}
+.race .count{font:700 40px/1 var(--display)}
+.race .count small{font-size:15px;color:var(--ink-3);margin-left:4px}
+.kv{display:grid;grid-template-columns:auto 1fr;gap:3px 12px;font-size:13px}
+.kv dt{color:var(--ink-3)} .kv dd{margin:0;text-align:right;font-family:var(--mono);font-variant-numeric:tabular-nums}
+.gapbar{position:relative;height:22px;background:var(--grid);border-radius:4px;margin-top:4px}
+.gapbar .mid{position:absolute;left:50%;top:-3px;bottom:-3px;width:2px;background:var(--ink-3)}
+.gapbar .g{position:absolute;top:4px;height:14px;border-radius:3px}
+.gaplbl{display:flex;justify-content:space-between;font:11px var(--mono);color:var(--ink-3)}
+/* charts */
+.chart{position:relative;width:100%;min-height:200px}
+.chart svg{display:block;width:100%;overflow:visible}
+.chart text{fill:var(--ink-3);font:11px var(--mono)}
+.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:12px;color:var(--ink-2);margin:2px 0 6px}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend i{width:14px;height:3px;border-radius:2px;background:var(--c)}
+.legend i.area{height:10px;background:var(--band)}
+.legend i.dash{background:repeating-linear-gradient(90deg,var(--c) 0 4px,transparent 4px 7px)}
+.tip{position:absolute;pointer-events:none;background:var(--panel);border:1px solid var(--rule);border-radius:8px;padding:6px 9px;font:12px/1.45 var(--body);color:var(--ink);box-shadow:0 4px 14px rgba(0,0,0,.12);white-space:nowrap;z-index:3}
+.tip b{font-family:var(--mono);font-weight:500}
+/* tabelas */
+.tbl{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:13px}
+th,td{text-align:left;padding:7px 8px;border-bottom:1px solid var(--rule);vertical-align:top}
+th{font:600 11px var(--body);text-transform:uppercase;letter-spacing:.06em;color:var(--ink-3)}
+td.n,th.n{text-align:right;font-family:var(--mono);font-variant-numeric:tabular-nums}
+.zones{display:flex;height:26px;border-radius:5px;overflow:hidden;gap:2px;margin:10px 0 6px}
+.zones div{display:flex;align-items:center;justify-content:center;font:600 12px var(--mono);color:#fff;min-width:0}
+.delta-good{color:var(--good)} .delta-bad{color:var(--crit)} .delta-flat{color:var(--ink-3)}
+.zchip{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px;vertical-align:-1px;background:var(--c)}
+.filters{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
+button,.btn{font:600 13px var(--body);border-radius:8px;border:1px solid var(--rule);background:var(--panel);color:var(--ink);padding:7px 12px;cursor:pointer}
+button[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+button.primary{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+button:disabled{opacity:.5;cursor:not-allowed}
+button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+textarea{width:100%;min-height:110px;font:12px var(--mono);background:var(--bg);color:var(--ink);border:1px solid var(--rule);border-radius:8px;padding:8px}
+.status{font-size:13px;color:var(--ink-2);margin-top:8px;min-height:1.4em}
+details summary{cursor:pointer;font-weight:600}
+.small{font-size:12px;color:var(--ink-3)}
+@media (prefers-reduced-motion:no-preference){.comp .bar i{transition:width .5s ease}}
+</style>
+</head>
+<body>
+<header class="top"><div class="topbar">
+  <div class="brand">Painel de Treino <small id="asof">carregando…</small></div>
+  <nav aria-label="Seções"><a href="#hoje">Hoje</a><a href="#recuperacao">Recuperação</a><a href="#carga">Carga</a><a href="#performance">Performance</a><a href="#teste">Teste</a><a href="#alertas">Alertas</a><a href="#dados">Dados</a></nav>
+</div></header>
+
+<main class="wrap">
+  <section id="hoje">
+    <h2>Hoje</h2>
+    <div class="today">
+      <div class="panel">
+        <div class="ready-lbl" id="ready-lbl">Prontidão para prova</div>
+        <div class="ready-n num" id="ready">–<span>/100</span></div>
+        <div class="comp" id="comps"></div>
+        <p class="small" style="margin-top:12px">Forma 25% · HRV 25% · Sono 14 d 20% · Consistência 15% · Previsão vs meta 15%. Fórmulas em Dados.</p>
+      </div>
+      <div class="panel">
+        <h3>Resumo</h3>
+        <ul class="clean summary" id="summary"><li>Carregando dados…</li></ul>
+        <h3 style="margin-top:16px">Para amanhã</h3>
+        <ul class="clean recs" id="recs"></ul>
+      </div>
+      <div class="panel">
+        <h3>Alertas do dia</h3>
+        <ul class="clean" id="alerts-today"></ul>
+      </div>
+    </div>
+    <div class="grid g3" id="races" style="margin-top:14px"></div>
+  </section>
+
+  <section id="recuperacao">
+    <h2>Recuperação · 90 dias</h2>
+    <div class="grid g2">
+      <div class="panel"><h3>HRV noturna</h3><p class="sub">ms · faixa = baseline do Garmin</p><div class="legend"><span><i style="--c:var(--s1)"></i>noite</span><span><i style="--c:var(--s2)"></i>média 7 d</span><span><i class="area"></i>faixa equilibrada</span></div><div class="chart" id="c-hrv"></div></div>
+      <div class="panel"><h3>FC de repouso</h3><p class="sub">bpm · alerta quando ≥ +5 vs mediana de 30 d por 2+ dias</p><div class="legend"><span><i style="--c:var(--s1)"></i>FC repouso</span><span><i class="dash" style="--c:var(--ink-3)"></i>mediana 30 d</span></div><div class="chart" id="c-rhr"></div></div>
+      <div class="panel"><h3>Sono</h3><p class="sub">horas por noite · linha = 7,5 h (referência do débito)</p><div class="legend"><span><i style="--c:var(--s1)"></i>total</span><span><i style="--c:var(--s3)"></i>profundo + REM</span></div><div class="chart" id="c-sleep"></div></div>
+      <div class="panel"><h3>Estresse e Body Battery</h3><p class="sub">contexto · estresse médio (0–100) e carga recuperada no dia</p><div class="legend"><span><i style="--c:var(--s2)"></i>estresse médio</span><span><i style="--c:var(--s1)"></i>BB carregado</span></div><div class="chart" id="c-stress"></div></div>
+    </div>
+  </section>
+
+  <section id="carga">
+    <h2>Carga</h2>
+    <div class="grid g2">
+      <div class="panel"><h3>Volume semanal</h3><p class="sub">km de corrida por semana (seg–dom) · 26 semanas</p><div class="chart" id="c-week"></div></div>
+      <div class="panel"><h3>ACWR</h3><p class="sub">carga 7 d / média semanal de 28 d · faixa ideal 0,8–1,3 · perigo &gt; 1,5</p><div class="legend"><span><i style="--c:var(--s1)"></i>ACWR</span><span><i class="area"></i>0,8–1,3</span></div><div class="chart" id="c-acwr"></div></div>
+      <div class="panel"><h3>Fitness e fadiga</h3><p class="sub">CTL (42 d) e ATL (7 d) da carga EPOC · TSB = CTL − ATL no tooltip</p><div class="legend"><span><i style="--c:var(--s1)"></i>CTL fitness</span><span><i style="--c:var(--s2)"></i>ATL fadiga</span></div><div class="chart" id="c-ctl"></div></div>
+      <div class="panel"><h3>Intensidade · 28 dias</h3><p class="sub">tempo das corridas nas zonas do teste cardiopulmonar (LV1 133 · LV2 162 bpm) · meta ~80% abaixo de LV1</p><div class="zones" id="zones"></div><div class="legend" id="zones-legend"></div><p class="small" id="zones-sum"></p>
+        <div class="kv" id="loadkv" style="margin-top:12px"></div>
+        <h3 style="margin-top:16px">Tênis ativos</h3><div class="tbl"><table id="gear"></table></div></div>
+    </div>
+  </section>
+
+  <section id="performance">
+    <h2>Performance</h2>
+    <div class="grid g2">
+      <div class="panel"><h3>Previsão de meia (Garmin) vs metas</h3><p class="sub">tempo previsto para 21,1 km · linhas = metas</p><div class="legend"><span><i style="--c:var(--s1)"></i>Race Predictor 21k</span><span><i class="dash" style="--c:var(--s3)"></i>meta meia 16/05/27 · 1:20</span></div><div class="chart" id="c-pred"></div></div>
+      <div class="panel"><h3>VO2máx e VDOT</h3><p class="sub">VO2máx do Garmin (dias com atualização) e VDOT do melhor esforço em 120 d · linha = 57,4 medido no teste</p><div class="legend"><span><i style="--c:var(--s1)"></i>VO2máx</span><span><i style="--c:var(--s2)"></i>VDOT</span><span><i class="dash" style="--c:var(--ink-3)"></i>teste 13/02/26</span></div><div class="chart" id="c-vo2"></div></div>
+    </div>
+    <div class="panel" style="margin-top:14px"><h3>Previsões por prova</h3><p class="sub">combinada = média de Garmin, VDOT e Riegel · gap positivo = mais lento que a meta</p><div class="tbl"><table id="pred-table"></table></div><p class="small" id="vdot-src"></p></div>
+  </section>
+
+  <section id="teste">
+    <h2>Base: teste cardiopulmonar</h2>
+    <p class="sub" id="cpet-sub">Ergoespirometria HCor, 13/02/2026 · protocolo rampa em esteira (1% de inclinação)</p>
+    <div class="grid g2">
+      <div class="panel"><h3>O que o teste mediu</h3><dl class="kv" id="cpet-test"></dl>
+        <h3 style="margin-top:16px">Zonas do painel</h3><p class="sub">derivadas de LV1 e LV2 · o relógio continua com as zonas dele</p><div class="tbl"><table id="cpet-zones"></table></div></div>
+      <div class="panel"><h3>Evolução desde o teste</h3><p class="sub">base = 28 dias terminados em 13/02/26, medidos pelo relógio · agora = últimos 28 dias</p><div class="tbl"><table id="cpet-evo"></table></div>
+        <ul class="clean summary" id="cpet-lines" style="margin-top:12px"></ul></div>
+      <div class="panel"><h3>Pace nas FCs dos limiares</h3><p class="sub">média móvel de 28 d do pace em trechos estáveis com FC ±5 bpm de LV1 e LV2 · menor = mais rápido · linhas = base</p><div class="legend"><span><i style="--c:var(--s1)"></i>FC de LV1 (133)</span><span><i style="--c:var(--s2)"></i>FC de LV2 (162)</span></div><div class="chart" id="c-cpet-pace"></div></div>
+      <div class="panel"><h3>Limiar do Garmin × LV2</h3><p class="sub">FC de limiar estimada pelo relógio · linha = LV2 do teste (162 bpm) · pace do limiar no tooltip</p><div class="legend"><span><i style="--c:var(--s1)"></i>FC de limiar (Garmin)</span><span><i class="dash" style="--c:var(--ink-3)"></i>LV2 do teste</span></div><div class="chart" id="c-cpet-lt"></div></div>
+    </div>
+    <ul class="clean small" id="cpet-notes" style="margin-top:12px"></ul>
+  </section>
+
+  <section id="alertas">
+    <h2>Histórico de alertas</h2>
+    <div class="panel">
+      <div class="filters" id="sev-filters" role="group" aria-label="Filtrar por severidade"></div>
+      <div class="tbl"><table id="alert-table"></table></div>
+      <button id="more" style="margin-top:10px">Mostrar mais</button>
+    </div>
+  </section>
+
+  <section id="dados">
+    <h2>Dados</h2>
+    <div class="grid g2">
+      <div class="panel">
+        <h3>Situação</h3>
+        <div class="kv" id="meta"></div>
+        <div hidden><h3 style="margin-top:16px">Importar lote</h3>
+        <p class="sub">JSON no esquema da Fase 1 (<span class="num">upserts</span> por coleção) ou um estado completo. Registros são deduplicados pela chave (data, activityId, alert_id).</p>
+        <input type="file" id="file" accept=".json,application/json">
+        <textarea id="paste" placeholder="…ou cole o JSON aqui" style="margin-top:8px"></textarea>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px"><button id="preview">Conferir lote</button><button id="save" class="primary" disabled>Salvar no painel</button><button id="export">Baixar backup (JSON)</button></div>
+        <div class="status" id="status" role="status"></div></div>
+      </div>
+      <div class="panel">
+        <h3>Últimas importações</h3>
+        <div class="tbl"><table id="imports"></table></div>
+        <h3 style="margin-top:16px">Fórmulas</h3>
+        <details><summary>Ver fórmulas e constantes</summary><dl id="formulas" style="font-size:13px"></dl></details>
+        <p class="small" style="margin-top:12px">Insights de treino, não diagnóstico médico. Anomalias de saúde que persistirem por 5+ dias geram a sugestão de procurar um médico.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<script>
+(() => {
+"use strict";
+const KEYS = {activities:"activity_id",daily_wellness:"date",daily_performance:"date",derived_metrics:"date",alerts:"alert_id",gear:"gear_id",races_and_goals:"race_id"};
+const PICK = {
+  activities:["activity_id","date","start_local","name","sport","distance_m","duration_s","pace_s_per_km","gap_s_per_km","hr_avg","hr_max","training_load","te_label","aerobic_te","cadence_avg_spm","gct_ms","vert_osc_cm","elev_gain_m","gear_ids","event_type"],
+  daily_wellness:["date","sleep_s","sleep_score","sleep_deep_s","sleep_rem_s","hrv_night_ms","hrv_7d_ms","hrv_baseline_low_ms","hrv_baseline_high_ms","hrv_status","rhr_bpm","stress_avg","bb_charged","bb_drained","steps","coverage"],
+  daily_performance:["date","vo2max","vo2max_is_carried","race_pred_5k_s","race_pred_10k_s","race_pred_21k_s","race_pred_42k_s","training_status","garmin_acwr","lactate_threshold_hr","lactate_threshold_pace_s_per_km","fitness_age"],
+  derived_metrics:["date","load_day","km_7d","km_week_iso","km_prev_week","km_wow_pct","acwr","ctl","atl","tsb","tsb_pct_ctl","monotony_7d","strain_7d","zone_dist_28d","hrv_7d_vs_60d_pct","rhr_vs_30d_median_bpm","sleep_debt_7d_s","ef_easy_28d","decoupling_last_long_pct","readiness_score","readiness_components","vdot_current","vdot_source","predictions"],
+  alerts:["alert_id","date","type","severity","message","evidence","days_active","first_seen","status","suggest_doctor","subject"],
+  gear:["gear_id","name","type","status","km_garmin","max_km"],
+  races_and_goals:["race_id","name","date","date_window","distance_m","goal_type","target_s","target_range_s","target_equivalent_half_s","target_pace_s_per_km","priority","status","result_s","notes"]
+};
+const SEV = {danger:"Perigo",attention:"Atenção",info:"Info"};
+const TYPE = {volume_spike:"Volume",acwr_high:"ACWR alto",acwr_low:"ACWR baixo",hrv_drop:"HRV",hrv_shift:"HRV",rhr_elevated:"FC repouso",sleep_short:"Sono curto",sleep_debt:"Débito de sono",recovery_combo:"Recuperação",dynamics_shift:"Dinâmica",shoe_mileage:"Tênis",goal_gap:"Meta",data_gap:"Dados",session_expired:"Sessão"};
+const $ = s => document.querySelector(s);
+const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const fmtT = s => { if (s == null) return "–"; s = Math.round(s); const h = Math.floor(s/3600), m = Math.floor(s%3600/60), x = s%60; return h ? `${h}:${String(m).padStart(2,"0")}:${String(x).padStart(2,"0")}` : `${m}:${String(x).padStart(2,"0")}`; };
+const fmtP = s => s == null ? "–" : `${Math.floor(s/60)}:${String(Math.round(s%60)).padStart(2,"0")}/km`;
+const fmtD = d => { const [y,m,dd] = d.split("-"); return `${dd}/${m}`; };
+const fmtDY = d => { const [y,m,dd] = d.split("-"); return `${dd}/${m}/${y.slice(2)}`; };
+const nf = (v, d=1) => v == null || isNaN(v) ? "–" : Number(v).toLocaleString("pt-BR",{minimumFractionDigits:d,maximumFractionDigits:d});
+const dnum = s => Date.UTC(+s.slice(0,4), +s.slice(5,7)-1, +s.slice(8,10));
+const addDays = (s, n) => new Date(dnum(s) + n*864e5).toISOString().slice(0,10);
+const cssv = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+
+const useCap = async n => { try { return (await window.claude?.use?.(n)) || null; } catch { return null; } };
+let STATE = null, pending = null, alertLimit = 40, sevFilter = "all";
+
+// ---------- chart engine (SVG, 1 eixo y, hover com crosshair) ----------
+function niceTicks(lo, hi, n=4){
+  if (lo === hi) { lo -= 1; hi += 1; }
+  const span = hi - lo, step0 = span / n, mag = Math.pow(10, Math.floor(Math.log10(step0)));
+  const step = [1,2,2.5,5,10].map(x => x*mag).find(x => span/x <= n) || 10*mag;
+  const a = Math.floor(lo/step)*step, b = Math.ceil(hi/step)*step, t = [];
+  for (let v = a; v <= b + 1e-9; v += step) t.push(+v.toFixed(6));
+  return t;
+}
+function chart(el, o){
+  // o: {dates, series:[{name,color,values,kind:'line'|'bar',dash,fmt}], band:{lo,hi}, refs:[{y,color,label}], yFmt, yMin, yMax, h, tipExtra(i)}
+  const W = el.clientWidth || 600, H = o.h || 210, m = {l:46, r:12, t:10, b:24};
+  const iw = W - m.l - m.r, ih = H - m.t - m.b, n = o.dates.length;
+  const vals = [];
+  o.series.forEach(s => s.values.forEach(v => v != null && vals.push(v)));
+  if (o.band) [o.band.lo, o.band.hi].forEach(a => a.forEach(v => v != null && vals.push(v)));
+  (o.refs||[]).forEach(r => vals.push(r.y));
+  if (!vals.length) { el.innerHTML = '<div class="empty">Sem dados no período.</div>'; return; }
+  let lo = o.yMin ?? Math.min(...vals), hi = o.yMax ?? Math.max(...vals);
+  const pad = (hi - lo) * .08 || 1; if (o.yMin == null) lo -= pad; if (o.yMax == null) hi += pad;
+  const ticks = niceTicks(lo, hi); lo = Math.min(lo, ticks[0]); hi = Math.max(hi, ticks[ticks.length-1]);
+  const hasBar = o.series.some(s => s.kind === "bar");
+  const bw = iw / n;
+  const x = i => m.l + (hasBar ? bw*i + bw/2 : (n === 1 ? iw/2 : iw * i/(n-1)));
+  const y = v => m.t + ih - (v - lo)/(hi - lo) * ih;
+  const yf = o.yFmt || (v => nf(v, 0));
+  let s = `<svg viewBox="0 0 ${W} ${H}" height="${H}" role="img" aria-label="${esc(o.label||"")}">`;
+  ticks.forEach(t => { s += `<line x1="${m.l}" x2="${W-m.r}" y1="${y(t)}" y2="${y(t)}" stroke="var(--grid)" stroke-width="1"/><text x="${m.l-6}" y="${y(t)+4}" text-anchor="end">${yf(t)}</text>`; });
+  const step = Math.max(1, Math.ceil(n / Math.max(2, Math.floor(iw/70))));
+  for (let i = 0; i < n; i += step) s += `<text x="${x(i)}" y="${H-6}" text-anchor="middle">${fmtD(o.dates[i])}</text>`;
+  if (o.band) {
+    let top = "", bot = "";
+    o.dates.forEach((d,i) => { if (o.band.lo[i] != null && o.band.hi[i] != null) { top += `${top?"L":"M"}${x(i)},${y(o.band.hi[i])}`; } });
+    for (let i = n-1; i >= 0; i--) if (o.band.lo[i] != null && o.band.hi[i] != null) bot += `L${x(i)},${y(o.band.lo[i])}`;
+    if (top) s += `<path d="${top}${bot}Z" fill="var(--band)" stroke="none"/>`;
+  }
+  (o.refs||[]).forEach(r => { s += `<line x1="${m.l}" x2="${W-m.r}" y1="${y(r.y)}" y2="${y(r.y)}" stroke="${r.color||"var(--ink-3)"}" stroke-width="1.5" stroke-dasharray="5 4"/>`; if (r.label) s += `<text x="${W-m.r}" y="${y(r.y)-5}" text-anchor="end">${esc(r.label)}</text>`; });
+  const bars = o.series.filter(q => q.kind === "bar");
+  bars.forEach((q, k) => {
+    const w = Math.max(1, bw/bars.length - 2);
+    q.values.forEach((v,i) => { if (v == null) return; const x0 = m.l + bw*i + 1 + k*(w+1), y0 = y(Math.max(v, lo)), base = y(Math.max(lo, 0)); const hh = Math.max(0, base - y0); s += `<rect x="${x0}" y="${y0}" width="${w}" height="${hh}" rx="${Math.min(3, w/2)}" fill="${q.color}" opacity="${q.opacity??1}"/>`; });
+  });
+  o.series.filter(q => q.kind !== "bar").forEach(q => {
+    let d = "", pen = false;
+    q.values.forEach((v,i) => { if (v == null) { pen = false; return; } d += `${pen?"L":"M"}${x(i).toFixed(1)},${y(v).toFixed(1)}`; pen = true; });
+    s += `<path d="${d}" fill="none" stroke="${q.color}" stroke-width="2" stroke-linejoin="round" ${q.dash?'stroke-dasharray="5 4"':''}/>`;
+    if (q.dots) q.values.forEach((v,i) => { if (v != null) s += `<circle cx="${x(i)}" cy="${y(v)}" r="3" fill="${q.color}" stroke="var(--panel)" stroke-width="1.5"/>`; });
+    const li = q.values.map((v,i)=>v==null?-1:i).filter(i=>i>=0).pop();
+    if (li != null && li >= 0 && !q.dots) s += `<circle cx="${x(li)}" cy="${y(q.values[li])}" r="4" fill="${q.color}" stroke="var(--panel)" stroke-width="2"/>`;
+  });
+  s += `<line class="xh" x1="0" x2="0" y1="${m.t}" y2="${m.t+ih}" stroke="var(--ink-3)" stroke-width="1" visibility="hidden"/>`;
+  s += `<rect x="${m.l}" y="${m.t}" width="${iw}" height="${ih}" fill="transparent" class="hit"/></svg><div class="tip" hidden></div>`;
+  el.innerHTML = s;
+  const svg = el.querySelector("svg"), tip = el.querySelector(".tip"), xh = el.querySelector(".xh");
+  const move = ev => {
+    const r = svg.getBoundingClientRect(), px = (ev.clientX - r.left) * W / r.width;
+    let i = hasBar ? Math.floor((px - m.l)/bw) : Math.round((px - m.l)/iw*(n-1));
+    i = Math.max(0, Math.min(n-1, i));
+    xh.setAttribute("x1", x(i)); xh.setAttribute("x2", x(i)); xh.setAttribute("visibility","visible");
+    let h = `<div>${fmtDY(o.dates[i])}</div>`;
+    o.series.forEach(q => { const v = q.values[i]; h += `<div><span style="color:${q.color}">●</span> ${esc(q.name)}: <b>${v==null?"–":(q.fmt||yf)(v)}</b></div>`; });
+    if (o.tipExtra) h += o.tipExtra(i) || "";
+    tip.innerHTML = h; tip.hidden = false;
+    const tx = (x(i) / W) * r.width, tw = tip.offsetWidth;
+    tip.style.left = Math.min(r.width - tw, Math.max(0, tx + 12 + tw > r.width ? tx - tw - 12 : tx + 12)) + "px"; tip.style.top = "8px";
+  };
+  svg.addEventListener("pointermove", move);
+  svg.addEventListener("pointerleave", () => { tip.hidden = true; xh.setAttribute("visibility","hidden"); });
+}
+
+// ---------- render ----------
+function lastN(arr, n){ return arr.slice(Math.max(0, arr.length - n)); }
+function byDate(coll){ const m = {}; (STATE.collections[coll]||[]).forEach(r => m[r.date] = r); return m; }
+function range(from, to){ const out = []; for (let d = from; d <= to; d = addDays(d,1)) out.push(d); return out; }
+
+function render(){
+  const C = STATE.collections, R = STATE.report || {};
+  const D = [...C.derived_metrics].sort((a,b)=>a.date.localeCompare(b.date));
+  const today = D[D.length-1] || {};
+  const asof = STATE.data_through || today.date;
+  $("#asof").textContent = `dados até ${fmtDY(asof)}`;
+  // Hoje
+  const nextRace = [...C.races_and_goals].filter(r => r.date && r.date >= asof && r.status !== "cancelled").sort((a,b)=>a.date.localeCompare(b.date))[0];
+  $("#ready-lbl").textContent = nextRace ? `Prontidão para prova · ${nextRace.name.replace(/ Vila Olímpia II/,"")}` : "Prontidão para prova";
+  const score = today.readiness_score ?? R.readiness?.score;
+  $("#ready").innerHTML = `${score ?? "–"}<span>/100</span>`;
+  const comps = today.readiness_components || R.readiness?.components || {};
+  const cl = {tsb:"Forma (TSB)",hrv:"HRV",sleep_14d:"Sono 14 d",consistency_6w:"Consistência",prediction_vs_goal:"Previsão × meta"};
+  $("#comps").innerHTML = Object.keys(cl).map(k => `<span>${cl[k]}</span><span class="bar"><i style="width:${comps[k]??0}%"></i></span><span class="v num">${comps[k] ?? "–"}</span>`).join("");
+  $("#summary").innerHTML = (R.summary||[]).map(t => `<li>${esc(t)}</li>`).join("") || '<li>Sem resumo para hoje.</li>';
+  $("#recs").innerHTML = (R.recommendations||[]).map(t => `<li>${esc(t)}</li>`).join("");
+  const at = C.alerts.filter(a => a.date === asof).sort((a,b) => ["danger","attention","info"].indexOf(a.severity) - ["danger","attention","info"].indexOf(b.severity));
+  $("#alerts-today").innerHTML = at.length ? at.map(alertItem).join("") : '<li class="empty">Nenhum alerta hoje.</li>';
+  // provas
+  const preds = today.predictions || {};
+  $("#races").innerHTML = C.races_and_goals.map(r => {
+    const p = preds[r.race_id] || {}; const days = r.date ? Math.round((dnum(r.date) - dnum(asof))/864e5) : null;
+    const gap = p.gap_s_per_km; const span = 40; const pos = gap == null ? null : Math.max(-span, Math.min(span, gap));
+    const gw = pos == null ? 0 : Math.abs(pos)/span*50, gl = pos == null ? 50 : (pos < 0 ? 50 - gw : 50);
+    const col = gap == null ? "var(--ink-3)" : gap <= 0 ? "var(--good)" : gap <= 5 ? "var(--warn)" : gap <= 15 ? "var(--serious)" : "var(--crit)";
+    return `<div class="panel race"><div class="head"><h3>${esc(r.name)}</h3><span class="pill sev-info">${esc(r.priority)} · ${esc({fitness_test:"teste de fitness",performance:"performance",A_race:"prova alvo"}[r.goal_type]||r.goal_type)}</span></div>
+      <div class="count num">${days != null ? days : "2027"}<small>${days != null ? (days===1?"dia":"dias") + " · " + fmtDY(r.date) : (r.date_window ? "2º semestre · data a definir" : "")}</small></div>
+      <dl class="kv"><dt>Distância</dt><dd>${nf(r.distance_m/1000, r.distance_m%1000?1:0)} km</dd><dt>Meta</dt><dd>${fmtT(r.target_s)} · ${fmtP(r.target_s/(r.distance_m/1000))}</dd>${r.target_equivalent_half_s?`<dt>Meia equivalente</dt><dd>${fmtT(r.target_equivalent_half_s)}</dd>`:""}<dt>Previsão combinada</dt><dd>${fmtT(p.blended_s)} · ${p.blended_pace||"–"}</dd><dt>Gap</dt><dd style="color:${col}">${gap==null?"–":(gap>0?"+":"")+nf(gap,1)+" s/km"}</dd></dl>
+      <div class="gapbar" role="img" aria-label="Gap de ${nf(gap,1)} segundos por km"><span class="mid"></span><span class="g" style="left:${gl}%;width:${gw}%;background:${col}"></span></div><div class="gaplbl"><span>−40 s/km</span><span>meta</span><span>+40 s/km</span></div></div>`;
+  }).join("");
+
+  // Recuperação (90 d)
+  const W = byDate("daily_wellness"), dates90 = range(addDays(asof,-89), asof);
+  chart($("#c-hrv"), {label:"HRV", dates:dates90, band:{lo:dates90.map(d=>W[d]?.hrv_baseline_low_ms??null), hi:dates90.map(d=>W[d]?.hrv_baseline_high_ms??null)},
+    series:[{name:"Noite",color:cssv("--s1"),values:dates90.map(d=>W[d]?.hrv_night_ms??null),fmt:v=>nf(v,0)+" ms"},{name:"Média 7 d",color:cssv("--s2"),values:dates90.map(d=>W[d]?.hrv_7d_ms??null),fmt:v=>nf(v,0)+" ms"}],
+    tipExtra:i=>{const w=W[dates90[i]]; return w&&w.hrv_status?`<div class="small">status: ${esc({BALANCED:"equilibrado",UNBALANCED:"desequilibrado",LOW:"baixo",POOR:"ruim"}[w.hrv_status]||w.hrv_status)}</div>`:"";}});
+  const rhr = dates90.map(d => W[d]?.rhr_bpm ?? null);
+  const med = dates90.map(d => { const v = []; for (let k=1;k<=30;k++){ const x = W[addDays(d,-k)]?.rhr_bpm; if (x) v.push(x);} if (!v.length) return null; v.sort((a,b)=>a-b); return v[Math.floor(v.length/2)]; });
+  chart($("#c-rhr"), {label:"FC de repouso", dates:dates90, series:[{name:"FC repouso",color:cssv("--s1"),values:rhr,fmt:v=>v+" bpm"},{name:"Mediana 30 d",color:cssv("--ink-3"),values:med,dash:true,fmt:v=>v+" bpm"}]});
+  const dates42 = dates90.slice(-42);
+  chart($("#c-sleep"), {label:"Sono", dates:dates42, yMin:0, refs:[{y:7.5,color:cssv("--ink-3"),label:"7,5 h"}], yFmt:v=>nf(v,0)+" h",
+    series:[{name:"Total",kind:"bar",color:cssv("--s1"),values:dates42.map(d=>W[d]?.sleep_s!=null?W[d].sleep_s/3600:null),fmt:v=>nf(v,1)+" h"},{name:"Profundo + REM",kind:"bar",color:cssv("--s3"),values:dates42.map(d=>W[d]?.sleep_s!=null?((W[d].sleep_deep_s||0)+(W[d].sleep_rem_s||0))/3600:null),fmt:v=>nf(v,1)+" h"}],
+    tipExtra:i=>{const w=W[dates42[i]]; return w?.sleep_score!=null?`<div class="small">score ${w.sleep_score}</div>`:"";}});
+  chart($("#c-stress"), {label:"Estresse e Body Battery", dates:dates90, yMin:0, yMax:100, series:[{name:"Estresse médio",color:cssv("--s2"),values:dates90.map(d=>W[d]?.stress_avg??null)},{name:"BB carregado",color:cssv("--s1"),values:dates90.map(d=>W[d]?.bb_charged??null)}]});
+
+  // Carga
+  const A = C.activities; const weeks = [];
+  let ws = addDays(asof, -((new Date(dnum(asof)).getUTCDay()+6)%7)); ws = addDays(ws, -7*25);
+  for (let k=0;k<26;k++){ const a = addDays(ws, 7*k), b = addDays(a,6); weeks.push({a, km: A.filter(r=>r.date>=a&&r.date<=b).reduce((s,r)=>s+(r.distance_m||0),0)/1000, n: A.filter(r=>r.date>=a&&r.date<=b).length}); }
+  chart($("#c-week"), {label:"Volume semanal", dates:weeks.map(w=>w.a), yMin:0, yFmt:v=>nf(v,0), series:[{name:"km",kind:"bar",color:cssv("--s1"),values:weeks.map(w=>+w.km.toFixed(1)),fmt:v=>nf(v,1)+" km"}], tipExtra:i=>`<div class="small">${weeks[i].n} corridas · semana de ${fmtD(weeks[i].a)}</div>`});
+  const DM = {}; D.forEach(r => DM[r.date] = r);
+  chart($("#c-acwr"), {label:"ACWR", dates:dates90, yMin:0, band:{lo:dates90.map(()=>0.8), hi:dates90.map(()=>1.3)}, refs:[{y:1.5,color:"var(--crit)",label:"1,5"}], yFmt:v=>nf(v,1), series:[{name:"ACWR",color:cssv("--s1"),values:dates90.map(d=>DM[d]?.acwr??null),fmt:v=>nf(v,2)}]});
+  const d180 = range(addDays(asof,-179), asof);
+  chart($("#c-ctl"), {label:"CTL e ATL", dates:d180, yMin:0, series:[{name:"CTL",color:cssv("--s1"),values:d180.map(d=>DM[d]?.ctl??null)},{name:"ATL",color:cssv("--s2"),values:d180.map(d=>DM[d]?.atl??null)}], tipExtra:i=>{const r=DM[d180[i]]; return r?`<div class="small">TSB ${nf(r.tsb,0)} (${nf(r.tsb_pct_ctl,0)}% do CTL)</div>`:"";}});
+  const z = today.zone_dist_28d, ZN = (STATE.formulas?.constants?.zone_names) || ["Z1","Z2","Z3","Z4","Z5"];
+  $("#zones").innerHTML = z && z.zones_pct ? z.zones_pct.map((v,i)=>`<div style="flex:${v};background:var(--z${i+1})" title="${esc(ZN[i])}: ${nf(v,0)}%">${v>=8?nf(v,0)+"%":""}</div>`).join("") : '<div class="empty" style="flex:1">Sem dados de zona do teste nas corridas de 28 d.</div>';
+  $("#zones-legend").innerHTML = ZN.map((n,i)=>`<span><i style="--c:var(--z${i+1});height:10px"></i>${esc(n)}</span>`).join("");
+  $("#zones-sum").textContent = z && z.zones_pct ? `Abaixo de LV1 ${nf(z.below_lv1_pct,0)}% · entre LV1 e LV2 ${nf(z.lv1_lv2_pct,0)}% · acima de LV2 ${nf(z.above_lv2_pct,0)}% · ${z.runs_covered} de ${z.runs_total} corridas com stream de FC.` : "";
+  $("#loadkv").innerHTML = `<dt>km últimos 7 d</dt><dd>${nf(today.km_7d,1)}</dd><dt>Semana atual / anterior</dt><dd>${nf(today.km_week_iso,0)} / ${nf(today.km_prev_week,0)} km</dd><dt>ACWR</dt><dd>${nf(today.acwr,2)}</dd><dt>Monotonia / strain (7 d)</dt><dd>${nf(today.monotony_7d,2)} / ${nf(today.strain_7d,0)}</dd><dt>CTL / ATL / TSB</dt><dd>${nf(today.ctl,0)} / ${nf(today.atl,0)} / ${nf(today.tsb,0)}</dd><dt>Eficiência aeróbica (fáceis, 28 d)</dt><dd>${nf(today.ef_easy_28d,3)} m/min/bpm</dd><dt>Desacoplamento último longão</dt><dd>${today.decoupling_last_long_pct==null?"–":nf(today.decoupling_last_long_pct,1)+"%"}</dd>`;
+  const g = C.gear.filter(x => x.status === "ACTIVE" && (!x.type || x.type === "SHOES")).sort((a,b)=>(b.km_garmin||0)-(a.km_garmin||0));
+  $("#gear").innerHTML = `<thead><tr><th>Tênis</th><th class="n">km</th><th class="n">limite</th></tr></thead><tbody>${g.map(x=>`<tr><td>${esc(x.name)}</td><td class="n">${nf(x.km_garmin,0)}</td><td class="n">${x.max_km?nf(x.max_km,0):"–"}</td></tr>`).join("")}</tbody>`;
+
+  // Performance
+  const P = [...C.daily_performance].sort((a,b)=>a.date.localeCompare(b.date));
+  const P365 = P.filter(p => p.date >= addDays(asof,-364));
+  chart($("#c-pred"), {label:"Previsão 21k", dates:P365.map(p=>p.date), yFmt:v=>fmtT(v), refs:[{y:4800,color:cssv("--s3"),label:"1:20:00"}], series:[{name:"Previsão 21k",color:cssv("--s1"),values:P365.map(p=>p.race_pred_21k_s??null),fmt:v=>fmtT(v)}]});
+  const vs = (R.vdot_series||[]); const vmap = {}; vs.forEach(v => vmap[v.date] = v.vdot);
+  const pv = P365.filter((p,i)=>!p.vo2max_is_carried || vmap[p.date]!=null || i===P365.length-1);
+  chart($("#c-vo2"), {label:"VO2máx e VDOT", dates:pv.map(p=>p.date), yFmt:v=>nf(v,0), refs:[{y:57.4,color:cssv("--ink-3"),label:"teste 57,4"}], series:[{name:"VO2máx",color:cssv("--s1"),values:pv.map(p=>p.vo2max_is_carried?null:p.vo2max),fmt:v=>nf(v,1),dots:true},{name:"VDOT",color:cssv("--s2"),values:pv.map(p=>vmap[p.date]??null),fmt:v=>nf(v,1),dots:true}]});
+  $("#pred-table").innerHTML = `<thead><tr><th>Prova</th><th class="n">Garmin</th><th class="n">VDOT</th><th class="n">Riegel</th><th class="n">Combinada</th><th class="n">Meta</th><th class="n">Gap</th></tr></thead><tbody>${C.races_and_goals.map(r=>{const p=preds[r.race_id]||{}; return `<tr><td>${esc(r.name)}</td><td class="n">${fmtT(p.garmin_s)}</td><td class="n">${fmtT(p.vdot_s)}</td><td class="n">${fmtT(p.riegel_s)}</td><td class="n">${fmtT(p.blended_s)}</td><td class="n">${fmtT(r.target_s)}</td><td class="n">${p.gap_s_per_km==null?"–":(p.gap_s_per_km>0?"+":"")+nf(p.gap_s_per_km,1)+" s/km"}</td></tr>`;}).join("")}</tbody>`;
+  const vsrc = today.vdot_source; const lp = P[P.length-1] || {};
+  $("#vdot-src").textContent = `VDOT atual ${nf(today.vdot_current,1)}${vsrc?` (melhor esforço em 120 d: ${vsrc.km} km em ${vsrc.time}, ${fmtDY(vsrc.date)})`:""} · VO2máx Garmin ${nf(lp.vo2max,1)} · limiar ${lp.lactate_threshold_hr??"–"} bpm a ${fmtP(lp.lactate_threshold_pace_s_per_km)}.`;
+
+  renderCpet(R.cpet);
+  renderAlerts(); renderMeta();
+}
+function renderCpet(c){
+  if (!c) { $("#cpet-evo").innerHTML = '<tr><td class="empty">Sem dados do teste neste lote.</td></tr>'; return; }
+  const t = c.test, b = c.baseline_garmin || {}, n = c.current || {}, d = c.deltas || {};
+  const kmh2p = v => fmtP(3600 / v);
+  $("#cpet-test").innerHTML = `<dt>VO2máx</dt><dd>${nf(t.vo2max_mlkgmin,1)} mL/kg/min · ${nf(t.vo2max_lmin,2)} L/min</dd>
+    <dt>LV1 (limiar aeróbico)</dt><dd>${t.lv1.hr} bpm · ${nf(t.lv1.speed_kmh,1)} km/h (${kmh2p(t.lv1.speed_kmh)}) · ${t.lv1.pct_vo2max}% do VO2</dd>
+    <dt>LV2 (compensação respiratória)</dt><dd>${t.lv2.hr} bpm · ${nf(t.lv2.speed_kmh,1)} km/h (${kmh2p(t.lv2.speed_kmh)}) · ${t.lv2.pct_vo2max}% do VO2</dd>
+    <dt>FC pico / repouso no exame</dt><dd>${t.hr_peak} / ${t.hr_rest_clinic} bpm</dd>
+    <dt>Pulso de O2 · VE/VCO2 slope · OUES</dt><dd>${t.o2_pulse_ml} mL/bat · ${nf(t.ve_vco2_slope,1)} · ${t.oues}</dd>`;
+  $("#cpet-zones").innerHTML = `<thead><tr><th>Zona</th><th class="n">FC (bpm)</th></tr></thead><tbody>${(c.zones||[]).map((z,i)=>`<tr><td><span class="zchip" style="--c:var(--z${i+1})"></span>${esc(z.name.replace(/\s*\(.*\)/,""))}</td><td class="n">${z.from_bpm?z.from_bpm:"&lt; 123"}${z.to_bpm?(z.from_bpm?"–"+z.to_bpm:""):"+"}</td></tr>`).join("")}</tbody>`;
+  const cls = (v, lowerBetter) => v == null || Math.abs(v) < 0.05 ? "delta-flat" : ((v < 0) === lowerBetter ? "delta-good" : "delta-bad");
+  const sg = (v, dg=0, u="") => v == null ? "–" : (v > 0 ? "+" : v < 0 ? "−" : "") + nf(Math.abs(v), dg) + u;
+  const row = (lbl, tv, bv, nv, dv, lowerBetter, dg, u) => `<tr><td>${lbl}</td><td class="n">${tv}</td><td class="n">${bv}</td><td class="n">${nv}</td><td class="n ${cls(dv, lowerBetter)}">${sg(dv, dg, u)}</td></tr>`;
+  const bp = (w, k) => w[k] ? `${fmtP(w[k].pace_s_per_km)}<div class="small">${w[k].runs} corr.</div>` : "–";
+  const lt = w => w.lt_garmin ? `${w.lt_garmin.hr} bpm<div class="small">${fmtP(w.lt_garmin.pace_s_per_km)}</div>` : "–";
+  $("#cpet-evo").innerHTML = `<thead><tr><th>Métrica</th><th class="n">Teste</th><th class="n">Base relógio</th><th class="n">Agora</th><th class="n">Δ</th></tr></thead><tbody>
+    ${row(`Pace com FC de LV1 (${t.lv1.hr})`, kmh2p(t.lv1.speed_kmh), bp(b,"lv1_band"), bp(n,"lv1_band"), d.lv1_pace_s, true, 0, " s/km")}
+    ${row(`Pace com FC de LV2 (${t.lv2.hr})`, kmh2p(t.lv2.speed_kmh), bp(b,"lv2_band"), bp(n,"lv2_band"), d.lv2_pace_s, true, 0, " s/km")}
+    ${row("VO2máx", nf(t.vo2max_mlkgmin,1), nf(b.vo2max_garmin,1), nf(n.vo2max_garmin,1), d.vo2max, false, 1, "")}
+    ${row("Limiar do Garmin", `${t.lv2.hr} bpm`, lt(b), lt(n), d.lt_pace_s, true, 0, " s/km")}
+    ${row("FC de repouso (média 28 d)", "–", nf(b.rhr_avg,1), nf(n.rhr_avg,1), d.rhr_bpm, true, 1, " bpm")}
+    ${row("HRV noturna (média 28 d)", "–", nf(b.hrv_avg,0), nf(n.hrv_avg,0), d.hrv_ms, false, 0, " ms")}
+    ${row("Eficiência aeróbica (fáceis)", "–", nf(b.ef_easy,3), nf(n.ef_easy,3), d.ef_easy_pct, false, 1, "%")}
+    ${row("Volume 28 d", "–", nf(b.km,0)+" km", nf(n.km,0)+" km", b.km!=null&&n.km!=null?n.km-b.km:null, false, 0, " km")}</tbody>`;
+  $("#cpet-lines").innerHTML = (c.lines||[]).map(x=>`<li>${esc(x)}</li>`).join("");
+  $("#cpet-notes").innerHTML = (c.notes||[]).map(x=>`<li>${esc(x)}</li>`).join("");
+  const S = c.series || [];
+  const refs = [];
+  if (b.lv1_band) refs.push({y:b.lv1_band.pace_s_per_km,color:cssv("--s1"),label:"base LV1 "+fmtP(b.lv1_band.pace_s_per_km)});
+  if (b.lv2_band) refs.push({y:b.lv2_band.pace_s_per_km,color:cssv("--s2"),label:"base LV2 "+fmtP(b.lv2_band.pace_s_per_km)});
+  chart($("#c-cpet-pace"), {label:"Pace nas FCs dos limiares", dates:S.map(x=>x.date), yFmt:v=>fmtP(v).replace("/km",""), refs,
+    series:[{name:"FC de LV1",color:cssv("--s1"),values:S.map(x=>x.lv1_pace_s),fmt:fmtP,dots:true},{name:"FC de LV2",color:cssv("--s2"),values:S.map(x=>x.lv2_pace_s),fmt:fmtP,dots:true}],
+    tipExtra:i=>`<div class="small">${nf(S[i].km_28d,0)} km em 28 d</div>`});
+  chart($("#c-cpet-lt"), {label:"Limiar do Garmin", dates:S.map(x=>x.date), refs:[{y:t.lv2.hr,color:cssv("--ink-3"),label:"LV2 "+t.lv2.hr}],
+    series:[{name:"FC de limiar",color:cssv("--s1"),values:S.map(x=>x.lt_hr),fmt:v=>v+" bpm"}],
+    tipExtra:i=>`<div class="small">pace do limiar ${fmtP(S[i].lt_pace_s)} · VO2máx ${nf(S[i].vo2max,1)}</div>`});
+}
+function alertItem(a){
+  return `<li class="alert"><span class="pill sev-${a.severity}">${SEV[a.severity]||a.severity}</span><span class="msg">${esc(a.message)}</span><span class="ev">${esc(TYPE[a.type]||a.type)}${a.days_active>1?` · ${a.days_active} dias`:""} · ${esc(Object.entries(a.evidence||{}).map(([k,v])=>`${k}=${typeof v==="number"?Math.round(v*100)/100:v}`).join(" · "))}</span></li>`;
+}
+function renderAlerts(){
+  const all = [...STATE.collections.alerts].sort((a,b)=>b.date.localeCompare(a.date));
+  const counts = {all: all.length}; all.forEach(a => counts[a.severity] = (counts[a.severity]||0)+1);
+  $("#sev-filters").innerHTML = ["all","danger","attention","info"].map(k => `<button aria-pressed="${sevFilter===k}" data-sev="${k}">${k==="all"?"Todos":SEV[k]} (${counts[k]||0})</button>`).join("");
+  const rows = all.filter(a => sevFilter === "all" || a.severity === sevFilter);
+  $("#alert-table").innerHTML = `<thead><tr><th>Data</th><th>Severidade</th><th>Tipo</th><th>Mensagem</th></tr></thead><tbody>${rows.slice(0,alertLimit).map(a=>`<tr><td class="num">${fmtDY(a.date)}</td><td><span class="pill sev-${a.severity}">${SEV[a.severity]}</span></td><td>${esc(TYPE[a.type]||a.type)}</td><td>${esc(a.message)}</td></tr>`).join("")}</tbody>`;
+  $("#more").hidden = rows.length <= alertLimit;
+}
+function renderMeta(){
+  const C = STATE.collections;
+  $("#meta").innerHTML = `<dt>Última atualização</dt><dd>${new Date(STATE.last_update).toLocaleString("pt-BR")}</dd><dt>Dados até</dt><dd>${fmtDY(STATE.data_through)}</dd><dt>Esquema / fórmulas</dt><dd>${esc(STATE.schema_version)} / ${esc(STATE.formula_version)}</dd>` +
+    Object.keys(KEYS).map(k => `<dt>${k}</dt><dd>${(C[k]||[]).length}</dd>`).join("");
+  $("#imports").innerHTML = `<thead><tr><th>Quando</th><th>Origem</th><th class="n">Registros</th></tr></thead><tbody>${[...(STATE.import_log||[])].reverse().slice(0,12).map(l=>`<tr><td class="num">${new Date(l.at).toLocaleString("pt-BR")}</td><td>${esc(l.source)}</td><td class="n">${Object.values(l.counts||{}).reduce((a,b)=>a+b,0)}</td></tr>`).join("")}</tbody>`;
+  const f = STATE.formulas?.formulas || {};
+  $("#formulas").innerHTML = Object.entries(f).map(([k,v]) => `<dt class="num" style="margin-top:8px">${esc(k)}</dt><dd style="margin:2px 0 0">${esc(v)}</dd>`).join("");
+}
+
+// ---------- importação ----------
+function merge(state, batch){
+  const next = JSON.parse(JSON.stringify(state)); const counts = {}, added = {};
+  const src = batch.upserts || batch.collections || {};
+  for (const k of Object.keys(KEYS)) {
+    const rows = src[k]; if (!Array.isArray(rows) || !rows.length) continue;
+    const key = KEYS[k], map = new Map((next.collections[k]||[]).map(r => [r[key], r]));
+    let a = 0;
+    rows.forEach(r => { if (r[key] == null) return; const p = {}; PICK[k].forEach(f => { if (f in r) p[f] = r[f]; }); if (!map.has(r[key])) a++; map.set(r[key], Object.assign(map.get(r[key]) || {}, p)); });
+    next.collections[k] = [...map.values()].sort((x,y) => String(x[key]).localeCompare(String(y[key])));
+    counts[k] = rows.length; added[k] = a;
+  }
+  if (batch.report) next.report = batch.report;
+  if (batch.formulas) next.formulas = batch.formulas;
+  const dts = (next.collections.derived_metrics||[]).map(r => r.date).sort();
+  next.data_through = batch.data_through || dts[dts.length-1] || next.data_through;
+  next.last_update = new Date().toISOString();
+  next.import_log = [...(next.import_log||[]), {at: next.last_update, source: batch.batch_id || batch.source || "importação manual", counts}].slice(-60);
+  return {next, counts, added};
+}
+async function readInput(){
+  const f = $("#file").files[0];
+  const txt = f ? await f.text() : $("#paste").value.trim();
+  if (!txt) throw new Error("Escolha um arquivo .json ou cole o conteúdo do lote.");
+  let b; try { b = JSON.parse(txt); } catch { throw new Error("O conteúdo não é um JSON válido."); }
+  const major = String(b.schema_version || "").split(".")[0];
+  if (major && major !== "1") throw new Error(`Esquema ${b.schema_version} não é compatível com este painel (1.x).`);
+  if (!b.upserts && !b.collections) throw new Error("O lote precisa ter \"upserts\" (esquema da Fase 1) ou \"collections\".");
+  return b;
+}
+$("#preview").addEventListener("click", async () => {
+  try { const b = await readInput(); pending = merge(STATE, b);
+    $("#status").textContent = "Lote conferido: " + Object.entries(pending.counts).map(([k,v]) => `${k} ${v} (${pending.added[k]} novos)`).join(" · ") + ". Clique em Salvar no painel.";
+    $("#save").disabled = false;
+  } catch (e) { pending = null; $("#save").disabled = true; $("#status").textContent = e.message; }
+});
+$("#save").addEventListener("click", async () => {
+  if (!pending) return;
+  $("#save").disabled = true; $("#status").textContent = "Salvando…";
+  const art = await useCap("artifact");
+  if (!art) { STATE = pending.next; render(); $("#status").textContent = "Lote aplicado só nesta visualização: salvar não está disponível aqui."; return; }
+  try { await art.publish({"data.json": JSON.stringify(pending.next)}); STATE = pending.next; pending = null; render(); $("#status").textContent = "Salvo. O painel foi atualizado com o lote."; }
+  catch (e) {
+    const m = {conflict:"Outra versão foi salva antes desta. O painel vai recarregar; confira o lote de novo.", not_writer:"Você pode ver este painel, mas não editar.", not_granted:"Você pode ver este painel, mas não editar.", capability_disabled:"Salvar não está disponível nesta visualização.", too_large:"O lote ficou grande demais para salvar."};
+    $("#status").textContent = m[e?.code] || `Não foi possível salvar (${e?.code || "erro"}).`;
+  }
+});
+$("#export").addEventListener("click", async () => {
+  const dl = await useCap("downloads");
+  if (!dl) { $("#status").textContent = "Baixar não está disponível nesta visualização."; return; }
+  try { await dl.save({filename: `painel_treino_backup_${STATE.data_through}.json`, data: JSON.stringify(STATE)}); $("#status").textContent = "Backup enviado para download."; }
+  catch (e) { $("#status").textContent = e?.code === "declined" ? "Download cancelado." : `Não foi possível baixar (${e?.code || "erro"}).`; }
+});
+$("#sev-filters").addEventListener("click", e => { const b = e.target.closest("button"); if (!b) return; sevFilter = b.dataset.sev; alertLimit = 40; renderAlerts(); });
+$("#more").addEventListener("click", () => { alertLimit += 60; renderAlerts(); });
+let rt; window.addEventListener("resize", () => { clearTimeout(rt); rt = setTimeout(() => STATE && render(), 150); });
+if (window.matchMedia) matchMedia("(prefers-color-scheme: dark)").addEventListener?.("change", () => STATE && render());
+new MutationObserver(() => STATE && render()).observe(document.documentElement, {attributes:true, attributeFilter:["data-theme"]});
+
+fetch("/api/data", {cache:"no-store"}).then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
+  .then(s => { STATE = s; render(); })
+  .catch(() => { $("#summary").innerHTML = '<li>Não consegui carregar os dados do painel (data.json).</li>'; });
+})();
+</script>
+</body>
+</html>

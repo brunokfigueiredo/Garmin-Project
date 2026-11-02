@@ -1,0 +1,5 @@
+.vercel
+.env*
+garmin_tokens*.json
+__pycache__/
+*.pyc
