@@ -51,5 +51,7 @@ K_DATA = "painel:data"             # data.json do painel
 K_REPORT = "painel:report"         # daily_report + log do último dia
 K_TOKENS = "garmin:tokens"         # tokens DI (texto puro; rotacionam a cada execução)
 K_LOCK = "pipeline:lock"
+K_PLAN = "painel:plan"               # aba Plano (assessoria × realizado + projeção)
+K_PLANNED = "plano:assessoria"        # treinos da assessoria já vistos (data → treino)
 raw_key = lambda d: f"raw:{d}"     # bruto do dia (expira em 30 dias)
 log_key = lambda d: f"log:{d}"     # log do dia (expira em 400 dias)

@@ -105,12 +105,81 @@ textarea{width:100%;min-height:110px;font:12px var(--mono);background:var(--bg);
 details summary{cursor:pointer;font-weight:600}
 .small{font-size:12px;color:var(--ink-3)}
 @media (prefers-reduced-motion:no-preference){.comp .bar i{transition:width .5s ease}}
+
+/* ---------- aba Plano ---------- */
+#plano{--plan:#c9d6d2; --p-tf:#2a78d6; --p-base:#1baf7a; --p-dev:#0d8f86; --p-trip:#9aa5a1; --p-hm:#eda100; --p-taper:#b88cd9; --p-rec:#b9c3bf; --p-m:#eb6834; --good:#0ca30c; --warn:#c98500; --crit:#d03b3b}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) #plano{--plan:#33403c; --p-tf:#3987e5; --p-base:#199e70; --p-dev:#3fb3a8; --p-trip:#6c7773; --p-hm:#c98500; --p-taper:#a07bc2; --p-rec:#4a5551; --p-m:#d95926; --good:#3fbf3f; --warn:#e0a52a; --crit:#e66767}}
+:root[data-theme="dark"] #plano{--plan:#33403c; --p-tf:#3987e5; --p-base:#199e70; --p-dev:#3fb3a8; --p-trip:#6c7773; --p-hm:#c98500; --p-taper:#a07bc2; --p-rec:#4a5551; --p-m:#d95926; --good:#3fbf3f; --warn:#e0a52a; --crit:#e66767}
+#plano .plsec{padding-top:22px}
+#plano .plsec:first-of-type{padding-top:0}
+#plano h2{font:600 26px/1.1 var(--display);text-transform:uppercase;letter-spacing:.03em;margin:0 0 6px;text-wrap:balance}
+#plano h3{font:600 17px/1.2 var(--display);text-transform:uppercase;letter-spacing:.04em;margin:0 0 6px;color:var(--ink-2)}
+#plano .sub{color:var(--ink-3);font-size:13px;margin:0 0 12px;max-width:75ch}
+#plano .grid{display:grid;gap:14px}
+#plano .g2{grid-template-columns:repeat(auto-fit,minmax(min(100%,460px),1fr))}
+#plano .g4{grid-template-columns:repeat(auto-fit,minmax(min(100%,250px),1fr))}
+#plano .panel{background:var(--panel);border:1px solid var(--rule);border-radius:10px;padding:16px;min-width:0}
+#plano .num{font-family:var(--mono);font-variant-numeric:tabular-nums}
+#plano .big{font:700 44px/1 var(--display)}
+#plano .big small{font-size:16px;color:var(--ink-3);margin-left:4px}
+#plano .kv{display:grid;grid-template-columns:auto 1fr;gap:3px 12px;font-size:13px;margin:8px 0 0}
+#plano .kv dt{color:var(--ink-3)}
+#plano .kv dd{margin:0;text-align:right;font-family:var(--mono);font-variant-numeric:tabular-nums}
+#plano .bar{height:10px;background:var(--grid);border-radius:5px;overflow:hidden;margin-top:10px}
+#plano .bar i{display:block;height:100%;background:var(--accent)}
+#plano .pill{display:inline-flex;align-items:center;gap:6px;font:600 11px var(--body);text-transform:uppercase;letter-spacing:.06em;padding:2px 8px;border-radius:999px;border:1px solid var(--rule);background:var(--panel);color:var(--ink);white-space:nowrap}
+#plano .pill::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--c)}
+#plano .note{font-size:13px;color:var(--ink-2)}
+#plano .chart-x{overflow-x:auto}
+#plano .chart{min-width:760px}
+#plano .chart svg{display:block;width:100%}
+#plano .chart text{fill:var(--ink-3);font:11px var(--mono)}
+#plano .legend{display:flex;gap:14px;flex-wrap:wrap;font-size:12px;color:var(--ink-2);margin:4px 0 8px}
+#plano .legend span{display:inline-flex;align-items:center;gap:6px}
+#plano .legend i{width:12px;height:10px;border-radius:2px;background:var(--c)}
+#plano .legend i.line{height:3px}
+#plano .tip{position:absolute;pointer-events:none;background:var(--panel);border:1px solid var(--rule);border-radius:8px;padding:6px 9px;font:12px/1.45 var(--body);color:var(--ink);box-shadow:0 4px 14px rgba(0,0,0,.12);z-index:3;max-width:280px}
+#plano .tbl{overflow-x:auto}
+#plano table{border-collapse:collapse;width:100%;font-size:13px}
+#plano th, #plano td{text-align:left;padding:7px 8px;border-bottom:1px solid var(--rule);vertical-align:top}
+#plano th{font:600 11px var(--body);text-transform:uppercase;letter-spacing:.06em;color:var(--ink-3);white-space:nowrap}
+#plano td.n, #plano th.n{text-align:right;font-family:var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+#plano tr.phase td{background:var(--bg);font:600 13px var(--display);text-transform:uppercase;letter-spacing:.05em;color:var(--ink-2)}
+#plano tr.now td{background:color-mix(in srgb,var(--accent) 10%,transparent)}
+#plano tr.race td:first-child{box-shadow:inset 3px 0 0 var(--s2)}
+#plano .chip{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px;vertical-align:-1px;background:var(--c)}
+#plano .small{font-size:11px}
+#plano .src{display:inline-block;font:600 10px var(--body);text-transform:uppercase;letter-spacing:.06em;padding:1px 6px;border-radius:4px;border:1px solid var(--rule);color:var(--ink-2)}
+#plano .src.coach{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+#plano .days{display:grid;gap:8px}
+#plano .day{display:grid;grid-template-columns:86px 1fr auto;gap:2px 12px;align-items:baseline;padding:10px 12px;border-radius:8px;background:var(--bg)}
+#plano .day .dt{font:600 14px var(--display);text-transform:uppercase;letter-spacing:.04em}
+#plano .day .tg{grid-column:2/4;font:12px var(--mono);color:var(--ink-3)}
+#plano .day .st{grid-column:2/4;font-size:13px}
+#plano .day.done{box-shadow:inset 3px 0 0 var(--good)}
+#plano .day.miss{box-shadow:inset 3px 0 0 var(--warn)}
+@media (max-width:640px){#plano .day{grid-template-columns:1fr}#plano .day .tg, #plano .day .st{grid-column:1}}
+#plano .good{color:var(--good)}
+#plano .warn{color:var(--warn)}
+#plano .bad{color:var(--crit)}
+#plano .muted{color:var(--ink-3)}
+#plano ul.clean{list-style:none;padding:0;margin:0;display:grid;gap:8px}
+#plano ul.clean li{padding-left:14px;position:relative}
+#plano ul.clean li::before{content:"";position:absolute;left:0;top:.6em;width:6px;height:6px;border-radius:50%;background:var(--ink-3)}
+#plano .phases{display:grid;gap:8px}
+#plano .ph{display:grid;grid-template-columns:150px 1fr auto;gap:4px 14px;align-items:baseline;padding:10px 12px;border-radius:8px;background:var(--bg);border-left:4px solid var(--c)}
+#plano .ph b{font:600 15px var(--display);text-transform:uppercase;letter-spacing:.04em}
+#plano .ph .d{font:12px var(--mono);color:var(--ink-3)}
+@media (max-width:640px){#plano .ph{grid-template-columns:1fr}}
+#plano details summary{cursor:pointer;font-weight:600}
+#plano .callout{border:1px solid var(--rule);border-left:4px solid var(--warn);border-radius:8px;padding:12px 14px;background:var(--panel)}
+@media (prefers-reduced-motion:no-preference){#plano .bar i{transition:width .5s ease}}
 </style>
 </head>
 <body>
 <header class="top"><div class="topbar">
   <div class="brand">Painel de Treino <small id="asof">carregando…</small></div>
-  <nav aria-label="Seções"><a href="#hoje">Hoje</a><a href="#recuperacao">Recuperação</a><a href="#carga">Carga</a><a href="#performance">Performance</a><a href="#teste">Teste</a><a href="#alertas">Alertas</a><a href="#dados">Dados</a></nav>
+  <nav aria-label="Seções"><a href="#hoje">Hoje</a><a href="#recuperacao">Recuperação</a><a href="#carga">Carga</a><a href="#performance">Performance</a><a href="#teste">Teste</a><a href="#plano">Plano</a><a href="#alertas">Alertas</a><a href="#dados">Dados</a></nav>
 </div></header>
 
 <main class="wrap">
@@ -180,6 +249,68 @@ details summary{cursor:pointer;font-weight:600}
       <div class="panel"><h3>Limiar do Garmin × LV2</h3><p class="sub">FC de limiar estimada pelo relógio · linha = LV2 do teste (162 bpm) · pace do limiar no tooltip</p><div class="legend"><span><i style="--c:var(--s1)"></i>FC de limiar (Garmin)</span><span><i class="dash" style="--c:var(--ink-3)"></i>LV2 do teste</span></div><div class="chart" id="c-cpet-lt"></div></div>
     </div>
     <ul class="clean small" id="cpet-notes" style="margin-top:12px"></ul>
+  </section>
+
+  <section id="plano">
+    <h2>Plano · 22K, meia 1:20 e maratona 2:45</h2>
+  <div class="plsec">
+    
+    <p class="sub">Os treinos vêm do calendário do Garmin, onde a assessoria deixa ~2 semanas planejadas. Depois desse horizonte, a carga é uma projeção até 26/09/2027: teto de 80 km por semana até a meia e bloco de 20 semanas para a maratona, com pico de 110 km.</p>
+    <div class="grid g4" id="pl-cards"></div>
+  </div>
+
+  <div class="plsec">
+    <div class="grid g2">
+      <div class="panel"><h3>Próximos 14 dias · assessoria</h3><p class="sub" id="pl-coach-sub"></p><div class="days" id="pl-coach"></div></div>
+      <div class="panel"><h3>Zonas da assessoria × seu teste</h3><p class="sub">Janela de pace de cada zona e a referência fisiológica de hoje (teste cardiopulmonar + VDOT estimado). Não muda o treino: mostra onde a FC deve passar do previsto.</p><div class="tbl"><table id="pl-zmap"></table></div>
+        <div class="callout" style="margin-top:12px"><h3 style="margin:0 0 6px">Para conversar com a assessoria</h3><ul class="clean note" id="pl-obs"></ul></div></div>
+    </div>
+  </div>
+
+  <div class="plsec">
+    <h3>Carga semanal: plano × realizado</h3>
+    <div class="legend" id="pl-legend"></div>
+    <div class="panel" style="position:relative"><div class="chart-x"><div class="chart" id="pl-c-load"></div></div></div>
+    <p class="sub" style="margin-top:8px">Barras com contorno = semanas da assessoria (soma dos treinos no Garmin). Barras claras = projeção (cor da fase). Barras escuras = km realizados. Linha = longão planejado; pontos = maior corrida da semana. Tracejados: teto de 80 km até 16/05 e linha de 100 km (dobras liberadas).</p>
+  </div>
+
+  <div class="plsec">
+    <div class="grid g2">
+      <div class="panel"><h3>Fases</h3><div class="phases" id="pl-phases"></div></div>
+      <div class="panel"><h3>VDOT: onde estou e onde preciso chegar</h3><p class="sub">VDOT de Daniels (desempenho equivalente). Pontos = o que cada prova exige. Linhas = referências suas.</p><div style="position:relative"><div id="pl-c-vdot"></div></div><div id="pl-vdot-note" class="note"></div></div>
+    </div>
+  </div>
+
+  <div class="plsec">
+    <h3>Paces de referência por fase</h3>
+    <p class="sub">Referência para ler as janelas da assessoria, pela fórmula de Daniels e pelo VDOT previsto para a fase. São provisórios: cada checkpoint (22K, teste de 10 km, meia) recalibra a tabela pelo resultado real, e não pela meta. O fácil vale pela FC: até 133 bpm (LV1 do seu teste).</p>
+    <div class="panel tbl"><table id="pl-paces"></table></div>
+  </div>
+
+  <div class="plsec">
+    <h3>Semana a semana</h3>
+    <p class="sub">Semanas com a etiqueta <b>assessoria</b> usam os treinos do calendário. As demais mostram só a carga projetada e o foco da fase, até a assessoria publicar os treinos. Δ = aumento sobre a última semana cheia.</p>
+    <div class="panel tbl"><table id="pl-weeks"></table></div>
+  </div>
+
+  <div class="plsec">
+    <div class="grid g2">
+      <div class="panel"><h3>Regras da projeção</h3><p class="sub">Valem para a carga das semanas sem treino publicado. Se a assessoria planejar acima disso, o painel avisa.</p><ul class="clean note" id="pl-rules"></ul></div>
+      <div class="panel"><h3>Como vou avaliar seus treinos</h3><p class="sub">Cada treino feito é casado com o treino do mesmo dia no calendário. Exemplo real: a corrida de 02/11.</p><div class="tbl"><table id="pl-eval"></table></div></div>
+    </div>
+  </div>
+
+  <div class="plsec">
+    <div class="grid g2">
+      <div class="panel"><h3>Checkpoints e decisões</h3><div class="tbl"><table id="pl-checks"></table></div></div>
+      <div class="panel"><h3>Leitura franca das metas</h3><div id="pl-honest" class="note"></div></div>
+    </div>
+  </div>
+
+  <div class="plsec">
+    <div class="panel"><h3>Método e evidência</h3><ul class="clean note" id="pl-method"></ul></div>
+  </div>
+    <p class="small" id="pl-status" style="margin-top:12px"></p>
   </section>
 
   <section id="alertas">
@@ -516,5 +647,192 @@ fetch("/api/data", {cache:"no-store"}).then(r => { if (!r.ok) throw new Error(r.
   .catch(() => { $("#summary").innerHTML = '<li>Não consegui carregar os dados do painel (data.json).</li>'; });
 })();
 </script>
+<script>
+(() => {
+"use strict";
+function renderPlan(PLAN){
+const ACT = PLAN.actual;
+"use strict";
+const $ = s => document.querySelector(s);
+const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const fmtT = s => { s = Math.round(s); const h = Math.floor(s/3600), m = Math.floor(s%3600/60), x = s%60; return h ? `${h}:${String(m).padStart(2,"0")}:${String(x).padStart(2,"0")}` : `${m}:${String(x).padStart(2,"0")}`; };
+const fmtP = s => `${Math.floor(s/60)}:${String(Math.round(s%60)).padStart(2,"0")}`;
+const dm = d => { const [y,m,dd] = d.split("-"); return `${dd}/${m}`; };
+const dmy = d => { const [y,m,dd] = d.split("-"); return `${dd}/${m}/${y.slice(2)}`; };
+const nf = (v,d=1) => v==null ? "–" : Number(v).toLocaleString("pt-BR",{minimumFractionDigits:d,maximumFractionDigits:d});
+const cssv = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+const PHC = {tf:"--p-tf",base:"--p-base",dev:"--p-dev",trip:"--p-trip",hm:"--p-hm",taperhm:"--p-taper",rec:"--p-rec",mbase:"--p-m",mbuild:"--p-m",mspec:"--p-m",taperm:"--p-taper"};
+const PHN = Object.fromEntries(PLAN.phases.map(p => [p.id, p.name])); PHN.rec = "Recuperação";
+const today = ACT.through;
+const W = PLAN.weeks;
+const cur = W.find(w => w.start <= today && today <= w.end) || W[0];
+const CO = (PLAN.coach && PLAN.coach.workouts) || [];
+const dnum = s => Date.UTC(+s.slice(0,4), +s.slice(5,7)-1, +s.slice(8,10));
+const days = (a,b) => Math.round((dnum(b)-dnum(a))/864e5);
+
+// ---------- cards ----------
+const a = ACT.weeks[cur.start] || {km:0, runs:0};
+const pct = Math.min(100, a.km / cur.km * 100);
+const cards = [`<div class="panel"><h3>Semana ${cur.n} de ${W.length} · ${dm(cur.start)}–${dm(cur.end)}</h3><div class="big num">${nf(a.km,1)}<small>de ${cur.km} km</small></div><div class="bar" role="img" aria-label="${Math.round(pct)}% do plano da semana"><i style="width:${pct}%"></i></div><dl class="kv"><dt>Fase</dt><dd>${esc(PHN[cur.phase])}</dd><dt>Fonte</dt><dd>${cur.source === "assessoria" ? `assessoria · ${cur.coach_sessions} treinos` : "projeção"}</dd><dt>Longo</dt><dd>${cur.long_km} km</dd></dl></div>`];
+const now = PLAN.reference.now_vdot;
+for (const id of ["tf","hm","mar"]) {
+  const r = PLAN.races.find(x => x.id === id);
+  const gap = r.vdot_needed - now;
+  cards.push(`<div class="panel"><h3>${esc(r.name)}</h3><div class="big num">${days(today, r.date)}<small>dias · ${dmy(r.date)}</small></div><dl class="kv"><dt>Meta</dt><dd>${fmtT(r.target_s)} · ${fmtP(r.target_s / r.dist_km)}/km</dd><dt>VDOT exigido</dt><dd>${nf(r.vdot_needed,1)}</dd><dt>VDOT hoje (estimado)</dt><dd>${nf(now,1)}</dd><dt>Falta</dt><dd class="${gap>5?'bad':gap>2.5?'warn':'good'}">+${nf(gap,1)}</dd></dl></div>`);
+}
+$("#pl-cards").innerHTML = cards.join("");
+
+// ---------- legenda ----------
+const phs = [["tf","22K"],["base","Base"],["dev","Desenvolvimento"],["trip","Viagem"],["hm","Específico meia"],["taperhm","Polimento"],["mbase","Maratona"]];
+$("#pl-legend").innerHTML = phs.map(([k,n]) => `<span><i style="--c:var(${PHC[k]});opacity:.45"></i>${n}</span>`).join("") + `<span><i style="--c:transparent;border:1.5px solid var(--ink)"></i>assessoria</span><span><i style="--c:var(--ink)"></i>realizado</span><span><i class="line" style="--c:var(--ink-2)"></i>longão</span>`;
+
+// ---------- gráfico de carga ----------
+function loadChart(){
+  const el = $("#pl-c-load"), Wd = Math.max(760, el.clientWidth), H = 300, m = {l:40,r:12,t:26,b:30};
+  const iw = Wd - m.l - m.r, ih = H - m.t - m.b, n = W.length, bw = iw / n, max = 120;
+  const y = v => m.t + ih - v / max * ih, x = i => m.l + bw * i;
+  let s = `<svg viewBox="0 0 ${Wd} ${H}" height="${H}" role="img" aria-label="Carga semanal planejada e realizada">`;
+  for (let v = 0; v <= max; v += 20) s += `<line x1="${m.l}" x2="${Wd-m.r}" y1="${y(v)}" y2="${y(v)}" stroke="var(--grid)"/><text x="${m.l-6}" y="${y(v)+4}" text-anchor="end">${v}</text>`;
+  const hmEnd = W.findIndex(w => w.end === "2027-05-16");
+  s += `<line x1="${m.l}" x2="${x(hmEnd+1)}" y1="${y(80)}" y2="${y(80)}" stroke="var(--warn)" stroke-width="1.5" stroke-dasharray="5 4"/><text x="${m.l+4}" y="${y(80)-5}">teto 80 km</text>`;
+  s += `<line x1="${x(hmEnd+1)}" x2="${Wd-m.r}" y1="${y(100)}" y2="${y(100)}" stroke="var(--ink-3)" stroke-width="1" stroke-dasharray="3 4"/><text x="${Wd-m.r}" y="${y(100)-5}" text-anchor="end">100 km · dobras</text>`;
+  W.forEach((w,i) => {
+    const bx = x(i) + 2, bwi = Math.max(2, bw - 4);
+    s += `<rect x="${bx}" y="${y(w.km)}" width="${bwi}" height="${ih - (y(w.km) - m.t)}" rx="2" fill="var(${PHC[w.phase]})" opacity="${w.source==="assessoria" ? .7 : w.deload ? .28 : .45}"/>`;
+    if (w.source === "assessoria") s += `<rect x="${bx}" y="${y(w.km)}" width="${bwi}" height="${ih - (y(w.km) - m.t)}" rx="2" fill="none" stroke="var(--ink)" stroke-width="1.5"/>`;
+    const ac = ACT.weeks[w.start];
+    if (ac) s += `<rect x="${bx + bwi*0.22}" y="${y(ac.km)}" width="${bwi*0.56}" height="${ih - (y(ac.km) - m.t)}" rx="2" fill="var(--ink)"/>`;
+    if (w.race) s += `<path d="M${x(i)+bw/2-5},${m.t-14} l5,8 l5,-8z" fill="var(--s2)"/>`;
+    if (i % 4 === 0) s += `<text x="${x(i)+bw/2}" y="${H-10}" text-anchor="middle">${dm(w.start)}</text>`;
+  });
+  let d = ""; W.forEach((w,i) => { d += `${i?"L":"M"}${(x(i)+bw/2).toFixed(1)},${y(w.long_km).toFixed(1)}`; });
+  s += `<path d="${d}" fill="none" stroke="var(--ink-2)" stroke-width="1.5"/>`;
+  W.forEach((w,i) => { const ac = ACT.weeks[w.start]; if (ac) s += `<circle cx="${x(i)+bw/2}" cy="${y(ac.long_km)}" r="3.5" fill="var(--panel)" stroke="var(--ink)" stroke-width="2"/>`; });
+  const ci = W.indexOf(cur);
+  s += `<rect x="${x(ci)}" y="${m.t}" width="${bw}" height="${ih}" fill="none" stroke="var(--accent)" stroke-width="1.5" rx="3"/>`;
+  s += `<rect x="${m.l}" y="${m.t}" width="${iw}" height="${ih}" fill="transparent" class="hit"/></svg><div class="tip" hidden></div>`;
+  el.innerHTML = s;
+  const svg = el.querySelector("svg"), tip = el.querySelector(".tip");
+  svg.addEventListener("pointermove", ev => {
+    const r = svg.getBoundingClientRect(), px = (ev.clientX - r.left) * Wd / r.width;
+    const i = Math.max(0, Math.min(n-1, Math.floor((px - m.l) / bw))), w = W[i], ac = ACT.weeks[w.start];
+    tip.innerHTML = `<b>Semana ${w.n}</b> · ${w.source} · ${dm(w.start)}–${dm(w.end)}<br>${esc(PHN[w.phase])}${w.deload?" · alívio":""}<br>Plano <b class="num">${w.km} km</b> · longão ${w.long_km} km${ac?`<br>Realizado <b class="num">${nf(ac.km,1)} km</b> em ${ac.runs} corridas`:""}${w.race?`<br><span style="color:var(--s2)">● ${esc(w.race)}</span>`:""}`;
+    tip.hidden = false;
+    const tx = (x(i) + bw/2) / Wd * r.width; tip.style.left = Math.max(0, Math.min(r.width - 280, tx + 12)) + "px"; tip.style.top = "8px";
+  });
+  svg.addEventListener("pointerleave", () => tip.hidden = true);
+}
+
+// ---------- fases ----------
+$("#pl-phases").innerHTML = PLAN.phases.map(p => `<div class="ph" style="--c:var(${PHC[p.id]})"><b>${esc(p.name)}</b><span class="note">${esc(p.focus)}</span><span class="d">${dm(p.from)}–${dmy(p.to)}</span></div>`).join("");
+
+// ---------- VDOT ----------
+function vdotChart(){
+  const el = $("#pl-c-vdot"), Wd = el.clientWidth || 460, H = 220, m = {l:34,r:14,t:14,b:26};
+  const iw = Wd - m.l - m.r, ih = H - m.t - m.b, lo = 48, hi = 61;
+  const t0 = dnum("2026-11-02"), t1 = dnum("2027-09-30");
+  const x = d => m.l + (dnum(d) - t0) / (t1 - t0) * iw, y = v => m.t + ih - (v - lo) / (hi - lo) * ih;
+  let s = `<svg viewBox="0 0 ${Wd} ${H}" height="${H}" role="img" aria-label="VDOT exigido por prova">`;
+  for (let v = 50; v <= 60; v += 2) s += `<line x1="${m.l}" x2="${Wd-m.r}" y1="${y(v)}" y2="${y(v)}" stroke="var(--grid)"/><text x="${m.l-6}" y="${y(v)+4}" text-anchor="end">${v}</text>`;
+  const R = PLAN.reference;
+  [[R.best_2025_vdot,"melhor 2025 (previsão meia 1:22:14)"],[R.chicago_vdot,"Chicago 2:58"]].forEach(([v,l]) => { s += `<line x1="${m.l}" x2="${Wd-m.r}" y1="${y(v)}" y2="${y(v)}" stroke="var(--ink-3)" stroke-dasharray="4 4"/><text x="${Wd-m.r}" y="${y(v)-4}" text-anchor="end">${l} · ${nf(v,1)}</text>`; });
+  const pts = [{date:"2026-11-02", v:R.now_vdot, name:"hoje"}].concat(PLAN.races.map(r => ({date:r.date, v:r.vdot_needed, name:r.name})));
+  s += `<path d="${pts.map((p,i)=>`${i?"L":"M"}${x(p.date).toFixed(1)},${y(p.v).toFixed(1)}`).join("")}" fill="none" stroke="var(--s1)" stroke-width="2"/>`;
+  pts.forEach((p,i) => { s += `<circle cx="${x(p.date)}" cy="${y(p.v)}" r="${i?4.5:5.5}" fill="${i?"var(--s1)":"var(--s2)"}" stroke="var(--panel)" stroke-width="2"/>`; });
+  ["2026-12-01","2027-03-01","2027-06-01","2027-09-01"].forEach(d => s += `<text x="${x(d)}" y="${H-8}" text-anchor="middle">${["dez","mar","jun","set"][["2026-12-01","2027-03-01","2027-06-01","2027-09-01"].indexOf(d)]}</text>`);
+  s += `</svg>`;
+  el.innerHTML = s;
+  $("#pl-vdot-note").innerHTML = `Hoje ≈ <b class="num">${nf(R.now_vdot,1)}</b> (previsão de meia do Garmin, 1:30:33). Pontos: ${pts.slice(1).map(p=>`${esc(p.name)} <b class="num">${nf(p.v,1)}</b>`).join(" · ")}.`;
+}
+
+// ---------- paces ----------
+$("#pl-paces").innerHTML = `<thead><tr><th>Fase</th><th class="n">VDOT</th><th class="n">Fácil (≤133 bpm)</th><th class="n">Maratona</th><th class="n">Meia</th><th class="n">Limiar (~LV2)</th><th class="n">Intervalado (I)</th><th class="n">Repetição (R)</th></tr></thead><tbody>` +
+  PLAN.phases.filter(p => p.id !== "trip").map(p => { const q = p.paces; return `<tr><td><span class="chip" style="--c:var(${PHC[p.id]})"></span>${esc(p.name)}</td><td class="n">${nf(q.vdot,1)}</td><td class="n">${fmtP(q.E[0])}–${fmtP(q.E[1])}</td><td class="n">${fmtP(q.M)}</td><td class="n">${fmtP(q.HM)}</td><td class="n">${fmtP(q.T)}</td><td class="n">${fmtP(q.I)}</td><td class="n">${fmtP(q.R)}</td></tr>`; }).join("") + `</tbody>`;
+
+// ---------- assessoria ----------
+const DOW = ["dom","seg","ter","qua","qui","sex","sáb"];
+const dw = d => `${DOW[new Date(dnum(d)).getUTCDay()]} ${dm(d)}`;
+const PF = Object.fromEntries(PLAN.phases.map(p => [p.id, p.focus])); PF.rec = "Recuperação: só leve.";
+const DONE = Object.fromEntries((PLAN.coach.workouts || []).filter(c => c.done).map(c => [c.date, c.done]));
+$("#pl-coach-sub").innerHTML = CO.length ? `${CO.length} treinos da assessoria lidos do calendário (atualizado em ${dmy(PLAN.coach.read_at)}), de ${dm(CO[0].date)} a ${dm(CO[CO.length-1].date)}.` : "Nenhum treino da assessoria no calendário do Garmin.";
+$("#pl-coach").innerHTML = CO.map(c => {
+  const d = DONE[c.date];
+  const st = d ? `<div class="st">Feito: <b class="num">${nf(d.km,1)} km · ${d.min}' · ${fmtP(d.pace)}/km · FC ${d.hr}</b>. ${esc(d.verdict)}</div>` : (c.date < today ? `<div class="st warn">Sem atividade registrada.</div>` : "");
+  return `<div class="day ${d ? "done" : (c.date < today ? "miss" : "")}"><span class="dt">${dw(c.date)}</span><span>${esc(c.text)}</span><span class="num muted">${nf(c.km,1)} km · ${c.min}'</span><span class="tg">${c.targets.map(x => `${esc(x.what)} ${fmtP(x.pace[0])}–${fmtP(x.pace[1])}`).join(" · ")}</span>${st}</div>`;
+}).join("");
+$("#pl-zmap").innerHTML = `<thead><tr><th>Zona</th><th class="n">Assessoria</th><th>Referência hoje</th></tr></thead><tbody>${PLAN.zone_map.map(z => `<tr><td><b>${esc(z.zone)}</b></td><td class="n">${fmtP(z.coach[0])}–${fmtP(z.coach[1])}</td><td class="${z.flag === "faster" ? "warn" : ""}">${esc(z.ref)}</td></tr>`).join("")}</tbody>`;
+const obs = [];
+const easyDone = CO.filter(c => c.done && c.type === "rodagem" && c.done.hr);
+if (easyDone.length) { const hrs = easyDone.map(c => c.done.hr), hi = easyDone.filter(c => c.done.hr > 133).length; obs.push(`Rodagens (ZR) feitas: FC média ${Math.round(hrs.reduce((a,b)=>a+b,0)/hrs.length)} bpm; ${hi} de ${easyDone.length} acima do LV1 (133). Vale combinar com a assessoria se o ZR é por pace ou por FC.`); }
+const fastCoach = CO.filter(c => c.date >= today && c.targets.some(t => t.pace[0] < (PLAN.reference.lv2_pace_now || 250)));
+if (fastCoach.length) obs.push(`${fastCoach.length} treino(s) à frente com blocos mais rápidos que o seu limiar atual (~${fmtP(PLAN.reference.lv2_pace_now || 250)}/km na FC de LV2): o painel mede a deriva de FC nesses blocos.`);
+const wkNow = W.find(w => w.start <= today && today <= w.end), wkPrevStart = wkNow ? new Date(dnum(wkNow.start) - 7*864e5).toISOString().slice(0,10) : null;
+if (wkNow && wkNow.source === "assessoria" && ACT.weeks[wkPrevStart]) { const prev = ACT.weeks[wkPrevStart].km; if (wkNow.km > prev * 1.3) obs.push(`Semana planejada com ${wkNow.km} km depois de ${nf(prev,0)} km feitos na anterior (+${Math.round((wkNow.km/prev-1)*100)}%). O painel acompanha a recuperação (HRV, FC de repouso, sono).`); }
+$("#pl-obs").innerHTML = obs.length ? obs.map(x => `<li>${esc(x)}</li>`).join("") : "<li>Nada fora do esperado nos treinos da assessoria.</li>";
+
+// ---------- semanas ----------
+let rows = "", lastPh = null;
+for (const w of W) {
+  if (w.phase !== lastPh) { rows += `<tr class="phase"><td colspan="8"><span class="chip" style="--c:var(${PHC[w.phase]})"></span>${esc(PHN[w.phase])}</td></tr>`; lastPh = w.phase; }
+  const ac = ACT.weeks[w.start];
+  const real = ac ? `${nf(ac.km,1)}<div class="small muted">${Math.round(ac.km / w.km * 100)}%</div>` : "–";
+  const inc = w.inc_vs_last_full_pct == null ? "–" : (w.deload || w.race) ? "alívio" : `${w.inc_vs_last_full_pct > 0 ? "+" : ""}${w.inc_vs_last_full_pct}%`;
+  const incCls = typeof w.inc_vs_last_full_pct === "number" && !w.deload && !w.race && w.inc_vs_last_full_pct > 15 ? "warn" : "";
+  rows += `<tr class="${w === cur ? "now" : ""} ${w.race ? "race" : ""}"><td class="n">${w.n}<div class="muted">${dm(w.start)}</div></td><td><span class="src ${w.source === "assessoria" ? "coach" : ""}">${w.source}</span></td><td class="n">${w.km}</td><td class="n">${real}</td><td class="n ${incCls}">${inc}</td><td class="n">${w.long_km}</td><td>${w.source === "assessoria" ? CO.filter(c => c.date >= w.start && c.date <= w.end).map(c => `<div><b>${dw(c.date)}</b> ${esc(c.text)} <span class="muted num">${nf(c.km,1)} km</span></div>`).join("") : `<span class="muted">${esc(PF[w.phase] || "")}</span>`}</td><td>${w.race ? `<b style="color:var(--s2)">${esc(w.race)}</b><br>` : ""}${esc(w.note)}${w.doubles ? " Dobras." : ""}</td></tr>`;
+}
+$("#pl-weeks").innerHTML = `<thead><tr><th class="n">Sem.</th><th>Fonte</th><th class="n">Plano km</th><th class="n">Feito</th><th class="n">Δ</th><th class="n">Longo</th><th>Treinos</th><th>Prova / nota</th></tr></thead><tbody>${rows}</tbody>`;
+
+// ---------- regras ----------
+$("#pl-rules").innerHTML = PLAN.rules.map(r => `<li>${esc(r)}</li>`).join("");
+
+// ---------- avaliação ----------
+const E = [
+  ["Execução × assessoria","Pace de cada volta × janela do passo; tempo e distância × previsto","% dos tiros e blocos dentro da janela. 02/11: previa 60' ZR a 4:50–5:14; foram 51' a 5:27 (85% do tempo, 13 s/km mais lento que a janela)."],
+  ["Rodagem (ZR)","FC média × LV1 (133); pace na FC de LV1 (hoje 5:13/km)","Mesmo pace com FC menor ao longo das semanas. 02/11: FC 142 a 5:27, acima de LV1."],
+  ["Tiros (ZT)","Pace × 3:22–3:37; variação entre tiros; FC no último","Variação < 2% e último tiro tão rápido quanto o primeiro. Queda > 3 s/km ou FC subindo > 5 bpm = carga alta."],
+  ["Ritmo de prova / ZE","Pace e deriva de FC dentro do bloco","Deriva < 5 bpm no bloco e o mesmo pace com FC menor semana a semana. Pace na FC de LV2 (hoje 4:10) caminhando para ~3:50 em maio."],
+  ["Longo","Desacoplamento pace:FC (já calculado)","< 5% nos longos; < 3–4% com blocos no ritmo no fim do ciclo."],
+  ["Semana","km e treinos feitos × assessoria; carga × projeção","Aderência ≥ 90%. Duas semanas < 75% = conversar com a assessoria, não compensar."],
+];
+$("#pl-eval").innerHTML = `<thead><tr><th>Treino</th><th>Métrica</th><th>O que mostra evolução</th></tr></thead><tbody>${E.map(r=>`<tr><td><b>${esc(r[0])}</b></td><td>${esc(r[1])}</td><td>${esc(r[2])}</td></tr>`).join("")}</tbody>`;
+
+// ---------- checkpoints ----------
+const CK = [
+  ["06/12/26","Track&Field 22K","≤ 1:29:50 (4:05)","VDOT ≥ 53,8: segue o plano. 52–53,8: segue, paces da tabela. < 52: base mais longa, meta da meia revista."],
+  ["20/02/27","Teste 10 km","≤ 37:30","VDOT ≥ 56: meia 1:20 realista. 55–56: alvo 1:21–1:22. < 55: alvo 1:22–1:23 e foco na maratona."],
+  ["16/05/27","Meia maratona","1:20:00","Resultado define o pace de maratona: VDOT 58,4 → 2:47–2:48 sem ganho extra; 2:45 pede ~59,3."],
+  ["22/08/27","Meia de controle","≤ 1:19:30","VDOT ≥ 59: largar a 3:55. 58–59: largar a 3:57–3:58 (2:46–2:47). < 58: alvo 2:48–2:50."],
+];
+$("#pl-checks").innerHTML = `<thead><tr><th>Data</th><th>Prova</th><th>Meta</th><th>Decisão</th></tr></thead><tbody>${CK.map(r=>`<tr><td class="n">${r[0]}</td><td><b>${esc(r[1])}</b></td><td class="n">${esc(r[2])}</td><td>${esc(r[3])}</td></tr>`).join("")}</tbody>`;
+
+const R = PLAN.reference;
+$("#pl-honest").innerHTML = `<ul class="clean">
+<li>As duas metas de 2027 pedem um nível que você ainda não atingiu: a meia em 1:20 equivale a VDOT <b class="num">58,4</b>, e a maratona em 2:45, a <b class="num">59,3</b>. Seu melhor até hoje é <b class="num">${nf(R.best_2025_vdot,1)}</b> (previsão de meia de 2025) e Chicago 2:58 foi <b class="num">${nf(R.chicago_vdot,1)}</b>. Hoje a estimativa está em <b class="num">${nf(R.now_vdot,1)}</b>, depois de semanas de volume baixo.</li>
+<li>Pela tabela de Daniels, 2:45 é mais exigente que a meia em 1:20. Por isso a meia funciona como teste: 1:20 em maio mais um ganho de ~1 ponto até setembro deixa 2:45 ao alcance.</li>
+<li>O 22K a 4:05 também é ambicioso para 5 semanas (VDOT 53,8). Ele mede onde você está; não vale forçar a carga para chegar lá.</li>
+<li>O que mais deve render, pelos seus dados: deixar os leves realmente leves (hoje 63% do tempo fica entre LV1 e LV2), consistência de 6–7 corridas por semana e força.</li></ul>`;
+
+// ---------- método ----------
+const M = [
+  "Paces pelo VDOT de Daniels (Daniels' Running Formula), sempre pelo nível atual medido e recalibrados nos checkpoints, nunca pela meta.",
+  "Distribuição de intensidade ~80/20 ou piramidal, com zonas ancoradas no seu teste cardiopulmonar (LV1 133, LV2 162 bpm). Seiler (2010); Stöggl & Sperlich (2014); Casado et al. (2022), com maratonistas de elite.",
+  "Limiar como principal motor da meia e da maratona: blocos em ~LV2 (cruise intervals, 20–30' contínuos) e, na maratona, longos com blocos no pace de prova, prática de treinadores de elite (Pfitzinger, Canova).",
+  "Progressão de carga: ~10–15% sobre a última semana cheia e 1 semana de alívio a cada 3. A regra dos 10% tem pouca evidência isolada (Damsted et al., 2019); aumentos > 30% por semana se associaram a mais lesão em corredores (Nielsen et al., 2014). A razão aguda/crônica (0,8–1,3, Gabbett 2016) fica como monitor, não como regra rígida.",
+  "Polimento de 2 semanas (meia) e 3 semanas (maratona), cortando 40–60% do volume e mantendo intensidade e frequência: meta-análise de Bosquet et al. (2007).",
+  "Força pesada e pliometria 2× por semana melhoram a economia de corrida em ~2–8%: Balsalobre-Fernández et al. (2016) e Blagrove et al. (2018).",
+  "Longão até ~30–35% do volume semanal; os longos de 32–35 km com blocos no pace ficam para as 6–8 semanas finais da maratona.",
+];
+$("#pl-method").innerHTML = M.map(t => `<li>${esc(t)}</li>`).join("");
+
+loadChart(); vdotChart();
+window.__plRedraw = () => { loadChart(); vdotChart(); };
+}
+
+fetch("/api/plan", {cache:"no-store"}).then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
+  .then(p => { renderPlan(p); let t; addEventListener("resize", () => { clearTimeout(t); t = setTimeout(() => window.__plRedraw && window.__plRedraw(), 150); }); })
+  .catch(e => { const el = document.querySelector("#pl-status"); if (el) el.textContent = "A aba Plano ainda não tem dados: ela é gerada pela próxima execução do cron (" + e.message + ")."; });
+})();
+</script>
+
 </body>
 </html>

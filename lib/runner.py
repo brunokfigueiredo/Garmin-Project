@@ -64,8 +64,23 @@ def run(to: str | None = None, dry: bool = False):
         log = json.load(open(f"{out}/log_{to}.json"))
         rep = json.load(open(f"{out}/derived/daily_report.json"))
         rep.pop("vdot_series", None)
+        # aba Plano: treinos da assessoria (calendário) × realizado + projeção de carga
+        plan_obj = None
+        try:
+            import plan
+            U = json.load(open(f"{out}/lote_completo.json"))["upserts"]
+            plan_obj, plan_summary, planned = plan.build(raw, U, to, store.get_json(store.K_PLANNED) or {})
+            try: plan_obj["reference"]["lv2_pace_now"] = rep["cpet"]["current"]["lv2_band"]["pace_s_per_km"]
+            except Exception: pass
+            rep["plan"] = plan_summary
+            log["plan_workouts"] = len(plan_obj["coach"]["workouts"])
+        except Exception as e:
+            log["plan_error"] = f"{type(e).__name__}: {e}"[:200]
         log["status"] = "done"; log["duration_s"] = round(time.time() - t_start, 1); log["tokens_from"] = src
         if not dry:
+            if plan_obj is not None:
+                store.put_json(store.K_PLAN, plan_obj)
+                store.put_json(store.K_PLANNED, planned)
             store.r().set(store.K_LOTE_PREV, store.r().get(store.K_LOTE))
             store.put_bytes(store.K_LOTE, open(f"{out}/lote_completo.json", "rb").read())
             store.put_bytes(store.K_DATA, open(f"{out}/data.json", "rb").read())

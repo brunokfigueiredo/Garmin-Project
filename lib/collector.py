@@ -133,10 +133,30 @@ class Collector:
                 "gear": [{"uuid": g.get("uuid"), "name": g.get("displayName") or g.get("customMakeModel") or " ".join(x for x in [g.get("brand"), g.get("model")] if x) or g.get("name")} for g in gr] if isinstance(gr, list) else [],
                 "fetched_at": datetime.now(timezone.utc).isoformat()}
 
+    def calendar(self):
+        """Treinos da assessoria no calendário do Garmin: mês de hoje e o de daqui a 3 semanas, mais o detalhe de cada
+        treino agendado entre hoje−7 e hoje+21 (só GET)."""
+        T = date.fromisoformat(self.cfg["TO"])
+        months = sorted({(d.year, d.month) for d in (T - timedelta(7), T, T + timedelta(21))})
+        lo, hi = (T - timedelta(7)).isoformat(), (T + timedelta(21)).isoformat()
+        for y, m in months:
+            key = f"raw|calendar|{y}-{m:02d}"
+            j = self.get(f"/calendar-service/year/{y}/month/{m - 1}")
+            if not isinstance(j, dict): self.rows[key] = {"__empty": True}; continue
+            items = [{k: it.get(k) for k in ("id", "itemType", "date", "title", "workoutId", "sportTypeKey")}
+                     for it in j.get("calendarItems") or [] if it.get("itemType") == "workout"]
+            self.rows[key] = {"calendarItems": items}
+            for it in items:
+                wid = it.get("workoutId")
+                if not wid or not (lo <= (it.get("date") or "") <= hi) or f"raw|workout|{wid}" in self.rows: continue
+                w = self.get(f"/workout-service/workout/{wid}")
+                self.rows[f"raw|workout|{wid}"] = {"__empty": True} if not isinstance(w, dict) else {
+                    k: w.get(k) for k in ("workoutId", "workoutName", "description", "estimatedDistanceInMeters", "estimatedDurationInSecs", "workoutSegments")}
+
     def run(self):
         status = "done"
         try:
-            self.activities(); self.wellness(); self.performance(); self.details()
+            self.activities(); self.wellness(); self.performance(); self.details(); self.calendar()
         except Halt as h:
             status = h.status
         out = {"__exported_at": datetime.now(timezone.utc).isoformat(), "__errs": self.errs, "__calls": self.n, "__cfg": self.cfg, "__status": status}

@@ -4,6 +4,7 @@ Rotas:
   /             → public/index.html (o painel)
   /api/cron     → pipeline diário (Vercel Cron, Authorization: Bearer $CRON_SECRET; ?to=AAAA-MM-DD reprocessa um dia)
   /api/data     → data.json do painel
+  /api/plan     → aba Plano (treinos da assessoria × realizado + projeção)
   /api/report   → relatório do último dia (?date=AAAA-MM-DD devolve o log daquele dia)
 O projeto inteiro fica atrás da Vercel Authentication (All Deployments).
 """
@@ -45,12 +46,18 @@ def app(environ, start_response):
         except Exception as e:
             res = {"status": "ERROR", "detail": f"{type(e).__name__}: {e}"[:300]}
         # Resumo nos logs de runtime (o Claude lê pelo conector da Vercel); sem tokens nem dados brutos.
-        print("PIPELINE_RESULT " + json.dumps({k: res.get(k) for k in ("status", "to", "calls", "errors", "readiness", "alerts_today", "duration_s", "detail")}, ensure_ascii=False), flush=True)
+        print("PIPELINE_RESULT " + json.dumps({k: res.get(k) for k in ("status", "to", "calls", "errors", "readiness", "alerts_today", "plan_workouts", "plan_error", "duration_s", "detail")}, ensure_ascii=False), flush=True)
         return _json(start_response, 200 if res.get("status") == "done" else 500, res)
 
     if path == "/api/data":
         import store
         gz = store.get_gz(store.K_DATA)
+        if not gz: return _json(start_response, 404, {"status": "not_found"})
+        return _send(start_response, "200 OK", gz, extra=(("Content-Encoding", "gzip"),))
+
+    if path == "/api/plan":
+        import store
+        gz = store.get_gz(store.K_PLAN)
         if not gz: return _json(start_response, 404, {"status": "not_found"})
         return _send(start_response, "200 OK", gz, extra=(("Content-Encoding", "gzip"),))
 
