@@ -4,6 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="robots" content="noindex">
+<script>/* Tema: "clean" (claro) por padrão; "dark" só se escolhido no botão do topo. */
+(function(){var t="light";try{if(localStorage.getItem("painel-theme")==="dark")t="dark"}catch(e){}document.documentElement.setAttribute("data-theme",t)})();</script>
 <title>Painel de Treino</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Source+Sans+3:wght@400;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
@@ -174,12 +176,26 @@ details summary{cursor:pointer;font-weight:600}
 #plano details summary{cursor:pointer;font-weight:600}
 #plano .callout{border:1px solid var(--rule);border-left:4px solid var(--warn);border-radius:8px;padding:12px 14px;background:var(--panel)}
 @media (prefers-reduced-motion:no-preference){#plano .bar i{transition:width .5s ease}}
+/* Modo clean / escuro */
+.theme-btn{font:600 12px var(--body);padding:4px 10px;border-radius:999px;align-self:center}
+/* Seções recolhíveis (todas depois das 4 primeiras) */
+section.collapsible>h2{cursor:pointer;display:flex;align-items:center;gap:10px;user-select:none;padding:10px 12px;margin-inline:-12px;border-radius:8px}
+section.collapsible>h2:hover{background:var(--panel)}
+section.collapsible>h2:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+section.collapsible>h2::after{content:"";margin-left:auto;width:9px;height:9px;border-right:2px solid var(--ink-3);border-bottom:2px solid var(--ink-3);transform:rotate(45deg);transition:transform .2s ease;flex:none}
+section.collapsible.collapsed>h2::after{transform:rotate(-45deg)}
+section.collapsible.collapsed>h2{margin-bottom:0}
+section.collapsible.collapsed>:not(h2){display:none!important}
+section.collapsible>h2 .hint{font:400 12px var(--body);text-transform:none;letter-spacing:0;color:var(--ink-3)}
+section.collapsible:not(.collapsed)>h2 .hint{display:none}
+@media (max-width:640px){section.collapsible>h2 .hint{display:none}}
 </style>
 </head>
 <body>
 <header class="top"><div class="topbar">
   <div class="brand">Painel de Treino <small id="asof">carregando…</small></div>
   <nav aria-label="Seções"><a href="#hoje">Hoje</a><a href="#recuperacao">Recuperação</a><a href="#carga">Carga</a><a href="#performance">Performance</a><a href="#teste">Teste</a><a href="#plano">Plano</a><a href="#alertas">Alertas</a><a href="#dados">Dados</a></nav>
+  <button type="button" class="theme-btn" id="theme-btn" aria-label="Alternar tema"></button>
 </div></header>
 
 <main class="wrap">
@@ -834,5 +850,32 @@ fetch("/api/plan", {cache:"no-store"}).then(r => { if (!r.ok) throw new Error(r.
 })();
 </script>
 
+<script>
+(() => {
+"use strict";
+// Tema
+const btn = document.getElementById("theme-btn");
+const cur = () => document.documentElement.getAttribute("data-theme") === "dark" ? "dark" : "light";
+const paint = () => { btn.textContent = cur() === "dark" ? "☀ Clean" : "☾ Escuro"; btn.title = cur() === "dark" ? "Mudar para o modo clean" : "Mudar para o modo escuro"; };
+btn.addEventListener("click", () => { const t = cur() === "dark" ? "light" : "dark"; document.documentElement.setAttribute("data-theme", t); try { localStorage.setItem("painel-theme", t); } catch (e) {} paint(); });
+paint();
+// Seções recolhíveis: as 4 primeiras ficam abertas, o resto começa minimizado
+const secs = [...document.querySelectorAll("main > section")].slice(4);
+const redraw = () => window.dispatchEvent(new Event("resize"));
+const setOpen = (sec, open) => { sec.classList.toggle("collapsed", !open); sec.querySelector(":scope > h2").setAttribute("aria-expanded", String(open)); if (open) redraw(); };
+secs.forEach(sec => {
+  const h = sec.querySelector(":scope > h2"); if (!h) return;
+  sec.classList.add("collapsible");
+  h.setAttribute("role", "button"); h.tabIndex = 0;
+  h.insertAdjacentHTML("beforeend", '<span class="hint">toque para expandir</span>');
+  setOpen(sec, false);
+  h.addEventListener("click", () => setOpen(sec, sec.classList.contains("collapsed")));
+  h.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); h.click(); } });
+});
+const openHash = () => { const sec = location.hash && document.querySelector(location.hash); if (sec && sec.classList.contains("collapsed")) setOpen(sec, true); };
+document.querySelectorAll('nav a[href^="#"]').forEach(a => a.addEventListener("click", () => { const sec = document.querySelector(a.getAttribute("href")); if (sec && sec.classList.contains("collapsed")) setOpen(sec, true); }));
+addEventListener("hashchange", openHash); openHash();
+})();
+</script>
 </body>
 </html>
