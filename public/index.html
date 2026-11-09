@@ -148,7 +148,19 @@ details summary{cursor:pointer;font-weight:600}
 #plano td.n, #plano th.n{text-align:right;font-family:var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap}
 #plano tr.phase td{background:var(--bg);font:600 13px var(--display);text-transform:uppercase;letter-spacing:.05em;color:var(--ink-2)}
 #plano tr.now td{background:color-mix(in srgb,var(--accent) 10%,transparent)}
-#plano tr.race td:first-child{box-shadow:inset 3px 0 0 var(--s2)}
+#plano tr.wk-race td:first-child{box-shadow:inset 3px 0 0 var(--s2)}
+#plano tr.phase td{cursor:pointer;user-select:none}
+#plano tr.phase td:hover{background:var(--panel)}
+#plano tr.phase .ph-meta{float:right;font:400 12px var(--body);text-transform:none;letter-spacing:0;color:var(--ink-3)}
+#plano tr.phase .ph-meta b{color:var(--s2);font-weight:600}
+#plano tr.phase .caret{display:inline-block;width:7px;height:7px;margin:0 10px 2px 2px;border-right:2px solid var(--ink-3);border-bottom:2px solid var(--ink-3);transform:rotate(45deg);transition:transform .2s ease}
+#plano tr.phase.closed .caret{transform:rotate(-45deg)}
+#plano tr.phase td:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
+#plano tr.wk[hidden]{display:none}
+#plano .wk-tools{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 10px}
+#plano .wk-tools button{font:600 12px var(--body);padding:4px 10px;border-radius:999px;border:1px solid var(--rule);background:var(--panel);color:var(--ink-2);cursor:pointer}
+#plano .wk-tools button:hover{color:var(--ink)}
+@media (max-width:640px){#plano tr.phase .ph-meta{float:none;display:block;margin-top:2px}}
 #plano .chip{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px;vertical-align:-1px;background:var(--c)}
 #plano .small{font-size:11px}
 #plano .src{display:inline-block;font:600 10px var(--body);text-transform:uppercase;letter-spacing:.06em;padding:1px 6px;border-radius:4px;border:1px solid var(--rule);color:var(--ink-2)}
@@ -305,7 +317,8 @@ section.collapsible:not(.collapsed)>h2 .hint{display:none}
 
   <div class="plsec">
     <h3>Semana a semana</h3>
-    <p class="sub">Semanas com a etiqueta <b>assessoria</b> usam os treinos do calendário. As demais mostram só a carga projetada e o foco da fase, até a assessoria publicar os treinos. Δ = aumento sobre a última semana cheia.</p>
+    <p class="sub">Semanas com a etiqueta <b>assessoria</b> usam os treinos do calendário. As demais mostram só a carga projetada e o foco da fase, até a assessoria publicar os treinos. Δ = aumento sobre a última semana cheia. Toque no nome de uma fase para recolher ou expandir.</p>
+    <div class="wk-tools"><button type="button" id="pl-wk-open">Expandir todas</button><button type="button" id="pl-wk-close">Recolher todas</button><button type="button" id="pl-wk-now">Só a fase atual</button></div>
     <div class="panel tbl"><table id="pl-weeks"></table></div>
   </div>
 
@@ -787,16 +800,45 @@ if (wkNow && wkNow.source === "assessoria" && ACT.weeks[wkPrevStart]) { const pr
 $("#pl-obs").innerHTML = obs.length ? obs.map(x => `<li>${esc(x)}</li>`).join("") : "<li>Nada fora do esperado nos treinos da assessoria.</li>";
 
 // ---------- semanas ----------
-let rows = "", lastPh = null;
-for (const w of W) {
-  if (w.phase !== lastPh) { rows += `<tr class="phase"><td colspan="8"><span class="chip" style="--c:var(${PHC[w.phase]})"></span>${esc(PHN[w.phase])}</td></tr>`; lastPh = w.phase; }
-  const ac = ACT.weeks[w.start];
-  const real = ac ? `${nf(ac.km,1)}<div class="small muted">${Math.round(ac.km / w.km * 100)}%</div>` : "–";
-  const inc = w.inc_vs_last_full_pct == null ? "–" : (w.deload || w.race) ? "alívio" : `${w.inc_vs_last_full_pct > 0 ? "+" : ""}${w.inc_vs_last_full_pct}%`;
-  const incCls = typeof w.inc_vs_last_full_pct === "number" && !w.deload && !w.race && w.inc_vs_last_full_pct > 15 ? "warn" : "";
-  rows += `<tr class="${w === cur ? "now" : ""} ${w.race ? "race" : ""}"><td class="n">${w.n}<div class="muted">${dm(w.start)}</div></td><td><span class="src ${w.source === "assessoria" ? "coach" : ""}">${w.source}</span></td><td class="n">${w.km}</td><td class="n">${real}</td><td class="n ${incCls}">${inc}</td><td class="n">${w.long_km}</td><td>${w.source === "assessoria" ? CO.filter(c => c.date >= w.start && c.date <= w.end).map(c => `<div><b>${dw(c.date)}</b> ${esc(c.text)} <span class="muted num">${nf(c.km,1)} km</span></div>`).join("") : `<span class="muted">${esc(PF[w.phase] || "")}</span>`}</td><td>${w.race ? `<b style="color:var(--s2)">${esc(w.race)}</b><br>` : ""}${esc(w.note)}${w.doubles ? " Dobras." : ""}</td></tr>`;
-}
+// Agrupa semanas consecutivas da mesma fase (a fase "rec" aparece mais de uma vez).
+const groups = [];
+for (const w of W) { const g = groups[groups.length-1]; if (g && g.phase === w.phase) g.weeks.push(w); else groups.push({phase: w.phase, weeks: [w]}); }
+const WK_KEY = "painel-wk-closed";
+let wkClosed = null; try { wkClosed = JSON.parse(localStorage.getItem(WK_KEY) || "null"); } catch (e) {}
+// Padrão: fases já terminadas começam recolhidas.
+const isClosed = (g, i) => wkClosed ? wkClosed.includes(i) : g.weeks[g.weeks.length-1].end < today;
+let rows = "";
+groups.forEach((g, gi) => {
+  const first = g.weeks[0], last = g.weeks[g.weeks.length-1];
+  const kmTot = g.weeks.reduce((a, w) => a + (w.km || 0), 0);
+  const races = g.weeks.filter(w => w.race).map(w => esc(w.race.split(" · ")[0]));
+  const closed = isClosed(g, gi), hasNow = g.weeks.includes(cur);
+  rows += `<tr class="phase${closed ? " closed" : ""}" data-g="${gi}"><td colspan="8" tabindex="0" role="button" aria-expanded="${!closed}"><span class="caret"></span><span class="chip" style="--c:var(${PHC[g.phase]})"></span>${esc(PHN[g.phase])}<span class="ph-meta">${dm(first.start)}–${dm(last.end)} · ${g.weeks.length} sem. · ${Math.round(kmTot)} km${races.length ? ` · <b>${races.join(" · ")}</b>` : ""}${hasNow ? " · <b>semana atual</b>" : ""}</span></td></tr>`;
+  for (const w of g.weeks) {
+    const ac = ACT.weeks[w.start];
+    const real = ac ? `${nf(ac.km,1)}<div class="small muted">${Math.round(ac.km / w.km * 100)}%</div>` : "–";
+    const inc = w.inc_vs_last_full_pct == null ? "–" : (w.deload || w.race) ? "alívio" : `${w.inc_vs_last_full_pct > 0 ? "+" : ""}${w.inc_vs_last_full_pct}%`;
+    const incCls = typeof w.inc_vs_last_full_pct === "number" && !w.deload && !w.race && w.inc_vs_last_full_pct > 15 ? "warn" : "";
+    rows += `<tr class="wk${w === cur ? " now" : ""}${w.race ? " wk-race" : ""}" data-g="${gi}"${closed ? " hidden" : ""}><td class="n">${w.n}<div class="muted">${dm(w.start)}</div></td><td><span class="src ${w.source === "assessoria" ? "coach" : ""}">${w.source}</span></td><td class="n">${w.km}</td><td class="n">${real}</td><td class="n ${incCls}">${inc}</td><td class="n">${w.long_km}</td><td>${w.source === "assessoria" ? CO.filter(c => c.date >= w.start && c.date <= w.end).map(c => `<div><b>${dw(c.date)}</b> ${esc(c.text)} <span class="muted num">${nf(c.km,1)} km</span></div>`).join("") : `<span class="muted">${esc(PF[w.phase] || "")}</span>`}</td><td>${w.race ? `<b style="color:var(--s2)">${esc(w.race)}</b><br>` : ""}${esc(w.note)}${w.doubles ? " Dobras." : ""}</td></tr>`;
+  }
+});
 $("#pl-weeks").innerHTML = `<thead><tr><th class="n">Sem.</th><th>Fonte</th><th class="n">Plano km</th><th class="n">Feito</th><th class="n">Δ</th><th class="n">Longo</th><th>Treinos</th><th>Prova / nota</th></tr></thead><tbody>${rows}</tbody>`;
+const wkTbl = $("#pl-weeks");
+const wkSet = (gi, closed) => {
+  const h = wkTbl.querySelector(`tr.phase[data-g="${gi}"]`); if (!h) return;
+  h.classList.toggle("closed", closed); h.firstElementChild.setAttribute("aria-expanded", String(!closed));
+  wkTbl.querySelectorAll(`tr.wk[data-g="${gi}"]`).forEach(r => { r.hidden = closed; });
+};
+const wkSave = () => { const c = [...wkTbl.querySelectorAll("tr.phase.closed")].map(r => +r.dataset.g); try { localStorage.setItem(WK_KEY, JSON.stringify(c)); } catch (e) {} };
+wkTbl.querySelectorAll("tr.phase").forEach(h => {
+  const toggle = () => { wkSet(+h.dataset.g, !h.classList.contains("closed")); wkSave(); };
+  h.addEventListener("click", toggle);
+  h.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); toggle(); } });
+});
+const nowG = groups.findIndex(g => g.weeks.includes(cur));
+$("#pl-wk-open").addEventListener("click", () => { groups.forEach((g, i) => wkSet(i, false)); wkSave(); });
+$("#pl-wk-close").addEventListener("click", () => { groups.forEach((g, i) => wkSet(i, true)); wkSave(); });
+$("#pl-wk-now").addEventListener("click", () => { groups.forEach((g, i) => wkSet(i, i !== nowG)); wkSave(); });
 
 // ---------- regras ----------
 $("#pl-rules").innerHTML = PLAN.rules.map(r => `<li>${esc(r)}</li>`).join("");
