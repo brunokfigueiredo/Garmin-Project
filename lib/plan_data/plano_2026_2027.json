@@ -1,5 +1,5 @@
 {
- "version": "1.0",
+ "version": "2.0",
  "created": "2026-11-02",
  "weeks": [
   {
@@ -17,7 +17,10 @@
    "inc_vs_last_full_pct": null,
    "doubles": false,
    "mid_long_km": "12–14",
-   "long_share_pct": 31
+   "long_share_pct": 31,
+   "source": "assessoria",
+   "coach_sessions": 5,
+   "track": "A"
   },
   {
    "n": 2,
@@ -34,7 +37,10 @@
    "inc_vs_last_full_pct": 6,
    "doubles": false,
    "mid_long_km": "12–14",
-   "long_share_pct": 33
+   "long_share_pct": 33,
+   "source": "assessoria",
+   "coach_sessions": 5,
+   "track": "A"
   },
   {
    "n": 3,
@@ -51,7 +57,9 @@
    "inc_vs_last_full_pct": 0,
    "doubles": false,
    "mid_long_km": "12–14",
-   "long_share_pct": 33
+   "long_share_pct": 33,
+   "source": "projeção",
+   "track": "A"
   },
   {
    "n": 4,
@@ -68,7 +76,9 @@
    "inc_vs_last_full_pct": 4,
    "doubles": false,
    "mid_long_km": "14–16",
-   "long_share_pct": 36
+   "long_share_pct": 36,
+   "source": "projeção",
+   "track": "A"
   },
   {
    "n": 5,
@@ -85,975 +95,807 @@
    "inc_vs_last_full_pct": -25,
    "doubles": false,
    "mid_long_km": "10–12",
-   "long_share_pct": null
+   "long_share_pct": null,
+   "source": "projeção",
+   "track": "A"
   },
   {
    "n": 6,
    "start": "2026-12-07",
    "end": "2026-12-13",
    "phase": "rec",
-   "km": 40,
+   "km": 42,
    "long_km": 14,
    "deload": true,
    "race": null,
    "q1": "Só corridas leves",
    "q2": "Sáb: educativos",
-   "note": "Recuperação da prova; força leve.",
-   "inc_vs_last_full_pct": -29,
+   "note": "Recuperação do 22K; força leve. Paces da fase seguinte recalibrados pelo resultado.",
+   "inc_vs_last_full_pct": -25,
    "doubles": false,
    "mid_long_km": "10–12",
-   "long_share_pct": 35
+   "long_share_pct": 33,
+   "source": "projeção",
+   "track": "A"
   },
   {
    "n": 7,
    "start": "2026-12-14",
    "end": "2026-12-20",
    "phase": "base",
-   "km": 52,
+   "km": 56,
    "long_km": 18,
    "deload": false,
    "race": null,
    "q1": "Ter: subidas 8×60\" fortes, volta trotando",
    "q2": "Sex: 3×10' a limiar r 2'",
-   "note": "Paces recalibrados pelo resultado do 22K.",
-   "inc_vs_last_full_pct": -7,
+   "note": "",
+   "inc_vs_last_full_pct": 0,
    "doubles": false,
    "mid_long_km": "12–14",
-   "long_share_pct": 35
+   "long_share_pct": 32,
+   "source": "projeção",
+   "track": "A"
   },
   {
    "n": 8,
    "start": "2026-12-21",
    "end": "2026-12-27",
    "phase": "base",
-   "km": 58,
+   "km": 62,
    "long_km": 20,
    "deload": false,
    "race": null,
-   "q1": "Ter: 10×400 m rápidos (R) r 400 m trote",
+   "q1": "Ter: 10×400 m (R) r 400 m trote",
    "q2": "Sex: 25' contínuos a limiar",
-   "note": "Longo progressivo: últimos 5 km a ~4:15. Semana do Natal.",
-   "inc_vs_last_full_pct": 12,
+   "note": "Semana do Natal. Longo progressivo: últimos 5 km a ~4:10.",
+   "inc_vs_last_full_pct": 11,
    "doubles": false,
-   "mid_long_km": "14–16",
-   "long_share_pct": 34
+   "mid_long_km": "14",
+   "long_share_pct": 32,
+   "source": "projeção",
+   "track": "A"
   },
   {
    "n": 9,
    "start": "2026-12-28",
    "end": "2027-01-03",
    "phase": "base",
-   "km": 48,
+   "km": 52,
    "long_km": 16,
    "deload": true,
    "race": null,
    "q1": "Ter: fartlek 10×1'/1'",
    "q2": "Sáb: educativos",
-   "note": "Semana de alívio (Ano-Novo).",
-   "inc_vs_last_full_pct": -17,
+   "note": "Alívio (Ano-Novo). Semana 20 antes da Golden Run: começa o bloco da maratona.",
+   "inc_vs_last_full_pct": -16,
    "doubles": false,
    "mid_long_km": "12–14",
-   "long_share_pct": 33
+   "long_share_pct": 31,
+   "source": "projeção",
+   "track": "A"
   },
   {
    "n": 10,
    "start": "2027-01-04",
    "end": "2027-01-10",
-   "phase": "base",
-   "km": 62,
-   "long_km": 20,
+   "phase": "mbase",
+   "km": 66,
+   "long_km": 22,
    "deload": false,
    "race": null,
    "q1": "Ter: 6×800 m a I r 2'30",
    "q2": "Sex: 4×8' a limiar r 2'",
-   "note": "",
-   "inc_vs_last_full_pct": 7,
+   "note": "Longo leve com os últimos 4 km a 3:59 (primeiro contato com o pace-alvo).",
+   "inc_vs_last_full_pct": 6,
    "doubles": false,
-   "mid_long_km": "14–16",
-   "long_share_pct": 32
+   "mid_long_km": "14",
+   "long_share_pct": 33,
+   "source": "projeção",
+   "track": "A"
   },
   {
    "n": 11,
    "start": "2027-01-11",
    "end": "2027-01-17",
-   "phase": "base",
-   "km": 66,
-   "long_km": 22,
+   "phase": "mbase",
+   "km": 72,
+   "long_km": 24,
    "deload": false,
    "race": null,
    "q1": "Ter: subidas 10×60\"",
    "q2": "Sex: 2×15' a limiar r 3'",
-   "note": "Longo progressivo.",
-   "inc_vs_last_full_pct": 6,
+   "note": "Longo progressivo: últimos 6 km a 4:05→3:59.",
+   "inc_vs_last_full_pct": 9,
    "doubles": false,
    "mid_long_km": "14–16",
-   "long_share_pct": 33
+   "long_share_pct": 33,
+   "source": "projeção",
+   "track": "A"
   },
   {
    "n": 12,
    "start": "2027-01-18",
    "end": "2027-01-24",
-   "phase": "base",
-   "km": 70,
-   "long_km": 22,
+   "phase": "mbase",
+   "km": 64,
+   "long_km": 21.1,
    "deload": false,
-   "race": null,
-   "q1": "Ter: 5×1000 m a I r 2'30",
-   "q2": "Sex: 5×2 km a limiar r 1'",
-   "note": "Longo: últimos 6 km a ~4:05.",
-   "inc_vs_last_full_pct": 6,
+   "race": "Meia Internacional de SP · Dom 24/01 · alvo ≤ 1:24:00 (3:59/km, VDOT 55)",
+   "q1": "Ter: 5×1 km a limiar r 1'",
+   "q2": "Sex: 6 km leve + 4 acelerações",
+   "note": "Prova de controle (16 sem antes). Abaixo de 1:22:30 (VDOT 56,4) = adiantado; acima de 1:25 = rever o alvo de 2:48.",
+   "inc_vs_last_full_pct": -11,
    "doubles": false,
-   "mid_long_km": "14–16",
-   "long_share_pct": 31
+   "mid_long_km": "12–14",
+   "long_share_pct": null,
+   "source": "projeção",
+   "track": "A"
   },
   {
    "n": 13,
    "start": "2027-01-25",
    "end": "2027-01-31",
-   "phase": "base",
+   "phase": "mbase",
    "km": 56,
    "long_km": 18,
    "deload": true,
    "race": null,
-   "q1": "Ter: 6×1' rápido r 1'",
-   "q2": "Sáb: educativos",
-   "note": "Semana de alívio.",
-   "inc_vs_last_full_pct": -20,
+   "q1": "Ter: só leve",
+   "q2": "Sex: fartlek 8×2'/1'",
+   "note": "Alívio pós-meia.",
+   "inc_vs_last_full_pct": -22,
    "doubles": false,
-   "mid_long_km": "14–16",
-   "long_share_pct": 32
+   "mid_long_km": "12–14",
+   "long_share_pct": 32,
+   "source": "projeção",
+   "track": "A"
   },
   {
    "n": 14,
    "start": "2027-02-01",
    "end": "2027-02-07",
-   "phase": "dev",
-   "km": 72,
-   "long_km": 22,
+   "phase": "mbuild",
+   "km": 74,
+   "long_km": 26,
    "deload": false,
    "race": null,
    "q1": "Ter: 6×1000 m a I r 2'",
-   "q2": "Sex: 3×3 km a limiar r 2'",
-   "note": "Longo com 8 km no pace de meia atual.",
+   "q2": "Sex: 10 km a 3:59 (pace-alvo)",
+   "note": "Longo 26 km leve (FC ≤ 140).",
    "inc_vs_last_full_pct": 3,
    "doubles": false,
    "mid_long_km": "14–16",
-   "long_share_pct": 31
+   "long_share_pct": 35,
+   "source": "projeção",
+   "track": "A"
   },
   {
    "n": 15,
    "start": "2027-02-08",
    "end": "2027-02-14",
-   "phase": "dev",
-   "km": 75,
-   "long_km": 24,
+   "phase": "mbuild",
+   "km": 80,
+   "long_km": 28,
    "deload": false,
    "race": null,
-   "q1": "Ter: 12×400 m (R) r 400 m",
-   "q2": "Sex: 30' contínuos a limiar",
-   "note": "Longo progressivo.",
-   "inc_vs_last_full_pct": 4,
+   "q1": "Ter: 3×3 km a limiar r 2'",
+   "q2": "Sex: 12 km a 3:59",
+   "note": "Carnaval (09/02). Longo 28 km com os últimos 8 a 4:05→3:59.",
+   "inc_vs_last_full_pct": 8,
    "doubles": false,
    "mid_long_km": "14–16",
-   "long_share_pct": 32
+   "long_share_pct": 35,
+   "source": "projeção",
+   "track": "A"
   },
   {
    "n": 16,
    "start": "2027-02-15",
    "end": "2027-02-21",
-   "phase": "dev",
-   "km": 78,
-   "long_km": 18,
+   "phase": "mbuild",
+   "km": 85,
+   "long_km": 30,
    "deload": false,
-   "race": "Teste 10 km · Sáb 20/02 · alvo ≤ 37:30 (VDOT 56)",
-   "q1": "Ter: 5×1 km a I (afiar)",
-   "q2": "Sáb: TESTE 10 km",
-   "note": "Dom: 18 km leve depois do teste.",
-   "inc_vs_last_full_pct": 4,
+   "race": null,
+   "q1": "Ter: 5×2 km a limiar r 1'",
+   "q2": "Qua: médio-longo 16 km",
+   "note": "Longo 30 km com 2×7 km a 3:59 r 1 km leve.",
+   "inc_vs_last_full_pct": 6,
    "doubles": false,
-   "mid_long_km": "14–16",
-   "long_share_pct": null
+   "mid_long_km": "16",
+   "long_share_pct": 35,
+   "source": "projeção",
+   "track": "A"
   },
   {
    "n": 17,
    "start": "2027-02-22",
    "end": "2027-02-28",
-   "phase": "dev",
-   "km": 64,
-   "long_km": 18,
+   "phase": "mbuild",
+   "km": 68,
+   "long_km": 22,
    "deload": true,
    "race": null,
    "q1": "Ter: fartlek 8×2'/1'",
-   "q2": "Sáb: educativos",
-   "note": "Semana de alívio; paces recalibrados pelo teste.",
-   "inc_vs_last_full_pct": -15,
+   "q2": "Sex: 8 km a 3:59",
+   "note": "Alívio.",
+   "inc_vs_last_full_pct": -20,
    "doubles": false,
-   "mid_long_km": "14–16",
-   "long_share_pct": 28
+   "mid_long_km": "14",
+   "long_share_pct": 32,
+   "source": "projeção",
+   "track": "A"
   },
   {
    "n": 18,
    "start": "2027-03-01",
    "end": "2027-03-07",
-   "phase": "dev",
-   "km": 78,
-   "long_km": 24,
+   "phase": "mspec",
+   "km": 88,
+   "long_km": 30,
    "deload": false,
    "race": null,
-   "q1": "Ter: 4×2 km no pace de meia da fase (~3:58) r 2'",
-   "q2": "Sex: 6×1000 m a I",
-   "note": "Longo com 10 km a 3:55–4:00.",
+   "q1": "Ter: 6×1 km a I r 2'",
+   "q2": "Sex: 3×4 km a limiar r 2'",
+   "note": "Longo 30 km com 16 km a 3:59.",
    "inc_vs_last_full_pct": 4,
    "doubles": false,
-   "mid_long_km": "14–16",
-   "long_share_pct": 31
+   "mid_long_km": "16",
+   "long_share_pct": 34,
+   "source": "projeção",
+   "track": "A"
   },
   {
    "n": 19,
    "start": "2027-03-08",
    "end": "2027-03-14",
-   "phase": "dev",
-   "km": 80,
-   "long_km": 25,
+   "phase": "mspec",
+   "km": 92,
+   "long_km": 32,
    "deload": false,
    "race": null,
-   "q1": "Ter: 3×10' a limiar r 2'",
-   "q2": "Sex: 5×1600 m a 3:38–3:42 r 2'",
-   "note": "Longo leve. Teto de 80 km.",
-   "inc_vs_last_full_pct": 3,
+   "q1": "Ter: 2×20' a limiar r 3'",
+   "q2": "Qua: médio-longo 16 km",
+   "note": "Longo 32 km progressivo, FC ≤ 135 até o km 22.",
+   "inc_vs_last_full_pct": 5,
    "doubles": false,
-   "mid_long_km": "14–16",
-   "long_share_pct": 31
+   "mid_long_km": "16",
+   "long_share_pct": 35,
+   "source": "projeção",
+   "track": "A"
   },
   {
    "n": 20,
    "start": "2027-03-15",
    "end": "2027-03-21",
-   "phase": "dev",
-   "km": 80,
-   "long_km": 26,
+   "phase": "mspec",
+   "km": 95,
+   "long_km": 32,
    "deload": false,
    "race": null,
-   "q1": "Ter: 3×4 km a 3:52–3:56 r 2'",
-   "q2": "Sex: 8×600 m a I r 2'",
-   "note": "Longo progressivo: últimos 8 km a ~3:55.",
-   "inc_vs_last_full_pct": 0,
+   "q1": "Ter: 8×1 km entre limiar e I r 1'",
+   "q2": "Sex: 14 km a 3:59",
+   "note": "Longo 32 km com 20 km a 3:59.",
+   "inc_vs_last_full_pct": 3,
    "doubles": false,
-   "mid_long_km": "14–16",
-   "long_share_pct": 32
+   "mid_long_km": "16",
+   "long_share_pct": 34,
+   "source": "projeção",
+   "track": "A"
   },
   {
    "n": 21,
    "start": "2027-03-22",
    "end": "2027-03-28",
-   "phase": "trip",
-   "km": 64,
-   "long_km": 20,
-   "deload": false,
+   "phase": "mspec",
+   "km": 76,
+   "long_km": 24,
+   "deload": true,
    "race": null,
-   "q1": "Ter: 6×1000 m a I",
-   "q2": "Qua: médio-longo",
-   "note": "Viagem a partir de Qui 26/03: longo no sábado antes.",
+   "q1": "Ter: fartlek 8×2'/1'",
+   "q2": "Sex: 10 km a 3:59",
+   "note": "Alívio antes do pico.",
    "inc_vs_last_full_pct": -20,
    "doubles": false,
-   "mid_long_km": "14–16",
-   "long_share_pct": 31
+   "mid_long_km": "14",
+   "long_share_pct": 32,
+   "source": "projeção",
+   "track": "A"
   },
   {
    "n": 22,
    "start": "2027-03-29",
    "end": "2027-04-04",
-   "phase": "trip",
-   "km": 50,
-   "long_km": 16,
-   "deload": true,
+   "phase": "mpeak",
+   "km": 90,
+   "long_km": 30,
+   "deload": false,
    "race": null,
-   "q1": "Fartlek 8×2'/1' (onde der)",
-   "q2": "Educativos 2×",
-   "note": "Viagem: só leve + 1 estímulo; força com peso corporal.",
-   "inc_vs_last_full_pct": -38,
+   "q1": "Ter: 5×2 km a 3:47–3:52 r 90\"",
+   "q2": "Sex: 12 km a 3:59",
+   "note": "Longo 30 km com 2×10 km a 3:59 r 1 km leve.",
+   "inc_vs_last_full_pct": -5,
    "doubles": false,
-   "mid_long_km": "12–14",
-   "long_share_pct": 32
+   "mid_long_km": "16",
+   "long_share_pct": 33,
+   "source": "projeção",
+   "track": "A"
   },
   {
    "n": 23,
    "start": "2027-04-05",
    "end": "2027-04-11",
-   "phase": "trip",
-   "km": 54,
-   "long_km": 18,
+   "phase": "mpeak",
+   "km": 95,
+   "long_km": 32,
    "deload": false,
    "race": null,
-   "q1": "20' contínuos a limiar",
-   "q2": "Educativos 2×",
-   "note": "Volta em 10/04; longo no domingo.",
-   "inc_vs_last_full_pct": -32,
+   "q1": "Ter: 6×1 km a I r 2'",
+   "q2": "Sex: 3×5 km a 3:59 r 1 km",
+   "note": "Longo 32 km com 18 km a 3:59.",
+   "inc_vs_last_full_pct": 6,
    "doubles": false,
-   "mid_long_km": "12–14",
-   "long_share_pct": 33
+   "mid_long_km": "16",
+   "long_share_pct": 34,
+   "source": "projeção",
+   "track": "A"
   },
   {
    "n": 24,
    "start": "2027-04-12",
    "end": "2027-04-18",
-   "phase": "hm",
-   "km": 70,
-   "long_km": 22,
+   "phase": "mpeak",
+   "km": 98,
+   "long_km": 28,
    "deload": false,
    "race": null,
-   "q1": "Ter: 5×2 km a 3:47–3:52 r 90\"",
-   "q2": "Sex: 6×800 m a 3:28–3:30 r 2'",
-   "note": "",
-   "inc_vs_last_full_pct": -12,
+   "q1": "Ter: 3×4 km a limiar r 2'",
+   "q2": "Sex: 16 km a 3:59",
+   "note": "Semana de maior volume. Longo 28 km leve (FC ≤ 135), sem pace.",
+   "inc_vs_last_full_pct": 3,
    "doubles": false,
-   "mid_long_km": "14–16",
-   "long_share_pct": 31
+   "mid_long_km": "16–18",
+   "long_share_pct": 29,
+   "source": "projeção",
+   "track": "A"
   },
   {
    "n": 25,
    "start": "2027-04-19",
    "end": "2027-04-25",
-   "phase": "hm",
-   "km": 78,
-   "long_km": 24,
+   "phase": "mpeak",
+   "km": 92,
+   "long_km": 34,
    "deload": false,
    "race": null,
-   "q1": "Ter: 3×5 km a 3:47–3:52 r 2'",
-   "q2": "Sex: 20' a limiar + 6×200 m rápidos",
-   "note": "Longo com 12 km a 3:55.",
-   "inc_vs_last_full_pct": 11,
+   "q1": "Ter: 6×1 km a I r 2'",
+   "q2": "Qua: médio-longo 14 km",
+   "note": "Dom 25/04: ensaio geral — 34 km com 22 km a 3:59, gel e tênis de prova. Último longo grande (3 semanas antes).",
+   "inc_vs_last_full_pct": -6,
    "doubles": false,
-   "mid_long_km": "14–16",
-   "long_share_pct": 31
+   "mid_long_km": "14",
+   "long_share_pct": 37,
+   "source": "projeção",
+   "track": "A"
   },
   {
    "n": 26,
    "start": "2027-04-26",
    "end": "2027-05-02",
-   "phase": "hm",
+   "phase": "taperm",
    "km": 80,
    "long_km": 26,
    "deload": false,
    "race": null,
-   "q1": "Ter: 2×6 km a 3:47–3:50 r 3'",
-   "q2": "Sex: 5×1000 m a 3:30 r 2'",
-   "note": "Último longo grande antes da meia.",
-   "inc_vs_last_full_pct": 3,
+   "q1": "Ter: 4×3 km a 3:59 r 1'",
+   "q2": "Sex: 8×400 m rápidos",
+   "note": "−15% de volume. Longo 26 km com 12 a 3:59.",
+   "inc_vs_last_full_pct": -13,
    "doubles": false,
-   "mid_long_km": "14–16",
-   "long_share_pct": 32
+   "mid_long_km": "14",
+   "long_share_pct": 32,
+   "source": "projeção",
+   "track": "A"
   },
   {
    "n": 27,
    "start": "2027-05-03",
    "end": "2027-05-09",
-   "phase": "taperhm",
-   "km": 64,
-   "long_km": 18,
+   "phase": "taperm",
+   "km": 65,
+   "long_km": 20,
    "deload": false,
    "race": null,
-   "q1": "Ter: 3×3 km a 3:47 r 2'",
-   "q2": "Sex: 6×400 m rápidos",
-   "note": "−20% de volume, intensidade mantida.",
-   "inc_vs_last_full_pct": -20,
+   "q1": "Ter: 3×3 km a 3:59 r 1'",
+   "q2": "Sex: 5×1 km a limiar",
+   "note": "−30% de volume. Longo 20 km com 8 a 3:59.",
+   "inc_vs_last_full_pct": -19,
    "doubles": false,
-   "mid_long_km": "14–16",
-   "long_share_pct": 28
+   "mid_long_km": "12–14",
+   "long_share_pct": 31,
+   "source": "projeção",
+   "track": "A"
   },
   {
    "n": 28,
    "start": "2027-05-10",
    "end": "2027-05-16",
-   "phase": "taperhm",
-   "km": 46,
-   "long_km": 21,
+   "phase": "taperm",
+   "km": 45,
+   "long_km": 42.2,
    "deload": false,
-   "race": "Meia maratona · Dom 16/05 · alvo 1:20:00 (3:47/km)",
-   "q1": "Ter: 4×1 km a 3:47 r 1'",
-   "q2": "Qui: 6 km + educativos",
-   "note": "Início oficial do bloco de 20 semanas da maratona.",
-   "inc_vs_last_full_pct": -43,
+   "race": "ASICS Golden Run (maratona) · Dom 16/05 · alvo 2:48:00 (3:59/km, VDOT 58) · BQ",
+   "q1": "Ter: 3×2 km a 3:59 r 2'",
+   "q2": "Qui: 8 km + educativos",
+   "note": "Semana da prova. Saída a 4:00–4:02 nos primeiros 5 km; 3:58–3:59 até o 30; o que sobrar no fim.",
+   "inc_vs_last_full_pct": -31,
    "doubles": false,
-   "mid_long_km": "12–14",
-   "long_share_pct": null
+   "mid_long_km": "10–12",
+   "long_share_pct": null,
+   "source": "projeção",
+   "track": "A"
   },
   {
    "n": 29,
    "start": "2027-05-17",
    "end": "2027-05-23",
-   "phase": "rec",
-   "km": 45,
-   "long_km": 14,
+   "phase": "brec",
+   "km": 30,
+   "long_km": 12,
    "deload": true,
    "race": null,
-   "q1": "Só corridas leves até quinta",
-   "q2": "Sáb: educativos",
-   "note": "Recuperação da meia.",
-   "inc_vs_last_full_pct": -44,
+   "q1": "Só leve, sem relógio, a partir de quinta",
+   "q2": "—",
+   "note": "Plano B (Berlim). Recuperação da maratona: 4–5 dias sem correr ou só trote.",
+   "inc_vs_last_full_pct": -54,
    "doubles": false,
-   "mid_long_km": "10–12",
-   "long_share_pct": 31
+   "mid_long_km": "—",
+   "long_share_pct": 40,
+   "source": "projeção",
+   "track": "B"
   },
   {
    "n": 30,
    "start": "2027-05-24",
    "end": "2027-05-30",
-   "phase": "mbase",
-   "km": 70,
-   "long_km": 20,
-   "deload": false,
+   "phase": "brec",
+   "km": 45,
+   "long_km": 14,
+   "deload": true,
    "race": null,
-   "q1": "Ter: subidas curtas 8×20\"",
-   "q2": "Sex: 4×5' a limiar",
-   "note": "",
-   "inc_vs_last_full_pct": -12,
+   "q1": "Ter: leve + 6 acelerações",
+   "q2": "Sáb: educativos",
+   "note": "Plano B. Recuperação.",
+   "inc_vs_last_full_pct": -31,
    "doubles": false,
-   "mid_long_km": "14–16",
-   "long_share_pct": 29
+   "mid_long_km": "10",
+   "long_share_pct": 31,
+   "source": "projeção",
+   "track": "B"
   },
   {
    "n": 31,
    "start": "2027-05-31",
    "end": "2027-06-06",
-   "phase": "mbase",
-   "km": 78,
-   "long_km": 24,
+   "phase": "bbuild",
+   "km": 60,
+   "long_km": 18,
    "deload": false,
    "race": null,
-   "q1": "Ter: 6×1000 m a I",
-   "q2": "Sex: 2×15' a limiar",
-   "note": "",
-   "inc_vs_last_full_pct": 11,
+   "q1": "Ter: subidas 8×60\"",
+   "q2": "Sex: 3×10' a limiar",
+   "note": "Plano B.",
+   "inc_vs_last_full_pct": -8,
    "doubles": false,
-   "mid_long_km": "14–16",
-   "long_share_pct": 31
+   "mid_long_km": "12–14",
+   "long_share_pct": 30,
+   "source": "projeção",
+   "track": "B"
   },
   {
    "n": 32,
    "start": "2027-06-07",
    "end": "2027-06-13",
-   "phase": "mbase",
-   "km": 86,
-   "long_km": 26,
+   "phase": "bbuild",
+   "km": 68,
+   "long_km": 22,
    "deload": false,
    "race": null,
-   "q1": "Ter: 5×1 km a limiar r 1'",
-   "q2": "Sex: 12 km no pace de maratona (3:55–4:00)",
-   "note": "",
-   "inc_vs_last_full_pct": 10,
+   "q1": "Ter: 6×800 m a I",
+   "q2": "Sex: 2×15' a limiar",
+   "note": "Plano B.",
+   "inc_vs_last_full_pct": 13,
    "doubles": false,
-   "mid_long_km": "14–16",
-   "long_share_pct": 30
+   "mid_long_km": "14",
+   "long_share_pct": 32,
+   "source": "projeção",
+   "track": "B"
   },
   {
    "n": 33,
    "start": "2027-06-14",
    "end": "2027-06-20",
-   "phase": "mbase",
-   "km": 90,
-   "long_km": 28,
+   "phase": "bbuild",
+   "km": 78,
+   "long_km": 24,
    "deload": false,
    "race": null,
-   "q1": "Ter: 3×3 km a limiar",
-   "q2": "Sex: leve + educativos",
-   "note": "Longo: últimos 8 km no pace de maratona.",
-   "inc_vs_last_full_pct": 5,
+   "q1": "Ter: 5×1 km a I",
+   "q2": "Sex: 4×2 km a limiar",
+   "note": "Plano B.",
+   "inc_vs_last_full_pct": 15,
    "doubles": false,
    "mid_long_km": "14–16",
-   "long_share_pct": 31
+   "long_share_pct": 31,
+   "source": "projeção",
+   "track": "B"
   },
   {
    "n": 34,
    "start": "2027-06-21",
    "end": "2027-06-27",
-   "phase": "mbase",
-   "km": 72,
-   "long_km": 22,
+   "phase": "bbuild",
+   "km": 64,
+   "long_km": 20,
    "deload": true,
    "race": null,
    "q1": "Ter: fartlek",
    "q2": "Sáb: educativos",
-   "note": "Semana de alívio.",
-   "inc_vs_last_full_pct": -20,
+   "note": "Plano B. Alívio.",
+   "inc_vs_last_full_pct": -18,
    "doubles": false,
-   "mid_long_km": "14–16",
-   "long_share_pct": 31
+   "mid_long_km": "14",
+   "long_share_pct": 31,
+   "source": "projeção",
+   "track": "B"
   },
   {
    "n": 35,
    "start": "2027-06-28",
    "end": "2027-07-04",
-   "phase": "mbuild",
-   "km": 92,
-   "long_km": 28,
+   "phase": "bbuild",
+   "km": 85,
+   "long_km": 26,
    "deload": false,
    "race": null,
-   "q1": "Ter: 4×2 km a limiar r 1'",
-   "q2": "Sex: 14 km no pace de maratona",
-   "note": "",
-   "inc_vs_last_full_pct": 2,
+   "q1": "Ter: 3×3 km a limiar",
+   "q2": "Sex: 12 km no pace de maratona",
+   "note": "Plano B.",
+   "inc_vs_last_full_pct": 9,
    "doubles": false,
-   "mid_long_km": "14–16",
-   "long_share_pct": 30
+   "mid_long_km": "16",
+   "long_share_pct": 31,
+   "source": "projeção",
+   "track": "B"
   },
   {
    "n": 36,
    "start": "2027-07-05",
    "end": "2027-07-11",
-   "phase": "mbuild",
-   "km": 96,
-   "long_km": 30,
+   "phase": "bbuild",
+   "km": 92,
+   "long_km": 28,
    "deload": false,
    "race": null,
    "q1": "Ter: 6×1 km a I",
-   "q2": "Sex: 3×5 km no pace de maratona r 1 km leve",
-   "note": "Longo progressivo.",
-   "inc_vs_last_full_pct": 4,
+   "q2": "Sex: 14 km no pace de maratona",
+   "note": "Plano B.",
+   "inc_vs_last_full_pct": 8,
    "doubles": false,
-   "mid_long_km": "14–16",
-   "long_share_pct": 31
+   "mid_long_km": "16",
+   "long_share_pct": 30,
+   "source": "projeção",
+   "track": "B"
   },
   {
    "n": 37,
    "start": "2027-07-12",
    "end": "2027-07-18",
-   "phase": "mbuild",
-   "km": 100,
+   "phase": "bbuild",
+   "km": 98,
    "long_km": 30,
    "deload": false,
    "race": null,
    "q1": "Ter: 2×20' a limiar",
-   "q2": "Sex: 16 km no pace de maratona",
-   "note": "Dobras liberadas (≥100 km). Longo com 2×8 km no pace.",
-   "inc_vs_last_full_pct": 4,
-   "doubles": true,
-   "mid_long_km": "18",
-   "long_share_pct": 30
+   "q2": "Sex: 3×5 km no pace r 1 km",
+   "note": "Plano B. Longo progressivo.",
+   "inc_vs_last_full_pct": 7,
+   "doubles": false,
+   "mid_long_km": "16–18",
+   "long_share_pct": 31,
+   "source": "projeção",
+   "track": "B"
   },
   {
    "n": 38,
    "start": "2027-07-19",
    "end": "2027-07-25",
-   "phase": "mbuild",
-   "km": 80,
+   "phase": "bspec",
+   "km": 78,
    "long_km": 24,
    "deload": true,
    "race": null,
    "q1": "Ter: fartlek",
    "q2": "Sáb: educativos",
-   "note": "Semana de alívio.",
+   "note": "Plano B. Alívio.",
    "inc_vs_last_full_pct": -20,
    "doubles": false,
-   "mid_long_km": "14–16",
-   "long_share_pct": 30
+   "mid_long_km": "14",
+   "long_share_pct": 31,
+   "source": "projeção",
+   "track": "B"
   },
   {
    "n": 39,
    "start": "2027-07-26",
    "end": "2027-08-01",
-   "phase": "mbuild",
+   "phase": "bspec",
    "km": 102,
    "long_km": 32,
    "deload": false,
    "race": null,
    "q1": "Ter: 5×2 km a limiar",
-   "q2": "Sex: 12 km no pace de maratona",
-   "note": "Longo 32 km com FC ≤ 133 até o km 25.",
-   "inc_vs_last_full_pct": 2,
+   "q2": "Sex: 12 km no pace",
+   "note": "Plano B. Dobras liberadas (≥100 km). Longo 32 km com FC ≤ 133 até o km 25.",
+   "inc_vs_last_full_pct": 4,
    "doubles": true,
    "mid_long_km": "18",
-   "long_share_pct": 31
+   "long_share_pct": 31,
+   "source": "projeção",
+   "track": "B"
   },
   {
    "n": 40,
    "start": "2027-08-02",
    "end": "2027-08-08",
-   "phase": "mspec",
+   "phase": "bspec",
    "km": 106,
    "long_km": 30,
    "deload": false,
    "race": null,
    "q1": "Ter: 8×1 km entre limiar e I",
-   "q2": "Sex: 2×10 km no pace de maratona r 2 km",
-   "note": "",
+   "q2": "Sex: 2×10 km no pace r 2 km",
+   "note": "Plano B.",
    "inc_vs_last_full_pct": 4,
    "doubles": true,
    "mid_long_km": "18",
-   "long_share_pct": 28
+   "long_share_pct": 28,
+   "source": "projeção",
+   "track": "B"
   },
   {
    "n": 41,
    "start": "2027-08-09",
    "end": "2027-08-15",
-   "phase": "mspec",
+   "phase": "bspec",
    "km": 110,
    "long_km": 34,
    "deload": false,
    "race": null,
    "q1": "Ter: 3×5 km a 3:50 r 2'",
    "q2": "Sex: leve",
-   "note": "Pico. Longo 34 km com 20 km no pace de maratona.",
+   "note": "Plano B. Pico. Longo 34 km com 20 km no pace.",
    "inc_vs_last_full_pct": 4,
    "doubles": true,
    "mid_long_km": "18",
-   "long_share_pct": 31
+   "long_share_pct": 31,
+   "source": "projeção",
+   "track": "B"
   },
   {
    "n": 42,
    "start": "2027-08-16",
    "end": "2027-08-22",
-   "phase": "mspec",
+   "phase": "bspec",
    "km": 88,
-   "long_km": 21,
+   "long_km": 21.1,
    "deload": true,
    "race": "Meia de controle · Dom 22/08 · alvo ≤ 1:19:15 (VDOT 59)",
    "q1": "Ter: 4×1 km a 3:47",
    "q2": "Dom: meia de controle",
-   "note": "Semana de alívio com prova.",
+   "note": "Plano B. Alívio com prova.",
    "inc_vs_last_full_pct": -20,
    "doubles": false,
    "mid_long_km": "14–16",
-   "long_share_pct": null
+   "long_share_pct": null,
+   "source": "projeção",
+   "track": "B"
   },
   {
    "n": 43,
    "start": "2027-08-23",
    "end": "2027-08-29",
-   "phase": "mspec",
+   "phase": "bspec",
    "km": 108,
    "long_km": 35,
    "deload": false,
    "race": null,
    "q1": "Ter: 6×1 km a I",
-   "q2": "Sex: 16 km no pace de maratona",
-   "note": "Longo 35 km com 3×8 km no pace.",
+   "q2": "Sex: 16 km no pace",
+   "note": "Plano B. Longo 35 km com 3×8 km no pace.",
    "inc_vs_last_full_pct": -2,
    "doubles": true,
    "mid_long_km": "18",
-   "long_share_pct": 32
+   "long_share_pct": 32,
+   "source": "projeção",
+   "track": "B"
   },
   {
    "n": 44,
    "start": "2027-08-30",
    "end": "2027-09-05",
-   "phase": "mspec",
+   "phase": "bspec",
    "km": 110,
    "long_km": 32,
    "deload": false,
    "race": null,
    "q1": "Ter: 3×4 km a limiar",
    "q2": "Sex: leve",
-   "note": "Último específico: 32 km com 22 km no pace (3 semanas antes).",
+   "note": "Plano B. Último específico: 32 km com 22 km no pace.",
    "inc_vs_last_full_pct": 2,
    "doubles": true,
    "mid_long_km": "18",
-   "long_share_pct": 29
+   "long_share_pct": 29,
+   "source": "projeção",
+   "track": "B"
   },
   {
    "n": 45,
    "start": "2027-09-06",
    "end": "2027-09-12",
-   "phase": "taperm",
+   "phase": "btaper",
    "km": 95,
    "long_km": 26,
    "deload": false,
    "race": null,
-   "q1": "Ter: 4×3 km no pace de maratona",
+   "q1": "Ter: 4×3 km no pace",
    "q2": "Sex: 8×400 m rápidos",
-   "note": "−15% de volume.",
+   "note": "Plano B. −15%.",
    "inc_vs_last_full_pct": -14,
    "doubles": false,
    "mid_long_km": "14–16",
-   "long_share_pct": 27
+   "long_share_pct": 27,
+   "source": "projeção",
+   "track": "B"
   },
   {
    "n": 46,
    "start": "2027-09-13",
    "end": "2027-09-19",
-   "phase": "taperm",
+   "phase": "btaper",
    "km": 75,
    "long_km": 20,
    "deload": false,
    "race": null,
-   "q1": "Ter: 3×3 km no pace de maratona",
+   "q1": "Ter: 3×3 km no pace",
    "q2": "Sex: 5×1 km a limiar",
-   "note": "−30% de volume.",
-   "inc_vs_last_full_pct": -32,
+   "note": "Plano B. −30%.",
+   "inc_vs_last_full_pct": -21,
    "doubles": false,
    "mid_long_km": "14–16",
-   "long_share_pct": 27
+   "long_share_pct": 27,
+   "source": "projeção",
+   "track": "B"
   },
   {
    "n": 47,
    "start": "2027-09-20",
    "end": "2027-09-26",
-   "phase": "taperm",
+   "phase": "btaper",
    "km": 52,
    "long_km": 42.2,
    "deload": false,
-   "race": "Maratona (provável Berlim) · Dom 26/09 · alvo 2:45 (3:55/km)",
-   "q1": "Ter: 3×2 km no pace de maratona",
+   "race": "Maratona de Berlim (Plano B) · Dom 26/09 · alvo 2:45 (3:55/km)",
+   "q1": "Ter: 3×2 km no pace",
    "q2": "Qui: 8 km + educativos",
-   "note": "Semana da prova.",
-   "inc_vs_last_full_pct": -53,
+   "note": "Plano B — depende do sorteio (03/12/2026) e de como sair da Golden Run.",
+   "inc_vs_last_full_pct": -31,
    "doubles": false,
    "mid_long_km": "12–14",
-   "long_share_pct": null
-  }
- ],
- "phases": [
-  {
-   "id": "tf",
-   "from": "2026-11-02",
-   "to": "2026-12-06",
-   "vdot": 52,
-   "focus": "Ritmo de prova 4:05 e limiar; volume voltando ao de setembro (~50 km).",
-   "intensity_days": 2,
-   "name": "Preparação 22K",
-   "paces": {
-    "vdot": 52,
-    "E": [
-     284,
-     316
-    ],
-    "M": 262,
-    "HM": 252,
-    "T": 247,
-    "I": 228,
-    "R": 214
-   }
-  },
-  {
-   "id": "base",
-   "from": "2026-12-07",
-   "to": "2027-01-31",
-   "vdot": 53.5,
-   "focus": "Base aeróbia (80% abaixo de LV1), subidas, limiar em blocos. Volume 46→66 km.",
-   "intensity_days": 2,
-   "name": "Base aeróbia",
-   "paces": {
-    "vdot": 53.5,
-    "E": [
-     278,
-     309
-    ],
-    "M": 256,
-    "HM": 245,
-    "T": 242,
-    "I": 222,
-    "R": 209
-   }
-  },
-  {
-   "id": "dev",
-   "from": "2027-02-01",
-   "to": "2027-03-21",
-   "vdot": 55.5,
-   "focus": "VO2máx e limiar; introdução do pace de meia; teste de 10 km em 20/02. Volume até 80 km.",
-   "intensity_days": 2,
-   "name": "Desenvolvimento",
-   "paces": {
-    "vdot": 55.5,
-    "E": [
-     270,
-     300
-    ],
-    "M": 248,
-    "HM": 238,
-    "T": 235,
-    "I": 216,
-    "R": 203
-   }
-  },
-  {
-   "id": "trip",
-   "from": "2027-03-22",
-   "to": "2027-04-11",
-   "vdot": 55.5,
-   "focus": "Viagem: manter frequência e 1 estímulo por semana. Nada de compensar depois.",
-   "intensity_days": 1,
-   "name": "Viagem (manutenção)",
-   "paces": {
-    "vdot": 55.5,
-    "E": [
-     270,
-     300
-    ],
-    "M": 248,
-    "HM": 238,
-    "T": 235,
-    "I": 216,
-    "R": 203
-   }
-  },
-  {
-   "id": "hm",
-   "from": "2027-04-12",
-   "to": "2027-05-02",
-   "vdot": 57,
-   "focus": "Específico de meia: blocos longos a 3:47 e VO2máx curto.",
-   "intensity_days": 2,
-   "name": "Específico meia",
-   "paces": {
-    "vdot": 57,
-    "E": [
-     264,
-     293
-    ],
-    "M": 243,
-    "HM": 232,
-    "T": 229,
-    "I": 211,
-    "R": 199
-   }
-  },
-  {
-   "id": "taperhm",
-   "from": "2027-05-03",
-   "to": "2027-05-16",
-   "vdot": 58,
-   "focus": "Polimento de 2 semanas: −20% e −40% de volume, intensidade mantida.",
-   "intensity_days": 2,
-   "name": "Polimento meia",
-   "paces": {
-    "vdot": 58,
-    "E": [
-     260,
-     289
-    ],
-    "M": 239,
-    "HM": 229,
-    "T": 226,
-    "I": 208,
-    "R": 196
-   }
-  },
-  {
-   "id": "mbase",
-   "from": "2027-05-17",
-   "to": "2027-06-27",
-   "vdot": 58,
-   "focus": "Recuperação da meia e subida de volume para 85–90 km; primeiros blocos no pace de maratona.",
-   "intensity_days": 2,
-   "name": "Maratona: base",
-   "paces": {
-    "vdot": 58,
-    "E": [
-     260,
-     289
-    ],
-    "M": 239,
-    "HM": 229,
-    "T": 226,
-    "I": 208,
-    "R": 196
-   }
-  },
-  {
-   "id": "mbuild",
-   "from": "2027-06-28",
-   "to": "2027-08-01",
-   "vdot": 58.5,
-   "focus": "Volume 92→102 km, dobras a partir de 100 km; longos de 30–32 km.",
-   "intensity_days": 2,
-   "name": "Maratona: construção",
-   "paces": {
-    "vdot": 58.5,
-    "E": [
-     259,
-     287
-    ],
-    "M": 237,
-    "HM": 227,
-    "T": 225,
-    "I": 207,
-    "R": 195
-   }
-  },
-  {
-   "id": "mspec",
-   "from": "2027-08-02",
-   "to": "2027-09-05",
-   "vdot": 59,
-   "focus": "Longos de 32–35 km com 20–22 km no pace; meia de controle em 22/08.",
-   "intensity_days": 2,
-   "name": "Maratona: específico",
-   "paces": {
-    "vdot": 59,
-    "E": [
-     257,
-     285
-    ],
-    "M": 236,
-    "HM": 225,
-    "T": 223,
-    "I": 205,
-    "R": 193
-   }
-  },
-  {
-   "id": "taperm",
-   "from": "2027-09-06",
-   "to": "2027-09-26",
-   "vdot": 59.3,
-   "focus": "Polimento de 3 semanas: −15%, −30%, −55%; intensidade mantida.",
-   "intensity_days": 2,
-   "name": "Polimento maratona",
-   "paces": {
-    "vdot": 59.3,
-    "E": [
-     256,
-     284
-    ],
-    "M": 235,
-    "HM": 225,
-    "T": 222,
-    "I": 205,
-    "R": 193
-   }
-  }
- ],
- "races": [
-  {
-   "id": "tf",
-   "name": "Track&Field 22K",
-   "date": "2026-12-06",
-   "dist_km": 22,
-   "target_s": 5390,
-   "vdot_needed": 53.8
-  },
-  {
-   "id": "test10",
-   "name": "Teste 10 km",
-   "date": "2027-02-20",
-   "dist_km": 10,
-   "target_s": 2250,
-   "vdot_needed": 56.0
-  },
-  {
-   "id": "hm",
-   "name": "Meia maratona",
-   "date": "2027-05-16",
-   "dist_km": 21.0975,
-   "target_s": 4800,
-   "vdot_needed": 58.4
-  },
-  {
-   "id": "hmtest",
-   "name": "Meia de controle",
-   "date": "2027-08-22",
-   "dist_km": 21.0975,
-   "target_s": 4755,
-   "vdot_needed": 59.0
-  },
-  {
-   "id": "mar",
-   "name": "Maratona (provável Berlim)",
-   "date": "2027-09-26",
-   "dist_km": 42.195,
-   "target_s": 9900,
-   "vdot_needed": 59.3
+   "long_share_pct": null,
+   "source": "projeção",
+   "track": "B"
   }
  ],
  "reference": {
@@ -1072,16 +914,201 @@
    "hr_peak": 180
   }
  },
- "rules": [
-  "Teto de 80 km/semana até a meia de 16/05/2027.",
-  "Aumento de até ~10–15% sobre a última semana cheia; na volta ao volume de setembro (~50 km) até 20%.",
-  "3 semanas de carga, 1 de alívio (−20 a −25%).",
-  "1 dia de descanso por semana (móvel) e 1 dia bem leve de até 6–7 km.",
-  "Médio-longo na quarta: 10–16 km conforme o volume; 18 km com 100+ km.",
-  "Dobras só a partir de 100 km/semana.",
-  "2 dias de qualidade + longo; 1 estímulo na viagem.",
-  "~80% do tempo abaixo de LV1 (133 bpm); 2× força por semana (30–40 min)."
- ],
+ "coach": {
+  "source": "Calendário do Garmin (assessoria)",
+  "read_at": "2026-11-03",
+  "horizon_end": "2026-11-15",
+  "workouts": [
+   {
+    "date": "2026-11-02",
+    "type": "rodagem",
+    "km": 11.9,
+    "min": 60,
+    "text": "60' ZR",
+    "targets": [
+     {
+      "what": "60' ZR",
+      "pace": [
+       290,
+       314
+      ]
+     }
+    ]
+   },
+   {
+    "date": "2026-11-03",
+    "type": "rodagem",
+    "km": 8.0,
+    "min": 40,
+    "text": "40' ZR",
+    "targets": [
+     {
+      "what": "40' ZR",
+      "pace": [
+       290,
+       314
+      ]
+     }
+    ]
+   },
+   {
+    "date": "2026-11-04",
+    "type": "tiros",
+    "km": 9.0,
+    "min": 51,
+    "text": "10' ZR + 4×1 km ZT r 3' ativo + 15' ZR",
+    "targets": [
+     {
+      "what": "4×1 km ZT",
+      "pace": [
+       202,
+       217
+      ]
+     },
+     {
+      "what": "ZR",
+      "pace": [
+       290,
+       314
+      ]
+     }
+    ]
+   },
+   {
+    "date": "2026-11-05",
+    "type": "rodagem",
+    "km": 6.0,
+    "min": 30,
+    "text": "30' ZR",
+    "targets": [
+     {
+      "what": "30' ZR",
+      "pace": [
+       290,
+       314
+      ]
+     }
+    ]
+   },
+   {
+    "date": "2026-11-07",
+    "type": "longo com ritmo",
+    "km": 16.0,
+    "min": 68,
+    "text": "2 km ZR + 3 km RP− + 3 km RP + 8 km ZE",
+    "targets": [
+     {
+      "what": "3 km (ritmo de meia +5\")",
+      "pace": [
+       250,
+       267
+      ]
+     },
+     {
+      "what": "3 km (ritmo de meia)",
+      "pace": [
+       235,
+       250
+      ]
+     },
+     {
+      "what": "8 km ZE (ritmo de meia −5\")",
+      "pace": [
+       226,
+       235
+      ]
+     }
+    ]
+   },
+   {
+    "date": "2026-11-09",
+    "type": "rodagem",
+    "km": 11.9,
+    "min": 60,
+    "text": "60' ZR",
+    "targets": [
+     {
+      "what": "60' ZR",
+      "pace": [
+       290,
+       314
+      ]
+     }
+    ]
+   },
+   {
+    "date": "2026-11-10",
+    "type": "rodagem",
+    "km": 8.0,
+    "min": 40,
+    "text": "40' ZR",
+    "targets": [
+     {
+      "what": "40' ZR",
+      "pace": [
+       290,
+       314
+      ]
+     }
+    ]
+   },
+   {
+    "date": "2026-11-11",
+    "type": "técnica",
+    "km": 9.9,
+    "min": 60,
+    "text": "20' ZR + 10' técnica de corrida + 30' ZR",
+    "targets": [
+     {
+      "what": "ZR",
+      "pace": [
+       290,
+       314
+      ]
+     }
+    ]
+   },
+   {
+    "date": "2026-11-12",
+    "type": "rodagem",
+    "km": 6.0,
+    "min": 30,
+    "text": "30' ZR",
+    "targets": [
+     {
+      "what": "30' ZR",
+      "pace": [
+       290,
+       314
+      ]
+     }
+    ]
+   },
+   {
+    "date": "2026-11-14",
+    "type": "longo com ritmo",
+    "km": 18.0,
+    "min": 79,
+    "text": "2 km ZR + 8 km RP− + 8 km RP",
+    "targets": [
+     {
+      "what": "8 km (ritmo de meia +10\")",
+      "pace": [
+       250,
+       267
+      ]
+     },
+     {
+      "what": "8 km (ritmo de meia)",
+      "pace": [
+       235,
+       250
+      ]
+     }
+    ]
+   }
+  ]
+ },
  "zone_map": [
   {
    "zone": "ZR (rodagem)",
@@ -1128,5 +1155,361 @@
    "ref": "Pace de maratona 4:22 (VDOT 52)",
    "flag": "ok"
   }
+ ],
+ "updated": "2026-11-12",
+ "target": {
+  "race_id": "mar",
+  "name": "ASICS Golden Run (maratona)",
+  "date": "2027-05-16",
+  "target_s": 10080,
+  "goal_mp_s_per_km": 239,
+  "bq": {
+   "standard_18_34": "2:55:00",
+   "standard_35_39": "3:00:00",
+   "window_2028": "2026-09-19 → set/2027",
+   "note": "Corte de 2027 foi 5:17 abaixo do padrão; 2:48 dá folga nas duas faixas. O percurso precisa ser certificado."
+  }
+ },
+ "plan_b": {
+  "race_id": "berlin",
+  "from_week": 29,
+  "condition": "Sorteio de Berlim (03/12/2026) + recuperação da Golden Run"
+ },
+ "phases": [
+  {
+   "id": "tf",
+   "from": "2026-11-02",
+   "to": "2026-12-06",
+   "vdot": 52,
+   "focus": "Ritmo de prova 4:05 e limiar; volume voltando ao de setembro (~50 km).",
+   "intensity_days": 2,
+   "name": "Preparação 22K",
+   "track": "A",
+   "paces": {
+    "vdot": 52,
+    "E": [
+     284,
+     316
+    ],
+    "M": 262,
+    "HM": 252,
+    "T": 247,
+    "I": 228,
+    "R": 214
+   }
+  },
+  {
+   "id": "rec",
+   "from": "2026-12-07",
+   "to": "2026-12-13",
+   "vdot": 53,
+   "focus": "Só leve + força; recalibrar paces pelo 22K.",
+   "intensity_days": 0,
+   "name": "Recuperação 22K",
+   "track": "A",
+   "paces": {
+    "vdot": 53,
+    "E": [
+     280,
+     311
+    ],
+    "M": 258,
+    "HM": 247,
+    "T": 243,
+    "I": 225,
+    "R": 211
+   }
+  },
+  {
+   "id": "base",
+   "from": "2026-12-14",
+   "to": "2027-01-03",
+   "vdot": 53.5,
+   "focus": "Base aeróbia (80% abaixo de LV1), subidas e limiar. Volume 56→62 km.",
+   "intensity_days": 2,
+   "name": "Base aeróbia",
+   "track": "A",
+   "paces": {
+    "vdot": 53.5,
+    "E": [
+     278,
+     309
+    ],
+    "M": 256,
+    "HM": 245,
+    "T": 241,
+    "I": 223,
+    "R": 209
+   }
+  },
+  {
+   "id": "mbase",
+   "from": "2027-01-04",
+   "to": "2027-01-31",
+   "vdot": 55,
+   "focus": "Início do bloco de 20 semanas (28/12). Limiar, longos até 24 km, primeiros km no pace-alvo (3:59). Meia Internacional de SP em 24/01 como controle.",
+   "intensity_days": 2,
+   "name": "Maratona: base",
+   "track": "A",
+   "paces": {
+    "vdot": 55,
+    "E": [
+     271,
+     302
+    ],
+    "M": 250,
+    "HM": 240,
+    "T": 236,
+    "I": 218,
+    "R": 204
+   }
+  },
+  {
+   "id": "mbuild",
+   "from": "2027-02-01",
+   "to": "2027-02-28",
+   "vdot": 56.3,
+   "focus": "Volume 74→85 km; longos de 26–30 km; blocos de 10–14 km a 3:59.",
+   "intensity_days": 2,
+   "name": "Maratona: construção",
+   "track": "A",
+   "paces": {
+    "vdot": 56.3,
+    "E": [
+     266,
+     296
+    ],
+    "M": 245,
+    "HM": 235,
+    "T": 232,
+    "I": 214,
+    "R": 201
+   }
+  },
+  {
+   "id": "mspec",
+   "from": "2027-03-01",
+   "to": "2027-03-28",
+   "vdot": 57.2,
+   "focus": "Volume 88–95 km; longos de 30–32 km com 16–20 km a 3:59; alívio em 22/03.",
+   "intensity_days": 2,
+   "name": "Maratona: específico",
+   "track": "A",
+   "paces": {
+    "vdot": 57.2,
+    "E": [
+     263,
+     293
+    ],
+    "M": 242,
+    "HM": 232,
+    "T": 229,
+    "I": 211,
+    "R": 198
+   }
+  },
+  {
+   "id": "mpeak",
+   "from": "2027-03-29",
+   "to": "2027-04-25",
+   "vdot": 57.8,
+   "focus": "Quatro semanas de pico (90–98 km): longos de 30–34 km com até 22 km a 3:59; ensaio geral em 25/04.",
+   "intensity_days": 2,
+   "name": "Maratona: pico",
+   "track": "A",
+   "paces": {
+    "vdot": 57.8,
+    "E": [
+     261,
+     290
+    ],
+    "M": 240,
+    "HM": 230,
+    "T": 227,
+    "I": 209,
+    "R": 196
+   }
+  },
+  {
+   "id": "taperm",
+   "from": "2027-04-26",
+   "to": "2027-05-16",
+   "vdot": 58.1,
+   "focus": "Polimento de 3 semanas: −15%, −30%, semana da prova; intensidade mantida no pace-alvo.",
+   "intensity_days": 2,
+   "name": "Polimento Golden Run",
+   "track": "A",
+   "paces": {
+    "vdot": 58.1,
+    "E": [
+     260,
+     289
+    ],
+    "M": 239,
+    "HM": 229,
+    "T": 226,
+    "I": 208,
+    "R": 196
+   }
+  },
+  {
+   "id": "brec",
+   "from": "2027-05-17",
+   "to": "2027-05-30",
+   "vdot": 57,
+   "focus": "Só se for fazer Berlim: 2 semanas de recuperação real depois da maratona.",
+   "intensity_days": 0,
+   "name": "Plano B · Recuperação",
+   "track": "B",
+   "paces": {
+    "vdot": 57,
+    "E": [
+     264,
+     294
+    ],
+    "M": 243,
+    "HM": 232,
+    "T": 229,
+    "I": 212,
+    "R": 199
+   }
+  },
+  {
+   "id": "bbuild",
+   "from": "2027-05-31",
+   "to": "2027-07-18",
+   "vdot": 58,
+   "focus": "Volta gradual a 85–100 km; limiar e longos até 30 km.",
+   "intensity_days": 2,
+   "name": "Plano B · Reconstrução",
+   "track": "B",
+   "paces": {
+    "vdot": 58,
+    "E": [
+     260,
+     289
+    ],
+    "M": 239,
+    "HM": 229,
+    "T": 226,
+    "I": 209,
+    "R": 196
+   }
+  },
+  {
+   "id": "bspec",
+   "from": "2027-07-19",
+   "to": "2027-09-05",
+   "vdot": 59,
+   "focus": "Longos de 32–35 km com 20–22 km no pace; meia de controle em 22/08; dobras só ≥100 km.",
+   "intensity_days": 2,
+   "name": "Plano B · Específico Berlim",
+   "track": "B",
+   "paces": {
+    "vdot": 59,
+    "E": [
+     256,
+     285
+    ],
+    "M": 236,
+    "HM": 225,
+    "T": 223,
+    "I": 206,
+    "R": 193
+   }
+  },
+  {
+   "id": "btaper",
+   "from": "2027-09-06",
+   "to": "2027-09-26",
+   "vdot": 59.3,
+   "focus": "Polimento de 3 semanas: −15%, −30%, −55%.",
+   "intensity_days": 2,
+   "name": "Plano B · Polimento Berlim",
+   "track": "B",
+   "paces": {
+    "vdot": 59.3,
+    "E": [
+     255,
+     284
+    ],
+    "M": 235,
+    "HM": 225,
+    "T": 222,
+    "I": 205,
+    "R": 192
+   }
+  }
+ ],
+ "races": [
+  {
+   "id": "tf",
+   "name": "Track&Field 22K",
+   "date": "2026-12-06",
+   "dist_km": 22,
+   "target_s": 5390,
+   "vdot_needed": 53.8,
+   "track": "A"
+  },
+  {
+   "id": "hm_sp",
+   "name": "Meia Internacional de SP (controle)",
+   "date": "2027-01-24",
+   "dist_km": 21.0975,
+   "target_s": 5040,
+   "vdot_needed": 55.2,
+   "track": "A"
+  },
+  {
+   "id": "rehearsal",
+   "name": "Ensaio 34 km (22 km a 3:59)",
+   "date": "2027-04-25",
+   "dist_km": 34,
+   "target_s": null,
+   "vdot_needed": null,
+   "track": "A",
+   "kind": "treino-chave"
+  },
+  {
+   "id": "mar",
+   "name": "ASICS Golden Run (maratona)",
+   "date": "2027-05-16",
+   "dist_km": 42.195,
+   "target_s": 10080,
+   "vdot_needed": 58.1,
+   "track": "A",
+   "goal": "Boston Qualifier (janela 2028: 19/09/2026 – set/2027)"
+  },
+  {
+   "id": "hmtest",
+   "name": "Meia de controle (Plano B)",
+   "date": "2027-08-22",
+   "dist_km": 21.0975,
+   "target_s": 4755,
+   "vdot_needed": 59.0,
+   "track": "B"
+  },
+  {
+   "id": "berlin",
+   "name": "Maratona de Berlim (Plano B)",
+   "date": "2027-09-26",
+   "dist_km": 42.195,
+   "target_s": 9900,
+   "vdot_needed": 59.3,
+   "track": "B",
+   "condition": "Sorteio em 03/12/2026 e recuperação da Golden Run"
+  }
+ ],
+ "rules": [
+  "Prova-alvo: ASICS Golden Run, maratona plana na Marginal, Dom 16/05/2027 — 2:48:00 (3:59/km) para o Boston Qualifier.",
+  "Bloco da maratona de 20 semanas a partir de 28/12/2026; pico de 95–98 km/sem (sem dobras até a Golden Run).",
+  "Aumento de até ~10–15% sobre a última semana cheia; 3 semanas de carga, 1 de alívio (−20 a −25%).",
+  "1 dia de descanso por semana (móvel) e 1 dia bem leve de até 6–7 km.",
+  "Médio-longo na quarta: 12–16 km; 18 km só com 100+ km.",
+  "Dobras só a partir de 100 km/semana (na prática, só no Plano B).",
+  "2 dias de qualidade + longo.",
+  "Pace-alvo de prova (3:59) a partir de janeiro; os demais paces seguem o VDOT da fase e são recalibrados no 22K (06/12) e na meia de SP (24/01).",
+  "~80% do tempo abaixo de LV1 (133 bpm); 2× força por semana (30–40 min).",
+  "Plano B (Berlim, 26/09): só se sair o sorteio e a recuperação da Golden Run for boa; 19 semanas entre as duas provas."
  ]
 }

@@ -203,6 +203,20 @@
      "target_equivalent_half_s": 5169
     },
     {
+     "race_id": "meia-sp-2027-01",
+     "name": "Meia Internacional de SP (controle)",
+     "date": "2027-01-24",
+     "start_local": null,
+     "distance_m": 21097.5,
+     "goal_type": "fitness_test",
+     "target_s": 5040,
+     "target_range_s": null,
+     "target_pace_s_per_km": 238.9,
+     "priority": "B",
+     "status": "planned",
+     "notes": "Prova de controle 16 semanas antes da Golden Run: até 1:24:00 (VDOT 55). Abaixo de 1:22:30 = adiantado; acima de 1:25 = rever o alvo de 2:48."
+    },
+    {
      "race_id": "meia-2027-05",
      "name": "Meia maratona 16/05/2027",
      "date": "2027-05-16",
@@ -213,25 +227,39 @@
      "target_range_s": null,
      "target_pace_s_per_km": 227.5,
      "priority": "B",
+     "status": "cancelled",
+     "notes": "Substituída em 12/11/2026 pela maratona ASICS Golden Run na mesma data (16/05/2027)."
+    },
+    {
+     "race_id": "golden-run-maratona-2027",
+     "name": "ASICS Golden Run (maratona)",
+     "date": "2027-05-16",
+     "start_local": null,
+     "distance_m": 42195,
+     "goal_type": "A_race",
+     "target_s": 10080,
+     "target_range_s": null,
+     "target_pace_s_per_km": 238.9,
+     "priority": "A",
      "status": "planned",
-     "notes": "Meta 1:20:00 (3:47,5/km), definida em 02/11/2026 para o 3º domingo de maio/2027. Prova ainda não escolhida."
+     "notes": "Prova-alvo de 2027 (definida em 12/11/2026): maratona plana na Marginal, 2:48:00 (3:59/km) para o Boston Qualifier (janela 2028). Confirmar se o percurso é certificado."
     },
     {
      "race_id": "maratona-2027-h2",
-     "name": "Maratona fim de setembro 2027 (provável Berlim)",
+     "name": "Maratona de Berlim 2027 (Plano B)",
      "date": "2027-09-26",
      "date_window": {
       "from": "2027-09-19",
       "to": "2027-10-03"
      },
      "distance_m": 42195,
-     "goal_type": "A_race",
+     "goal_type": "performance",
      "target_s": 9900,
      "target_range_s": null,
      "target_pace_s_per_km": 234.6,
-     "priority": "A",
+     "priority": "B",
      "status": "planned",
-     "notes": "Meta principal de 2027: 2:45 (3:55/km). Final de setembro, potencialmente Berlim (26/09/2027; sorteio aberto até 12/11/2026, resultado em 03/12/2026)."
+     "notes": "Plano B desde 12/11/2026: só se sair no sorteio (resultado 03/12/2026) e a recuperação da Golden Run for boa. Meta 2:45 (3:55/km)."
     }
    ]
   },

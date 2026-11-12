@@ -32,6 +32,15 @@ def main(full, daily, to, out):
             if r[key] in cur: cur[r[key]] = {**cur[r[key]], **r}; upd += 1
             else: cur[r[key]] = r; added += 1
         U[k] = sorted(cur.values(), key=lambda x: str(x[key])); stats[k] = {"added": added, "updated": upd}
+    # provas e metas: o seed do esquema (fase1_esquema.json) é a fonte; campos extras já gravados no lote são preservados
+    try:
+        _sp = os.path.join(os.path.dirname(os.path.abspath(__file__)), "fase1_esquema.json")
+        _seed = json.load(open(_sp))["collections"]["races_and_goals"]["seed"]
+        _cur = {r["race_id"]: r for r in U.get("races_and_goals", [])}
+        for r in _seed: _cur[r["race_id"]] = {**_cur.get(r["race_id"], {}), **r}
+        U["races_and_goals"] = sorted(_cur.values(), key=lambda x: str(x["race_id"]))
+    except (OSError, KeyError, ValueError) as e:
+        print("races_and_goals: seed não aplicado:", e)
     # histórico do limiar do Garmin: novo ponto quando o valor do dia muda
     LTH = U.setdefault("lactate_threshold_history", [])
     pt = next((p for p in U["daily_performance"] if p["date"] == to), None)

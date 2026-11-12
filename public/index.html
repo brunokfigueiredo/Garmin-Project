@@ -690,7 +690,7 @@ const dm = d => { const [y,m,dd] = d.split("-"); return `${dd}/${m}`; };
 const dmy = d => { const [y,m,dd] = d.split("-"); return `${dd}/${m}/${y.slice(2)}`; };
 const nf = (v,d=1) => v==null ? "–" : Number(v).toLocaleString("pt-BR",{minimumFractionDigits:d,maximumFractionDigits:d});
 const cssv = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
-const PHC = {tf:"--p-tf",base:"--p-base",dev:"--p-dev",trip:"--p-trip",hm:"--p-hm",taperhm:"--p-taper",rec:"--p-rec",mbase:"--p-m",mbuild:"--p-m",mspec:"--p-m",taperm:"--p-taper"};
+const PHC = {tf:"--p-tf",base:"--p-base",dev:"--p-dev",trip:"--p-trip",hm:"--p-hm",taperhm:"--p-taper",rec:"--p-rec",mbase:"--p-dev",mbuild:"--p-hm",mspec:"--p-m",mpeak:"--p-m",taperm:"--p-taper",brec:"--p-rec",bbuild:"--p-trip",bspec:"--p-trip",btaper:"--p-trip"};
 const PHN = Object.fromEntries(PLAN.phases.map(p => [p.id, p.name])); PHN.rec = "Recuperação";
 const today = ACT.through;
 const W = PLAN.weeks;
@@ -704,15 +704,15 @@ const a = ACT.weeks[cur.start] || {km:0, runs:0};
 const pct = Math.min(100, a.km / cur.km * 100);
 const cards = [`<div class="panel"><h3>Semana ${cur.n} de ${W.length} · ${dm(cur.start)}–${dm(cur.end)}</h3><div class="big num">${nf(a.km,1)}<small>de ${cur.km} km</small></div><div class="bar" role="img" aria-label="${Math.round(pct)}% do plano da semana"><i style="width:${pct}%"></i></div><dl class="kv"><dt>Fase</dt><dd>${esc(PHN[cur.phase])}</dd><dt>Fonte</dt><dd>${cur.source === "assessoria" ? `assessoria · ${cur.coach_sessions} treinos` : "projeção"}</dd><dt>Longo</dt><dd>${cur.long_km} km</dd></dl></div>`];
 const now = PLAN.reference.now_vdot;
-for (const id of ["tf","hm","mar"]) {
-  const r = PLAN.races.find(x => x.id === id);
+for (const id of ["tf","hm_sp","mar"]) {
+  const r = PLAN.races.find(x => x.id === id); if (!r) continue;
   const gap = r.vdot_needed - now;
   cards.push(`<div class="panel"><h3>${esc(r.name)}</h3><div class="big num">${days(today, r.date)}<small>dias · ${dmy(r.date)}</small></div><dl class="kv"><dt>Meta</dt><dd>${fmtT(r.target_s)} · ${fmtP(r.target_s / r.dist_km)}/km</dd><dt>VDOT exigido</dt><dd>${nf(r.vdot_needed,1)}</dd><dt>VDOT hoje (estimado)</dt><dd>${nf(now,1)}</dd><dt>Falta</dt><dd class="${gap>5?'bad':gap>2.5?'warn':'good'}">+${nf(gap,1)}</dd></dl></div>`);
 }
 $("#pl-cards").innerHTML = cards.join("");
 
 // ---------- legenda ----------
-const phs = [["tf","22K"],["base","Base"],["dev","Desenvolvimento"],["trip","Viagem"],["hm","Específico meia"],["taperhm","Polimento"],["mbase","Maratona"]];
+const phs = [["tf","22K"],["base","Base"],["mbase","Maratona: base"],["mbuild","Construção"],["mspec","Específico e pico"],["taperm","Polimento"],["bbuild","Plano B · Berlim"]];
 $("#pl-legend").innerHTML = phs.map(([k,n]) => `<span><i style="--c:var(${PHC[k]});opacity:.45"></i>${n}</span>`).join("") + `<span><i style="--c:transparent;border:1.5px solid var(--ink)"></i>assessoria</span><span><i style="--c:var(--ink)"></i>realizado</span><span><i class="line" style="--c:var(--ink-2)"></i>longão</span>`;
 
 // ---------- gráfico de carga ----------
@@ -723,11 +723,11 @@ function loadChart(){
   let s = `<svg viewBox="0 0 ${Wd} ${H}" height="${H}" role="img" aria-label="Carga semanal planejada e realizada">`;
   for (let v = 0; v <= max; v += 20) s += `<line x1="${m.l}" x2="${Wd-m.r}" y1="${y(v)}" y2="${y(v)}" stroke="var(--grid)"/><text x="${m.l-6}" y="${y(v)+4}" text-anchor="end">${v}</text>`;
   const hmEnd = W.findIndex(w => w.end === "2027-05-16");
-  s += `<line x1="${m.l}" x2="${x(hmEnd+1)}" y1="${y(80)}" y2="${y(80)}" stroke="var(--warn)" stroke-width="1.5" stroke-dasharray="5 4"/><text x="${m.l+4}" y="${y(80)-5}">teto 80 km</text>`;
-  s += `<line x1="${x(hmEnd+1)}" x2="${Wd-m.r}" y1="${y(100)}" y2="${y(100)}" stroke="var(--ink-3)" stroke-width="1" stroke-dasharray="3 4"/><text x="${Wd-m.r}" y="${y(100)-5}" text-anchor="end">100 km · dobras</text>`;
+  s += `<line x1="${m.l}" x2="${Wd-m.r}" y1="${y(100)}" y2="${y(100)}" stroke="var(--ink-3)" stroke-width="1" stroke-dasharray="3 4"/><text x="${Wd-m.r}" y="${y(100)-5}" text-anchor="end">100 km · dobras</text>`;
+  if (hmEnd >= 0 && hmEnd < n-1) s += `<line x1="${x(hmEnd+1)}" x2="${x(hmEnd+1)}" y1="${m.t}" y2="${m.t+ih}" stroke="var(--ink-3)" stroke-width="1" stroke-dasharray="4 4"/><text x="${x(hmEnd+1)+4}" y="${y(115)}">Plano B (Berlim) →</text>`;
   W.forEach((w,i) => {
     const bx = x(i) + 2, bwi = Math.max(2, bw - 4);
-    s += `<rect x="${bx}" y="${y(w.km)}" width="${bwi}" height="${ih - (y(w.km) - m.t)}" rx="2" fill="var(${PHC[w.phase]})" opacity="${w.source==="assessoria" ? .7 : w.deload ? .28 : .45}"/>`;
+    s += `<rect x="${bx}" y="${y(w.km)}" width="${bwi}" height="${ih - (y(w.km) - m.t)}" rx="2" fill="var(${PHC[w.phase]})" opacity="${w.source==="assessoria" ? .7 : w.track==="B" ? .22 : w.deload ? .28 : .45}"/>`;
     if (w.source === "assessoria") s += `<rect x="${bx}" y="${y(w.km)}" width="${bwi}" height="${ih - (y(w.km) - m.t)}" rx="2" fill="none" stroke="var(--ink)" stroke-width="1.5"/>`;
     const ac = ACT.weeks[w.start];
     if (ac) s += `<rect x="${bx + bwi*0.22}" y="${y(ac.km)}" width="${bwi*0.56}" height="${ih - (y(ac.km) - m.t)}" rx="2" fill="var(--ink)"/>`;
@@ -765,7 +765,7 @@ function vdotChart(){
   for (let v = 50; v <= 60; v += 2) s += `<line x1="${m.l}" x2="${Wd-m.r}" y1="${y(v)}" y2="${y(v)}" stroke="var(--grid)"/><text x="${m.l-6}" y="${y(v)+4}" text-anchor="end">${v}</text>`;
   const R = PLAN.reference;
   [[R.best_2025_vdot,"melhor 2025 (previsão meia 1:22:14)"],[R.chicago_vdot,"Chicago 2:58"]].forEach(([v,l]) => { s += `<line x1="${m.l}" x2="${Wd-m.r}" y1="${y(v)}" y2="${y(v)}" stroke="var(--ink-3)" stroke-dasharray="4 4"/><text x="${Wd-m.r}" y="${y(v)-4}" text-anchor="end">${l} · ${nf(v,1)}</text>`; });
-  const pts = [{date:"2026-11-02", v:R.now_vdot, name:"hoje"}].concat(PLAN.races.map(r => ({date:r.date, v:r.vdot_needed, name:r.name})));
+  const pts = [{date:"2026-11-02", v:R.now_vdot, name:"hoje"}].concat(PLAN.races.filter(r => r.vdot_needed != null).map(r => ({date:r.date, v:r.vdot_needed, name:r.name})));
   s += `<path d="${pts.map((p,i)=>`${i?"L":"M"}${x(p.date).toFixed(1)},${y(p.v).toFixed(1)}`).join("")}" fill="none" stroke="var(--s1)" stroke-width="2"/>`;
   pts.forEach((p,i) => { s += `<circle cx="${x(p.date)}" cy="${y(p.v)}" r="${i?4.5:5.5}" fill="${i?"var(--s1)":"var(--s2)"}" stroke="var(--panel)" stroke-width="2"/>`; });
   ["2026-12-01","2027-03-01","2027-06-01","2027-09-01"].forEach(d => s += `<text x="${x(d)}" y="${H-8}" text-anchor="middle">${["dez","mar","jun","set"][["2026-12-01","2027-03-01","2027-06-01","2027-09-01"].indexOf(d)]}</text>`);
