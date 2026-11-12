@@ -280,10 +280,10 @@ section.collapsible:not(.collapsed)>h2 .hint{display:none}
   </section>
 
   <section id="plano">
-    <h2>Plano · 22K, meia 1:20 e maratona 2:45</h2>
+    <h2>Plano · 22K e Golden Run 2:48 (BQ) · Berlim como Plano B</h2>
   <div class="plsec">
     
-    <p class="sub">Os treinos vêm do calendário do Garmin, onde a assessoria deixa ~2 semanas planejadas. Depois desse horizonte, a carga é uma projeção até 26/09/2027: teto de 80 km por semana até a meia e bloco de 20 semanas para a maratona, com pico de 110 km.</p>
+    <p class="sub">Os treinos vêm do calendário do Garmin, onde a assessoria deixa ~2 semanas planejadas. Depois desse horizonte, a carga é uma projeção: bloco de 20 semanas a partir de 28/12 para a ASICS Golden Run (16/05/2027, 2:48 a 3:59/km), com pico de 95–98 km. Depois, o Plano B até Berlim (26/09/2027), só se sair o sorteio.</p>
     <div class="grid g4" id="pl-cards"></div>
   </div>
 
@@ -299,7 +299,7 @@ section.collapsible:not(.collapsed)>h2 .hint{display:none}
     <h3>Carga semanal: plano × realizado</h3>
     <div class="legend" id="pl-legend"></div>
     <div class="panel" style="position:relative"><div class="chart-x"><div class="chart" id="pl-c-load"></div></div></div>
-    <p class="sub" style="margin-top:8px">Barras com contorno = semanas da assessoria (soma dos treinos no Garmin). Barras claras = projeção (cor da fase). Barras escuras = km realizados. Linha = longão planejado; pontos = maior corrida da semana. Tracejados: teto de 80 km até 16/05 e linha de 100 km (dobras liberadas).</p>
+    <p class="sub" style="margin-top:8px">Barras com contorno = semanas da assessoria (soma dos treinos no Garmin). Barras claras = projeção (cor da fase). Barras escuras = km realizados. Linha = longão planejado; pontos = maior corrida da semana. Tracejados: linha de 100 km (dobras liberadas) e divisão entre a Golden Run e o Plano B (barras mais claras).</p>
   </div>
 
   <div class="plsec">
@@ -848,7 +848,7 @@ const E = [
   ["Execução × assessoria","Pace de cada volta × janela do passo; tempo e distância × previsto","% dos tiros e blocos dentro da janela. 02/11: previa 60' ZR a 4:50–5:14; foram 51' a 5:27 (85% do tempo, 13 s/km mais lento que a janela)."],
   ["Rodagem (ZR)","FC média × LV1 (133); pace na FC de LV1 (hoje 5:13/km)","Mesmo pace com FC menor ao longo das semanas. 02/11: FC 142 a 5:27, acima de LV1."],
   ["Tiros (ZT)","Pace × 3:22–3:37; variação entre tiros; FC no último","Variação < 2% e último tiro tão rápido quanto o primeiro. Queda > 3 s/km ou FC subindo > 5 bpm = carga alta."],
-  ["Ritmo de prova / ZE","Pace e deriva de FC dentro do bloco","Deriva < 5 bpm no bloco e o mesmo pace com FC menor semana a semana. Pace na FC de LV2 (hoje 4:10) caminhando para ~3:50 em maio."],
+  ["Ritmo de prova / ZE","Pace e deriva de FC dentro do bloco","Deriva < 5 bpm no bloco e o mesmo pace com FC menor semana a semana. Pace na FC de LV2 (hoje 4:10) caminhando para ~3:46 em abril."],
   ["Longo","Desacoplamento pace:FC (já calculado)","< 5% nos longos; < 3–4% com blocos no ritmo no fim do ciclo."],
   ["Semana","km e treinos feitos × assessoria; carga × projeção","Aderência ≥ 90%. Duas semanas < 75% = conversar com a assessoria, não compensar."],
 ];
@@ -857,16 +857,17 @@ $("#pl-eval").innerHTML = `<thead><tr><th>Treino</th><th>Métrica</th><th>O que 
 // ---------- checkpoints ----------
 const CK = [
   ["06/12/26","Track&Field 22K","≤ 1:29:50 (4:05)","VDOT ≥ 53,8: segue o plano. 52–53,8: segue, paces da tabela. < 52: base mais longa, meta da meia revista."],
-  ["20/02/27","Teste 10 km","≤ 37:30","VDOT ≥ 56: meia 1:20 realista. 55–56: alvo 1:21–1:22. < 55: alvo 1:22–1:23 e foco na maratona."],
-  ["16/05/27","Meia maratona","1:20:00","Resultado define o pace de maratona: VDOT 58,4 → 2:47–2:48 sem ganho extra; 2:45 pede ~59,3."],
-  ["22/08/27","Meia de controle","≤ 1:19:30","VDOT ≥ 59: largar a 3:55. 58–59: largar a 3:57–3:58 (2:46–2:47). < 58: alvo 2:48–2:50."],
+  ["24/01/27","Meia Internacional de SP","≤ 1:24:00 (3:59)","< 1:22:30 (VDOT ≥ 56,4): adiantado, paces da construção sobem. 1:22:30–1:24: segue. > 1:25: rever o alvo da Golden Run (2:50–2:52)."],
+  ["25/04/27","Ensaio 34 km","22 km a 3:59","FC estável (deriva < 5 bpm) e últimos km sem queda: largar a 3:59. Sofrendo no fim: largar a 4:02 (2:50, ainda BQ)."],
+  ["16/05/27","ASICS Golden Run","2:48:00 (3:59)","Meta principal: BQ com folga (índice 2:55 / 3:00). Define se faz Berlim e com que alvo."],
+  ["22/08/27","Meia de controle (Plano B)","≤ 1:19:15","Só no Plano B. VDOT ≥ 59: largar Berlim a 3:55. 58–59: 3:57–3:58. < 58: alvo 2:48–2:50."],
 ];
 $("#pl-checks").innerHTML = `<thead><tr><th>Data</th><th>Prova</th><th>Meta</th><th>Decisão</th></tr></thead><tbody>${CK.map(r=>`<tr><td class="n">${r[0]}</td><td><b>${esc(r[1])}</b></td><td class="n">${esc(r[2])}</td><td>${esc(r[3])}</td></tr>`).join("")}</tbody>`;
 
 const R = PLAN.reference;
 $("#pl-honest").innerHTML = `<ul class="clean">
-<li>As duas metas de 2027 pedem um nível que você ainda não atingiu: a meia em 1:20 equivale a VDOT <b class="num">58,4</b>, e a maratona em 2:45, a <b class="num">59,3</b>. Seu melhor até hoje é <b class="num">${nf(R.best_2025_vdot,1)}</b> (previsão de meia de 2025) e Chicago 2:58 foi <b class="num">${nf(R.chicago_vdot,1)}</b>. Hoje a estimativa está em <b class="num">${nf(R.now_vdot,1)}</b>, depois de semanas de volume baixo.</li>
-<li>Pela tabela de Daniels, 2:45 é mais exigente que a meia em 1:20. Por isso a meia funciona como teste: 1:20 em maio mais um ganho de ~1 ponto até setembro deixa 2:45 ao alcance.</li>
+<li>A Golden Run em 2:48 pede VDOT <b class="num">58,1</b>, acima do que você já atingiu (Berlim em 2:45 pediria <b class="num">59,3</b>). Seu melhor até hoje é <b class="num">${nf(R.best_2025_vdot,1)}</b> (previsão de meia de 2025) e Chicago 2:58 foi <b class="num">${nf(R.chicago_vdot,1)}</b>. Hoje a estimativa está em <b class="num">${nf(R.now_vdot,1)}</b>, depois de semanas de volume baixo.</li>
+<li>São ~7 pontos de VDOT em 26 semanas, mas boa parte é recuperar o nível de 2025. Chicago (2:58) ficou abaixo da sua forma na época; um percurso plano e um ritmo regular a 3:59 ajudam a fechar essa diferença. A meia de 24/01 diz se o alvo se sustenta.</li>
 <li>O 22K a 4:05 também é ambicioso para 5 semanas (VDOT 53,8). Ele mede onde você está; não vale forçar a carga para chegar lá.</li>
 <li>O que mais deve render, pelos seus dados: deixar os leves realmente leves (hoje 63% do tempo fica entre LV1 e LV2), consistência de 6–7 corridas por semana e força.</li></ul>`;
 
@@ -876,7 +877,7 @@ const M = [
   "Distribuição de intensidade ~80/20 ou piramidal, com zonas ancoradas no seu teste cardiopulmonar (LV1 133, LV2 162 bpm). Seiler (2010); Stöggl & Sperlich (2014); Casado et al. (2022), com maratonistas de elite.",
   "Limiar como principal motor da meia e da maratona: blocos em ~LV2 (cruise intervals, 20–30' contínuos) e, na maratona, longos com blocos no pace de prova, prática de treinadores de elite (Pfitzinger, Canova).",
   "Progressão de carga: ~10–15% sobre a última semana cheia e 1 semana de alívio a cada 3. A regra dos 10% tem pouca evidência isolada (Damsted et al., 2019); aumentos > 30% por semana se associaram a mais lesão em corredores (Nielsen et al., 2014). A razão aguda/crônica (0,8–1,3, Gabbett 2016) fica como monitor, não como regra rígida.",
-  "Polimento de 2 semanas (meia) e 3 semanas (maratona), cortando 40–60% do volume e mantendo intensidade e frequência: meta-análise de Bosquet et al. (2007).",
+  "Polimento de 3 semanas para cada maratona, cortando 40–60% do volume e mantendo intensidade e frequência: meta-análise de Bosquet et al. (2007).",
   "Força pesada e pliometria 2× por semana melhoram a economia de corrida em ~2–8%: Balsalobre-Fernández et al. (2016) e Blagrove et al. (2018).",
   "Longão até ~30–35% do volume semanal; os longos de 32–35 km com blocos no pace ficam para as 6–8 semanas finais da maratona.",
 ];
